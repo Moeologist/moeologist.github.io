@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://moeologist.github.io/about.html</loc>
+    
+    <lastmod>2020-10-07T21:46:55.653Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://moeologist.github.io/font/</loc>
+    
+    <lastmod>2020-10-07T21:46:03.596Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://moeologist.github.io/clang-constexpr/</loc>
+    
+    <lastmod>2020-10-07T21:46:00.455Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://moeologist.github.io/knapsack/</loc>
     
-    <lastmod>2020-10-07T12:32:33.815Z</lastmod>
+    <lastmod>2020-10-07T15:35:18.275Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://moeologist.github.io/var-vs-let/</loc>
     
-    <lastmod>2020-10-03T06:41:57.087Z</lastmod>
+    <lastmod>2019-08-09T16:01:43.196Z</lastmod>
     
   </url>
   

@@ -6,26 +6,26 @@
     
 
     
-    <title>JavaScript 中的 var 和 let | ala&#39;s blog</title>
+    <title>JavaScript 走马观花 | 萌学家</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content>
     
-    <meta name="description" content="一个例子 看下面一个例子：">
-<meta name="keywords" content="萌学,编程">
+    <meta name="description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。">
+<meta name="keywords" content="编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript 中的 var 和 let">
+<meta property="og:title" content="JavaScript 走马观花">
 <meta property="og:url" content="https://moeologist.github.io/var-vs-let/index.html">
-<meta property="og:site_name" content="ala&#39;s blog">
-<meta property="og:description" content="一个例子 看下面一个例子：">
+<meta property="og:site_name" content="萌学家">
+<meta property="og:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://moeologist.github.io/images/29065598_p3.jpg">
-<meta property="og:updated_time" content="2020-10-03T06:41:57.087Z">
+<meta property="og:image" content="https://moeologist.github.io/images/js.png">
+<meta property="og:updated_time" content="2019-08-09T16:01:43.196Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript 中的 var 和 let">
-<meta name="twitter:description" content="一个例子 看下面一个例子：">
-<meta name="twitter:image" content="https://moeologist.github.io/images/29065598_p3.jpg">
+<meta name="twitter:title" content="JavaScript 走马观花">
+<meta name="twitter:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。">
+<meta name="twitter:image" content="https://moeologist.github.io/images/js.png">
     
 
     
@@ -38,7 +38,7 @@
 
     <link rel="stylesheet" href="/css/style.css">
 
-    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/libs/jquery/3.5.0/jquery.min.js"></script>
     
     
         <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
@@ -61,7 +61,7 @@
             <div class="container-inner">
                 <div id="header-title">
                     <h1 class="logo-wrap">
-                        <a href="/" class="logo">ala&#39;s Blog</a>
+                        <a href="/" class="logo">萌理论研究室</a>
                     </h1>
                     
                         <h2 class="subtitle-wrap">
@@ -78,10 +78,10 @@
                                     <a class="main-nav-list-link" href="/">主页</a>
                                 </li>
                             
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a></li></ul>
-                                    
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/C-C/">C/C++</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Windows/">Windows</a></li></ul>
+                                
                                 <li class="main-nav-list-item">
-                                    <a class="main-nav-list-link" href="/raw/about.html">关于</a>
+                                    <a class="main-nav-list-link" href="/about.html">关于</a>
                                 </li>
                             
                         </ul>
@@ -130,6 +130,7 @@
         </div>
     </div>
 </header>
+
         <div class="container">
             <div class="main-body container-inner">
                 <div class="main-body-inner">
@@ -149,7 +150,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-        JavaScript 中的 var 和 let
+        JavaScript 走马观花
         </h1>
     
 
@@ -158,12 +159,20 @@
         
             <div class="article-meta">
                 
-    <div class="article-date">
-      <i class="fa fa-calendar"></i>
-      <a href="/var-vs-let/" class="article-date">
-         <time datetime="2019-08-09T16:01:43.196Z" itemprop="datePublished">2019-08-10</time>
-      </a>
-    </div>
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/var-vs-let/" class="article-date">
+       <time datetime="2019-08-09T16:01:43.196Z" itemprop="datePublished">2019-08-10</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/var-vs-let/" class="article-date">
+     <time datetime="2019-08-09T16:01:43.196Z" itemprop="dateModified">2019-08-10</time>
+  </a>
+</div>
 
 
                 
@@ -177,32 +186,112 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            <p><img src="/images/29065598_p3.jpg" alt></p>
-<h4 id="一个例子">一个例子</h4>
-<p>看下面一个例子：</p>
+            
+
+            
+
+            
+
+            <p><img src="/images/js.png" alt><br>
+[src: 粗点心战争]</p>
+<p>为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。</p>
 <a id="more"></a>
+<h2 id="自动分号插入">自动分号插入</h2>
+<p>MDN上描述：</p>
+<blockquote>
+<p>一些 JavaScript 语句必须用分号结束，所以会被自动分号补全 (ASI)影响：</p>
+<ul>
+<li>空语句</li>
+<li>let、const、变量声明</li>
+<li>import、export、模块定义</li>
+<li>表达式语句</li>
+<li>debugger</li>
+<li>continue、break、throw</li>
+<li>return</li>
+<li>ECMAScript 规格提到自动分号补全的三个规则。</li>
+</ul>
+</blockquote>
+<ol>
+<li>当出现一个不允许的行终止符或“}”时，会在其之前插入一个分号。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> &#125; <span class="number">3</span> </span><br><span class="line"><span class="comment">// 将会被 ASI 转换为 </span></span><br><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> ;&#125; <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>当捕获到标识符输入流的结尾，并且无法将单个输入流转换为一个完整的程序时，将在结尾插入一个分号。<br>
+在下面这段中，由于在 b 和 ++ 之间出现了一个行终止符，所以 ++ 未被当成变量 b 的后置运算符。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">a = b</span><br><span class="line">++c</span><br><span class="line"><span class="comment">// 将被 ASI 转换为</span></span><br><span class="line">a = b;</span><br><span class="line">++c;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>当语句中包含语法中的限制产品后跟一个行终止符的时候，将会在结尾插入一个分号。带“这里没有行终止符”规则的语句有：
+<ul>
+<li>后置运算符（++ 和 --）</li>
+<li>continue</li>
+<li>break</li>
+<li>return</li>
+<li>yield、yield*</li>
+<li>module</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span></span><br><span class="line">a + b</span><br><span class="line"><span class="comment">// 将被 ASI 转换为</span></span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">a + b;</span><br></pre></td></tr></table></figure>
+<p>坑可能比较大的只有 3，权衡一下还是不打分号对手指和键盘比较友好</p>
+<h2 id="Array-prototype-sort">Array.prototype.sort()</h2>
+<p>活见鬼的函数，默认将元素转为字符串操作：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">30</span>, <span class="number">4</span>, <span class="number">21</span>, <span class="number">100000</span>].sort()</span><br><span class="line"><span class="comment">// [1, 100000, 21, 30, 4]</span></span><br></pre></td></tr></table></figure>
+<p>对Number排序需要提供比较函数，比较函数是三路比较，和某语言新标准的飞船运算符一样：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">30</span>, <span class="number">4</span>, <span class="number">21</span>, <span class="number">100000</span>].sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>a-b)</span><br><span class="line"><span class="comment">// [1, 4, 21, 30, 100000]</span></span><br></pre></td></tr></table></figure>
+<p>更难受的是排序算法没有提供不修改原序列的版本，对不起其它的一堆FP味的函数。</p>
+<h2 id="var-let-const">var, let, const</h2>
+<h3 id="var">var</h3>
+<p>看下面一个例子：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> change = <span class="string">"hello"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> change = <span class="string">"scram"</span>;</span><br><span class="line">&#125;</span><br><span class="line">f();</span><br><span class="line"><span class="built_in">console</span>.log(change); <span class="comment">// 输出 scram</span></span><br></pre></td></tr></table></figure>
-<p>好吧，这里 change 的值被改变成了 “scram”，一个全局变量居然在一个函数的作用域里被“重新声明”了。</p>
-<p>我们除了用 var 定义变量，也可以不加关键字直接写出来，以及 es6 的新特性 let 和 const，这里仅仅总结一下他们的行为。</p>
-<h4 id="var">var</h4>
-<p>var 关键字当前定义域中定义一个变量，当变量已经存在与外层作用域时，var 仅仅对其赋值，就像前面演示的一样。</p>
-<h4 id="等于表达式">等于表达式</h4>
-<p>而形如 variable = value 的表达式优先在内层作用域内查找变量进行赋值，没有找到时在全局作用域定义 variable 并赋值，参见下面的例子：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">g</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		v = <span class="string">"hello"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	g();</span><br><span class="line">&#125;</span><br><span class="line">f();</span><br><span class="line"><span class="built_in">console</span>.log(v); <span class="comment">// 输出 hello</span></span><br></pre></td></tr></table></figure>
-<h4 id="let-以及-const">let 以及 const</h4>
-<p>let 关键字就像我们在在其他语言中所做的工作一样。不同作用域的同名变量视为不同的变量。值得一提的是，在同一个作用域下 var 可以重复声明一个变量，而 let 不能。</p>
-<p>const 和 let 相同但不接受重赋值操作。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> v = <span class="string">"hello"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> v = <span class="string">"hello world"</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(v); <span class="comment">// 输出 hello world</span></span><br><span class="line">&#125;</span><br><span class="line">f();</span><br><span class="line"><span class="built_in">console</span>.log(v); <span class="comment">// 输出 hello</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">"foo"</span>;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"bar"</span>; <span class="comment">// 可以</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">"var"</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="string">"let"</span>; <span class="comment">// 重定义错误</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = <span class="string">"strict"</span>; <span class="comment">// 重定义错误</span></span><br></pre></td></tr></table></figure>
-<h4 id="Hoisting">Hoisting</h4>
-<p>另外一个值得一提的概念——变量提升（Hoisting），首次出现在 ECMAScript® 2015 Language Specification 中，MDN上描述：</p>
+<blockquote>
+<p>变量声明，无论发生在何处，都在执行任何代码之前进行处理。用 var 声明的变量的作用域是它当前的执行上下文，它可以是嵌套的函数，或者对于声明在任何函数外的变量来说是全局。如果你重新声明一个 JavaScript 变量，它将不会丢失其值。</p>
+</blockquote>
+<p>重复的 var 定义将被忽视，但是初始化语句会执行。</p>
+<h3 id="赋值给未声明的变量">赋值给未声明的变量</h3>
+<blockquote>
+<p>当赋值给未声明的变量, 则执行赋值后, 该变量会被隐式地创建为全局变量（它将成为全局对象的属性）。<br>
+声明和未声明变量之间的差异是：</p>
+</blockquote>
+<ol>
+<li>声明变量的作用域限制在其声明位置的上下文中，而非声明变量总是全局的。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  y = <span class="number">1</span>;   <span class="comment">// 在严格模式（strict mode）下会抛出 ReferenceError 异常</span></span><br><span class="line">  <span class="keyword">var</span> z = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">x();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(y); <span class="comment">// 打印 "1"</span></span><br><span class="line"><span class="built_in">console</span>.log(z); <span class="comment">// 抛出 ReferenceError: z 未在 x 外部声明</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>声明变量在任何代码执行前创建，而非声明变量只有在执行赋值操作的时候才会被创建。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 打印"undefined"或""（不同浏览器实现不同）。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>声明变量是它所在上下文环境的不可配置属性，非声明变量是可配置的（如非声明变量可以被删除）。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.a; <span class="comment">// 在严格模式（strict mode）下抛出TypeError，其他情况下执行失败并无任何提示。</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.b;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a, b); <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="comment">// 'b'属性已经被删除。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>由于这三个差异，未能声明变量将很可能导致意想不到的结果。因此，建议始终声明变量，无论它们是在函数还是全局作用域内。 而且，在 ECMAScript 5 严格模式下，分配给未声明的变量会引发错误。</p>
+</blockquote>
+<h3 id="let-以及-const">let 以及 const</h3>
+<p>let 关键字就像在其他语言中所做的工作一样，不允许重复声明，也认真对待作用域：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">varTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">2</span>;  <span class="comment">// 同样的变量!</span></span><br><span class="line">    <span class="built_in">console</span>.log(x);  <span class="comment">// 2</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(x);  <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">letTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">let</span> x = <span class="number">2</span>;  <span class="comment">// 不同的变量</span></span><br><span class="line">    <span class="built_in">console</span>.log(x);  <span class="comment">// 2</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(x);  <span class="comment">// 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>位于函数或代码顶部的var声明会给全局对象新增属性, 而let不会。例如:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="string">'global'</span>;</span><br><span class="line"><span class="keyword">let</span> y = <span class="string">'global'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.x); <span class="comment">// "global"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.y); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过 let 声明的变量直到它们的定义被执行时才初始化。在变量初始化前访问该变量会导致 ReferenceError。该变量处在一个自块顶部到初始化处理的“暂存死区”中。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">do_something</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(bar); <span class="comment">// undefined</span></span><br><span class="line">  <span class="built_in">console</span>.log(foo); <span class="comment">// ReferenceError</span></span><br><span class="line">  <span class="keyword">var</span> bar = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> foo = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>const 和 let 差不多但不接受重赋值操作。</p>
+<h3 id="Hoisting">Hoisting</h3>
+<p>另外一个值得一提的概念——变量提升（Hoisting），MDN上描述：</p>
 <blockquote>
 <p>变量提升意味着变量和函数的声明会在物理层面移动到代码的最前面，但这么说并不准确。实际上变量和函数声明在代码里的位置是不会动的，而是在编译阶段被放入内存中。</p>
 </blockquote>
-<p>可以考虑下面的例子</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// file-1.js</span></span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 输出 undefined，似乎并不对未定义的 x 感冒</span></span><br><span class="line"><span class="keyword">var</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">// file-2.js</span></span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// ReferenceError: x is not defined</span></span><br></pre></td></tr></table></figure>
-<p>对于函数有：</p>
+<p>前面已经给了变量的例子，对于函数也有：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">f(); <span class="comment">// 没有问题</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JSFuck-隐式转换"><s>JSFuck</s> 隐式转换</h2>
+<figure class="highlight prolog"><table><tr><td class="code"><pre><span class="line">false       =&gt;  ![]</span><br><span class="line">true        =&gt;  !![]</span><br><span class="line">undefined   =&gt;  [][[]]</span><br><span class="line"><span class="symbol">NaN</span>         =&gt;  +[![]]</span><br><span class="line"><span class="number">0</span>           =&gt;  +[]</span><br><span class="line"><span class="number">1</span>           =&gt;  +!+[]</span><br><span class="line"><span class="number">2</span>           =&gt;  !+[]+!+[]</span><br><span class="line"><span class="number">10</span>          =&gt;  [+!+[]]+[+[]]</span><br><span class="line">eval        =&gt;  [][<span class="string">"filter"</span>][<span class="string">"constructor"</span>](<span class="symbol">CODE</span>)()</span><br><span class="line">window      =&gt;  [][<span class="string">"filter"</span>][<span class="string">"constructor"</span>](<span class="string">"return this"</span>)()</span><br></pre></td></tr></table></figure>
+<p>来自 <a href="http://www.jsfuck.com/" target="_blank" rel="noopener">JSFuck</a></p>
+<p><s>比C++过分</s></p>
+<h2 id="彩蛋">彩蛋</h2>
+<p><a href="https://thomas-yang.me/projects/oh-my-dear-js/" target="_blank" rel="noopener"><s>太乙神图</s> JS真值表</a><br>
+<a href="http://aem1k.com/" target="_blank" rel="noopener">黑魔法</a></p>
 
         </div>
         <footer class="article-footer">
@@ -210,7 +299,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="ckftcq0jm0003q4g5gzlyn6by" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="ckfzs4gno0007j8g5ke09sa2y" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -280,29 +369,24 @@
             "@type": "Person",
             "name": "ala"
         },
-        "headline": "JavaScript 中的 var 和 let",
-        "image": "https://moeologist.github.io/images/29065598_p3.jpg",
+        "headline": "JavaScript 走马观花",
+        "image": "https://moeologist.github.io/images/js.png",
         "keywords": "",
         "genre": "Web",
         "datePublished": "2019-08-10",
         "dateCreated": "2019-08-10",
-        "dateModified": "2020-10-03",
+        "dateModified": "2019-08-10",
         "url": "https://moeologist.github.io/var-vs-let/",
         "description": "
-一个例子
-看下面一个例子：",
-        "wordCount": 238
+[src: 粗点心战争]
+为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。",
+        "wordCount": 683
     }
 </script>
 
 </article>
 
     <section id="comments">
-    
-        
-<div id="comment-container"></div>
-
-
     
     </section>
 
@@ -318,7 +402,7 @@
             
                 
                 <li>
-                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/liu-zi-jing-78/activities" target="_blank" rel="noopener">
+                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/Moeologist" target="_blank" rel="noopener">
                         <i class="icon fa fa-zhihu"></i>
                     </a>
                 </li>
@@ -332,11 +416,29 @@
                 </li>
                 
             
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/MoeologistAla" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
         </ul>
     </div>
     
         
 <nav id="article-nav">
+    
+        <a href="/font/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            Windows 字体折腾指南
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
     
     
         <a href="/knapsack/" id="article-nav-older" class="article-nav-link-wrap">
@@ -363,10 +465,50 @@
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/clang-constexpr/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
+                            <p class="item-title"><a href="/clang-constexpr/" class="title">Clang 魔改记</a></p>
+                            <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
+                            <p class="item-title"><a href="/font/" class="title">Windows 字体折腾指南</a></p>
+                            <p class="item-date"><time datetime="2020-06-07T15:46:28.000Z" itemprop="datePublished">2020-06-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/29065598_p3.jpg)" alt="JavaScript 中的 var 和 let" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/js.png)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -375,7 +517,7 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Web/">Web</a></p>
-                            <p class="item-title"><a href="/var-vs-let/" class="title">JavaScript 中的 var 和 let</a></p>
+                            <p class="item-title"><a href="/var-vs-let/" class="title">JavaScript 走马观花</a></p>
                             <p class="item-date"><time datetime="2019-08-09T16:01:43.196Z" itemprop="datePublished">2019-08-10</time></p>
                         </div>
                     </li>
@@ -386,7 +528,7 @@
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(/images/travelling_salesman_problem.png)" alt="动态规划笔记" class="thumbnail-image"></span>
     
     
 </a>
@@ -409,23 +551,26 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
-
-            
-                
 
             
                 
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
+
+            
+                
+
+            
+                
 
             
         
@@ -441,7 +586,7 @@
             <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
             <div class="credit">
                 <h1 class="logo-wrap">
-                    <a href="/" class="logo">ala&#39;s Blog</a>
+                    <a href="/" class="logo">萌理论研究室</a>
                 </h1>
                 <p>&copy; 2020 ala</p>
                 
@@ -456,24 +601,8 @@
     </div>
 </footer>
 
-        
+    </div>
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script>
-    var gitalk = new Gitalk({
-        clientID: '957c5640658f4988c59d',
-        clientSecret: '107f807ea7aa25e55e3907559340f7f72ce02ba1',
-        id: '622c9ac5826791466f357564f93adbee',
-        repo: 'moeologist.github.io',
-        owner: 'moeologist',
-        admin: "moeologist"
-    })
-    gitalk.render('comment-container')
-</script>
-
-
-
 
 
     
@@ -498,12 +627,12 @@
 
     
     
+    
 
 
 
 <!-- Custom Scripts -->
-<script src="/js/main.js"></script>
+<script src="/js/main.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
