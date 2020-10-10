@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 
     
 
     
-    <title>归档 | 萌学家</title>
+    <title>归档 | 萌理论研究室</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="description" content="想到哪写到哪">
 <meta name="keywords" content="编程">
 <meta property="og:type" content="website">
-<meta property="og:title" content="萌学家">
+<meta property="og:title" content="萌理论研究室">
 <meta property="og:url" content="https://moeologist.github.io/archives/index.html">
-<meta property="og:site_name" content="萌学家">
+<meta property="og:site_name" content="萌理论研究室">
 <meta property="og:description" content="想到哪写到哪">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="萌学家">
+<meta name="twitter:title" content="萌理论研究室">
 <meta name="twitter:description" content="想到哪写到哪">
     
 
@@ -69,13 +69,13 @@
                     <div class="nav-container-inner">
                         <ul id="main-nav">
                             
-                                <li class="main-nav-list-item">
+                                <li class="main-nav-list-item" >
                                     <a class="main-nav-list-link" href="/">主页</a>
                                 </li>
                             
                                     <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/C-C/">C/C++</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Windows/">Windows</a></li></ul>
                                 
-                                <li class="main-nav-list-item">
+                                <li class="main-nav-list-item" >
                                     <a class="main-nav-list-link" href="/about.html">关于</a>
                                 </li>
                             
@@ -84,14 +84,14 @@
                             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -160,7 +160,7 @@
         <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(/images/clang_bug.png)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
     
     
         
@@ -185,12 +185,17 @@
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/clang-constexpr/">Clang 魔改记</a>
+        <a href="/clang-constexpr/">constexpr 的数学函数</a>
         </h1>
     
 
         <p class="article-excerpt">
             
+动机
+constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。
+解决方案
+写个编译期数学库
+想要在编译期做数学运算的的话可以自己写库啊，C++用户最喜欢的事就是这个啦，简单搜索一下Github，已经有了gcem,stati
         </p>
     </div>
 </article>
@@ -237,7 +242,7 @@
 
         <p class="article-excerpt">
             改善Windows自身的字体渲染效果
-众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观（启用ClearType，尤其是高分屏），用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。
+众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。
         </p>
     </div>
 </article>
@@ -297,9 +302,8 @@
     
 
         <p class="article-excerpt">
-            
-[src: 粗点心战争]
-为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。
+             [src: 粗点心战争]
+为了写博客被迫学了一点点JavaScript，从静态语言过来的，把受的苦记下来，引用内容全来自MDN。
         </p>
     </div>
 </article>
@@ -345,8 +349,7 @@
     
 
         <p class="article-excerpt">
-            
-[src: xkcd]
+             [src: xkcd]
 前言
 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。
         </p>
@@ -406,7 +409,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
-            <ul id="recent-post" class>
+            <ul id="recent-post" class="">
                 
                     <li>
                         
@@ -414,7 +417,7 @@
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(/images/clang_bug.png)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -423,7 +426,7 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
-                            <p class="item-title"><a href="/clang-constexpr/" class="title">Clang 魔改记</a></p>
+                            <p class="item-title"><a href="/clang-constexpr/" class="title">constexpr 的数学函数</a></p>
                             <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
                         </div>
                     </li>
@@ -566,8 +569,21 @@
         <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
     
     
-        <script src="/libs/katex/katex.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ]
+                });
+            });
+        </script>
         <link rel="stylesheet" href="/libs/katex/katex.min.css">
+        <script src="/libs/katex/katex.min.js"></script>
+        <script src="/libs/katex/contrib/auto-render.min.js"></script>
     
     
 

@@ -239,7 +239,7 @@ code {
   padding: 3px 5px;
   font-size: 0.8em;
   border-radius: 2px;
-  font-family: "Fira Code", monospace;
+  font-family: monospace;
   background-color: #f8f8f8;
 }
 .container {
@@ -347,16 +347,12 @@ code {
 #main .main-body-content:after {
   clear: both;
 }
-.article-entry .footnote-ref a {
+.article-entry .footnote-ref {
   border-radius: 100%;
   width: 16px;
   height: 16px;
-  line-height: 16px;
   display: inline-block;
   text-align: center;
-  font-size: 10px;
-  margin: 0 3px;
-  padding: 0 !important;
   background: #555;
   color: #fff;
   text-decoration: none;
@@ -364,9 +360,9 @@ code {
   -moz-transition: all 0.5s;
   -ms-transition: all 0.5s;
   transition: all 0.5s;
-  text-indent: 0;
+  margin: 0 2px 0px 2px;
 }
-.article-entry .footnote-ref a:hover {
+.article-entry .footnote-ref:hover {
   color: #333;
   background: #fff;
   text-decoration: none;
@@ -1227,23 +1223,14 @@ a.article-title:hover {
   padding: 10px 0;
 }
 .article-entry blockquote {
+  background-color: #f8f8f8;
   color: #777;
   quote: none;
-  margin: 0 0 20px 0;
   position: relative;
-  font-style: italic;
-  padding-left: 32px;
-}
-.article-entry blockquote:before {
-  top: 0;
-  left: 0;
-  color: #ccc;
-  font-size: 16px;
-  content: "\f10d";
-  position: absolute;
-  text-align: center;
-  font-style: normal;
-  font-family: 'FontAwesome';
+  padding: 1px 16px 1px 16px;
+  border-left-style: solid;
+  border-left-color: #c8c8c8;
+  border-left-width: 10px;
 }
 .article-entry blockquote footer {
   font-size: 14px;
@@ -1856,7 +1843,7 @@ i.icon:before {
   overflow-x: auto;
   padding: 15px 20px;
   font-size: 14px;
-  font-family: "Fira Code", monospace;
+  font-family: monospace;
   line-height: 22.400000000000002px;
 }
 .highlight table {
@@ -1881,72 +1868,49 @@ i.icon:before {
   height: 1.6em;
 }
 .highlight {
-  color: #333;
+  color: #4d4d4c;
   background: #f8f8f8;
 }
 .highlight .code .comment,
 .highlight .code .quote {
-  color: #998;
-  font-style: italic;
+  color: #8e908c;
 }
-.highlight .code .keyword,
-.highlight .code .selector-tag,
-.highlight .code .subst {
-  color: #333;
-  font-weight: bold;
-}
-.highlight .code .number,
-.highlight .code .literal,
 .highlight .code .variable,
 .highlight .code .template-variable,
-.highlight .code .tag .attr {
-  color: #008080;
-}
-.highlight .code .string,
-.highlight .code .doctag {
-  color: #d14;
-}
-.highlight .code .title,
-.highlight .code .section,
-.highlight .code .selector-id {
-  color: #900;
-  font-weight: bold;
-}
-.highlight .code .subst {
-  font-weight: normal;
-}
-.highlight .code .type,
-.highlight .code .class .title {
-  color: #458;
-  font-weight: bold;
-}
 .highlight .code .tag,
 .highlight .code .name,
-.highlight .code .attribute {
-  color: #000080;
-  font-weight: normal;
-}
+.highlight .code .selector-id,
+.highlight .code .selector-class,
 .highlight .code .regexp,
-.highlight .code .link {
-  color: #009926;
-}
-.highlight .code .symbol,
-.highlight .code .bullet {
-  color: #990073;
-}
-.highlight .code .built_in,
-.highlight .code .builtin-name {
-  color: #0086b3;
-}
-.highlight .code .meta {
-  color: #999;
-  font-weight: bold;
-}
 .highlight .code .deletion {
-  background: #fdd;
+  color: #c82829;
 }
+.highlight .code .number,
+.highlight .code .built_in,
+.highlight .code .builtin-name,
+.highlight .code .literal,
+.highlight .code .type,
+.highlight .code .params,
+.highlight .code .meta,
+.highlight .code .link {
+  color: #f5871f;
+}
+.highlight .code .attribute {
+  color: #eab700;
+}
+.highlight .code .string,
+.highlight .code .symbol,
+.highlight .code .bullet,
 .highlight .code .addition {
-  background: #dfd;
+  color: #718c00;
+}
+.highlight .code .title,
+.highlight .code .section {
+  color: #4271ae;
+}
+.highlight .code .keyword,
+.highlight .code .selector-tag {
+  color: #8959a8;
 }
 .highlight .code .emphasis {
   font-style: italic;

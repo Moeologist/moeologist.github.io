@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 
     
 
     
-    <title>JavaScript 走马观花 | 萌学家</title>
+    <title>JavaScript 走马观花 | 萌理论研究室</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content>
     
-    <meta name="description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。">
+    <meta name="description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，从静态语言过来的，把受的苦记下来，引用内容全来自MDN。">
 <meta name="keywords" content="编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript 走马观花">
 <meta property="og:url" content="https://moeologist.github.io/var-vs-let/index.html">
-<meta property="og:site_name" content="萌学家">
-<meta property="og:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。">
+<meta property="og:site_name" content="萌理论研究室">
+<meta property="og:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，从静态语言过来的，把受的苦记下来，引用内容全来自MDN。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://moeologist.github.io/images/js.png">
-<meta property="og:updated_time" content="2019-08-09T16:01:43.196Z">
+<meta property="og:updated_time" content="2020-10-10T17:11:23.190Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 走马观花">
-<meta name="twitter:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。">
+<meta name="twitter:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，从静态语言过来的，把受的苦记下来，引用内容全来自MDN。">
 <meta name="twitter:image" content="https://moeologist.github.io/images/js.png">
     
 
@@ -74,13 +74,13 @@
                     <div class="nav-container-inner">
                         <ul id="main-nav">
                             
-                                <li class="main-nav-list-item">
+                                <li class="main-nav-list-item" >
                                     <a class="main-nav-list-link" href="/">主页</a>
                                 </li>
                             
                                     <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/C-C/">C/C++</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Windows/">Windows</a></li></ul>
                                 
-                                <li class="main-nav-list-item">
+                                <li class="main-nav-list-item" >
                                     <a class="main-nav-list-link" href="/about.html">关于</a>
                                 </li>
                             
@@ -89,14 +89,14 @@
                             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -170,7 +170,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/var-vs-let/" class="article-date">
-     <time datetime="2019-08-09T16:01:43.196Z" itemprop="dateModified">2019-08-10</time>
+     <time datetime="2020-10-10T17:11:23.190Z" itemprop="dateModified">2020-10-11</time>
   </a>
 </div>
 
@@ -192,36 +192,18 @@
 
             
 
-            <p><img src="/images/js.png" alt><br>
-[src: 粗点心战争]</p>
-<p>为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。</p>
+            <p><img src="/images/js.png"> [src: 粗点心战争]</p>
+<p>为了写博客被迫学了一点点JavaScript，从静态语言过来的，把受的苦记下来，引用内容全来自MDN。</p>
 <a id="more"></a>
 <h2 id="自动分号插入">自动分号插入</h2>
 <p>MDN上描述：</p>
 <blockquote>
-<p>一些 JavaScript 语句必须用分号结束，所以会被自动分号补全 (ASI)影响：</p>
-<ul>
-<li>空语句</li>
-<li>let、const、变量声明</li>
-<li>import、export、模块定义</li>
-<li>表达式语句</li>
-<li>debugger</li>
-<li>continue、break、throw</li>
-<li>return</li>
-<li>ECMAScript 规格提到自动分号补全的三个规则。</li>
-</ul>
+<p>一些 JavaScript 语句必须用分号结束，所以会被自动分号补全 (ASI)影响： * 空语句 * let、const、变量声明 * import、export、模块定义 * 表达式语句 * debugger * continue、break、throw * return * ECMAScript 规格提到自动分号补全的三个规则。</p>
 </blockquote>
-<ol>
-<li>当出现一个不允许的行终止符或“}”时，会在其之前插入一个分号。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> &#125; <span class="number">3</span> </span><br><span class="line"><span class="comment">// 将会被 ASI 转换为 </span></span><br><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> ;&#125; <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>当捕获到标识符输入流的结尾，并且无法将单个输入流转换为一个完整的程序时，将在结尾插入一个分号。<br>
-在下面这段中，由于在 b 和 ++ 之间出现了一个行终止符，所以 ++ 未被当成变量 b 的后置运算符。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">a = b</span><br><span class="line">++c</span><br><span class="line"><span class="comment">// 将被 ASI 转换为</span></span><br><span class="line">a = b;</span><br><span class="line">++c;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>当语句中包含语法中的限制产品后跟一个行终止符的时候，将会在结尾插入一个分号。带“这里没有行终止符”规则的语句有：
+<ol type="1">
+<li><p>当出现一个不允许的行终止符或“}”时，会在其之前插入一个分号。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> &#125; <span class="number">3</span> </span><br><span class="line"><span class="comment">// 将会被 ASI 转换为 </span></span><br><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> ;&#125; <span class="number">3</span>;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>当捕获到标识符输入流的结尾，并且无法将单个输入流转换为一个完整的程序时，将在结尾插入一个分号。 在下面这段中，由于在 b 和 ++ 之间出现了一个行终止符，所以 ++ 未被当成变量 b 的后置运算符。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">a = b</span><br><span class="line">++c</span><br><span class="line"><span class="comment">// 将被 ASI 转换为</span></span><br><span class="line">a = b;</span><br><span class="line">++c;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>当语句中包含语法中的限制产品后跟一个行终止符的时候，将会在结尾插入一个分号。带“这里没有行终止符”规则的语句有：</p>
 <ul>
 <li>后置运算符（++ 和 --）</li>
 <li>continue</li>
@@ -229,17 +211,16 @@
 <li>return</li>
 <li>yield、yield*</li>
 <li>module</li>
-</ul>
-</li>
+</ul></li>
 </ol>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span></span><br><span class="line">a + b</span><br><span class="line"><span class="comment">// 将被 ASI 转换为</span></span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">a + b;</span><br></pre></td></tr></table></figure>
-<p>坑可能比较大的只有 3，权衡一下还是不打分号对手指和键盘比较友好</p>
-<h2 id="Array-prototype-sort">Array.prototype.sort()</h2>
+<p>可能比较坑的只有 3，权衡一下还是不打分号对手指和键盘比较友好</p>
+<h2 id="array.prototype.sort">Array.prototype.sort()</h2>
 <p>活见鬼的函数，默认将元素转为字符串操作：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">30</span>, <span class="number">4</span>, <span class="number">21</span>, <span class="number">100000</span>].sort()</span><br><span class="line"><span class="comment">// [1, 100000, 21, 30, 4]</span></span><br></pre></td></tr></table></figure>
 <p>对Number排序需要提供比较函数，比较函数是三路比较，和某语言新标准的飞船运算符一样：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">30</span>, <span class="number">4</span>, <span class="number">21</span>, <span class="number">100000</span>].sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>a-b)</span><br><span class="line"><span class="comment">// [1, 4, 21, 30, 100000]</span></span><br></pre></td></tr></table></figure>
-<p>更难受的是排序算法没有提供不修改原序列的版本，对不起其它的一堆FP味的函数。</p>
+<p>更难受的是排序算法没有提供不修改原序列的版本，简直对不起其它的一堆FP味的函数。</p>
 <h2 id="var-let-const">var, let, const</h2>
 <h3 id="var">var</h3>
 <p>看下面一个例子：</p>
@@ -250,21 +231,13 @@
 <p>重复的 var 定义将被忽视，但是初始化语句会执行。</p>
 <h3 id="赋值给未声明的变量">赋值给未声明的变量</h3>
 <blockquote>
-<p>当赋值给未声明的变量, 则执行赋值后, 该变量会被隐式地创建为全局变量（它将成为全局对象的属性）。<br>
-声明和未声明变量之间的差异是：</p>
+<p>当赋值给未声明的变量, 则执行赋值后, 该变量会被隐式地创建为全局变量（它将成为全局对象的属性）。 声明和未声明变量之间的差异是：</p>
 </blockquote>
-<ol>
-<li>声明变量的作用域限制在其声明位置的上下文中，而非声明变量总是全局的。</li>
+<ol type="1">
+<li><p>声明变量的作用域限制在其声明位置的上下文中，而非声明变量总是全局的。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  y = <span class="number">1</span>;   <span class="comment">// 在严格模式（strict mode）下会抛出 ReferenceError 异常</span></span><br><span class="line">  <span class="keyword">var</span> z = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">x();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(y); <span class="comment">// 打印 "1"</span></span><br><span class="line"><span class="built_in">console</span>.log(z); <span class="comment">// 抛出 ReferenceError: z 未在 x 外部声明</span></span><br></pre></td></tr></table></figure></p></li>
+<li><p>声明变量在任何代码执行前创建，而非声明变量只有在执行赋值操作的时候才会被创建。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 打印"undefined"或""（不同浏览器实现不同）。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br></pre></td></tr></table></figure></p></li>
+<li><p>声明变量是它所在上下文环境的不可配置属性，非声明变量是可配置的（如非声明变量可以被删除）。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.a; <span class="comment">// 在严格模式（strict mode）下抛出TypeError，其他情况下执行失败并无任何提示。</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.b;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a, b); <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="comment">// 'b'属性已经被删除。</span></span><br></pre></td></tr></table></figure></p></li>
 </ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  y = <span class="number">1</span>;   <span class="comment">// 在严格模式（strict mode）下会抛出 ReferenceError 异常</span></span><br><span class="line">  <span class="keyword">var</span> z = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">x();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(y); <span class="comment">// 打印 "1"</span></span><br><span class="line"><span class="built_in">console</span>.log(z); <span class="comment">// 抛出 ReferenceError: z 未在 x 外部声明</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>声明变量在任何代码执行前创建，而非声明变量只有在执行赋值操作的时候才会被创建。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 打印"undefined"或""（不同浏览器实现不同）。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>声明变量是它所在上下文环境的不可配置属性，非声明变量是可配置的（如非声明变量可以被删除）。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.a; <span class="comment">// 在严格模式（strict mode）下抛出TypeError，其他情况下执行失败并无任何提示。</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.b;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a, b); <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="comment">// 'b'属性已经被删除。</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>由于这三个差异，未能声明变量将很可能导致意想不到的结果。因此，建议始终声明变量，无论它们是在函数还是全局作用域内。 而且，在 ECMAScript 5 严格模式下，分配给未声明的变量会引发错误。</p>
 </blockquote>
@@ -278,20 +251,43 @@
 </blockquote>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">do_something</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(bar); <span class="comment">// undefined</span></span><br><span class="line">  <span class="built_in">console</span>.log(foo); <span class="comment">// ReferenceError</span></span><br><span class="line">  <span class="keyword">var</span> bar = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> foo = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>const 和 let 差不多但不接受重赋值操作。</p>
-<h3 id="Hoisting">Hoisting</h3>
-<p>另外一个值得一提的概念——变量提升（Hoisting），MDN上描述：</p>
-<blockquote>
-<p>变量提升意味着变量和函数的声明会在物理层面移动到代码的最前面，但这么说并不准确。实际上变量和函数声明在代码里的位置是不会动的，而是在编译阶段被放入内存中。</p>
-</blockquote>
-<p>前面已经给了变量的例子，对于函数也有：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">f(); <span class="comment">// 没有问题</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="JSFuck-隐式转换"><s>JSFuck</s> 隐式转换</h2>
+<h3 id="hoisting">Hoisting</h3>
+<p>另外一个值得一提的概念——变量提升（Hoisting），MDN上描述： &gt; 变量提升意味着变量和函数的声明会在物理层面移动到代码的最前面，但这么说并不准确。实际上变量和函数声明在代码里的位置是不会动的，而是在编译阶段被放入内存中。</p>
+<p>前面已经给了变量的例子，对于函数也有： <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">f(); <span class="comment">// 没有问题</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="jsfuck-隐式转换"><del>JSFuck</del> 隐式转换</h2>
 <figure class="highlight prolog"><table><tr><td class="code"><pre><span class="line">false       =&gt;  ![]</span><br><span class="line">true        =&gt;  !![]</span><br><span class="line">undefined   =&gt;  [][[]]</span><br><span class="line"><span class="symbol">NaN</span>         =&gt;  +[![]]</span><br><span class="line"><span class="number">0</span>           =&gt;  +[]</span><br><span class="line"><span class="number">1</span>           =&gt;  +!+[]</span><br><span class="line"><span class="number">2</span>           =&gt;  !+[]+!+[]</span><br><span class="line"><span class="number">10</span>          =&gt;  [+!+[]]+[+[]]</span><br><span class="line">eval        =&gt;  [][<span class="string">"filter"</span>][<span class="string">"constructor"</span>](<span class="symbol">CODE</span>)()</span><br><span class="line">window      =&gt;  [][<span class="string">"filter"</span>][<span class="string">"constructor"</span>](<span class="string">"return this"</span>)()</span><br></pre></td></tr></table></figure>
-<p>来自 <a href="http://www.jsfuck.com/" target="_blank" rel="noopener">JSFuck</a></p>
-<p><s>比C++过分</s></p>
+<p>内容来自 <a href="http://www.jsfuck.com/" target="_blank" rel="noopener">JSFuck</a></p>
+<p><del>比C++过分</del></p>
 <h2 id="彩蛋">彩蛋</h2>
-<p><a href="https://thomas-yang.me/projects/oh-my-dear-js/" target="_blank" rel="noopener"><s>太乙神图</s> JS真值表</a><br>
-<a href="http://aem1k.com/" target="_blank" rel="noopener">黑魔法</a></p>
+<p><a href="http://aem1k.com/" target="_blank" rel="noopener">Spin the globe</a>，应该算Quine？该作者的主页还有更多被玩坏的JS。</p>
+
+<div class="highlight js" id="Glooooooooooobal">
+<script>
+eval(z='p="<"+"pre>"/* ,.oq#+     ,._, */;for(y in n="zw24l6k\
+4e3t4jnt4qj24xh2 x/* =<,m#F^    A W###q. */42kty24wrt413n243n\
+9h243pdxt41csb yz/* #K       q##H######Am */43iyb6k43pk7243nm\
+r24".split(4)){/* dP      cpq#q##########b, */for(a in t=pars\
+eInt(n[y],36)+/*         p##@###YG=[#######y */(e=x=r=[]))for\
+(r=!r,i=0;t[a/*         d#qg `*PWo##q#######D */]>i;i+=.05)wi\
+th(Math)x-= /*        aem1k.com Q###KWR#### W[ */.05,0<cos(o=\
+new Date/1e3/*      .Q#########Md#.###OP  A@ , */-x/PI)&&(e[~\
+~(32*sin(o)*/* ,    (W#####Xx######.P^     T % */sin(.5+y/7))\
++60] =-~ r);/* #y    `^TqW####P###BP           */for(x=0;122>\
+x;)p+="   *#"/* b.        OQ####x#K           */[e[x++]+e[x++\
+]]||(S=("eval"/* l         `X#####D  ,       */+"(z=\'"+z.spl\
+it(B = "\\\\")./*           G####B" #       */join(B+B).split\
+(Q="\'").join(B+Q/*          VQBP`        */)+Q+")//m1k")[x/2\
++61*y-1]).fontcolor/*         TP         */(/\\w/.test(S)&&"#\
+03B");Glooooooooooobal.innerHTML=p+=B+"\\n"}setTimeout(z)')//
+</script>
+</div>
+<style type="text/css">
+#Glooooooooooobal {
+  line-height: 1.2em;
+}
+</style>
+
+<p><a href="https://thomas-yang.me/projects/oh-my-dear-js/" target="_blank" rel="noopener">JS真值表</a></p>
 
         </div>
         <footer class="article-footer">
@@ -299,7 +295,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="ckfzs4gno0007j8g5ke09sa2y" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="ckg43tmk50004gkg5mc3e7enq" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -375,12 +371,11 @@
         "genre": "Web",
         "datePublished": "2019-08-10",
         "dateCreated": "2019-08-10",
-        "dateModified": "2019-08-10",
+        "dateModified": "2020-10-11",
         "url": "https://moeologist.github.io/var-vs-let/",
-        "description": "
-[src: 粗点心战争]
-为了写博客被迫学了一点点JavaScript，从类C静态语言过来的，把受的苦记下来，引用内容全来自MDN。",
-        "wordCount": 683
+        "description": " [src: 粗点心战争]
+为了写博客被迫学了一点点JavaScript，从静态语言过来的，把受的苦记下来，引用内容全来自MDN。",
+        "wordCount": 926
     }
 </script>
 
@@ -460,7 +455,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
-            <ul id="recent-post" class>
+            <ul id="recent-post" class="">
                 
                     <li>
                         
@@ -468,7 +463,7 @@
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(/images/clang_bug.png)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -477,7 +472,7 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
-                            <p class="item-title"><a href="/clang-constexpr/" class="title">Clang 魔改记</a></p>
+                            <p class="item-title"><a href="/clang-constexpr/" class="title">constexpr 的数学函数</a></p>
                             <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
                         </div>
                     </li>
@@ -620,8 +615,21 @@
         <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
     
     
-        <script src="/libs/katex/katex.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ]
+                });
+            });
+        </script>
         <link rel="stylesheet" href="/libs/katex/katex.min.css">
+        <script src="/libs/katex/katex.min.js"></script>
+        <script src="/libs/katex/contrib/auto-render.min.js"></script>
     
     
 
