@@ -10,18 +10,18 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta name="description" content="这个博客主要由以下项目驱动:  Hexo (框架) hexo-theme-hueman (主题) Pandoc (标记语言转换工具) \(\KaTeX\) (轻量、快速的\(\TeX\)公式渲染) Chart.js (图表渲染) gitalk (评论系统)  如果您有问题需要联系我: moeala@outlook.com">
+    <meta name="description" content="这个博客主要由以下项目驱动:  Hexo (框架) hexo-theme-hueman (主题) Pandoc (标记语言转换工具) \(\KaTeX\) (轻量、快速的\(\TeX\)公式渲染) Chart.js (图表渲染) Valine (评论系统)  如果您有问题需要联系我: moeala@outlook.com">
 <meta name="keywords" content="编程">
 <meta property="og:type" content="website">
 <meta property="og:title" content="关于">
 <meta property="og:url" content="https://moeologist.github.io/about.html">
 <meta property="og:site_name" content="萌理论研究室">
-<meta property="og:description" content="这个博客主要由以下项目驱动:  Hexo (框架) hexo-theme-hueman (主题) Pandoc (标记语言转换工具) \(\KaTeX\) (轻量、快速的\(\TeX\)公式渲染) Chart.js (图表渲染) gitalk (评论系统)  如果您有问题需要联系我: moeala@outlook.com">
+<meta property="og:description" content="这个博客主要由以下项目驱动:  Hexo (框架) hexo-theme-hueman (主题) Pandoc (标记语言转换工具) \(\KaTeX\) (轻量、快速的\(\TeX\)公式渲染) Chart.js (图表渲染) Valine (评论系统)  如果您有问题需要联系我: moeala@outlook.com">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-10-14T14:15:05.163Z">
+<meta property="og:updated_time" content="2020-10-14T14:40:34.198Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="这个博客主要由以下项目驱动:  Hexo (框架) hexo-theme-hueman (主题) Pandoc (标记语言转换工具) \(\KaTeX\) (轻量、快速的\(\TeX\)公式渲染) Chart.js (图表渲染) gitalk (评论系统)  如果您有问题需要联系我: moeala@outlook.com">
+<meta name="twitter:description" content="这个博客主要由以下项目驱动:  Hexo (框架) hexo-theme-hueman (主题) Pandoc (标记语言转换工具) \(\KaTeX\) (轻量、快速的\(\TeX\)公式渲染) Chart.js (图表渲染) Valine (评论系统)  如果您有问题需要联系我: moeala@outlook.com">
     
 
     
@@ -30,7 +30,9 @@
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
-
+    <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css">
+    <script src="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+    <script src="/js/knapsack.js"></script>
     <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
@@ -161,7 +163,7 @@
 <li><a href="https://pandoc.org/" target="_blank" rel="noopener">Pandoc</a> (标记语言转换工具)</li>
 <li><a href="https://katex.org/" target="_blank" rel="noopener"><span class="math inline">\(\KaTeX\)</span></a> (轻量、快速的<span class="math inline">\(\TeX\)</span>公式渲染)</li>
 <li><a href="https://www.chartjs.org/" target="_blank" rel="noopener">Chart.js</a> (图表渲染)</li>
-<li><a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener">gitalk</a> (评论系统)</li>
+<li><a href="https://valine.js.org" target="_blank" rel="noopener">Valine</a> (评论系统)</li>
 </ul>
 <p>如果您有问题需要联系我:</p>
 <p><a href="mailto:moeala@outlook.com" target="_blank" rel="noopener">moeala@outlook.com</a></p>
@@ -172,7 +174,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/about.html" data-id="ckg9ha6lq0000fcg5dmen820w" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/about.html" data-id="ckg9nha9d0000a0g5guyp2rq7" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -257,7 +259,7 @@ hexo-theme-hueman (主题)
 Pandoc (标记语言转换工具)
 \(\KaTeX\) (轻量、快速的\(\TeX\)公式渲染)
 Chart.js (图表渲染)
-gitalk (评论系统)
+Valine (评论系统)
 
 如果您有问题需要联系我:
 moeala@outlook.com
@@ -393,7 +395,7 @@ moeala@outlook.com
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/travelling_salesman_problem.png)" alt="动态规划笔记" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/np_complete.png)" alt="动态规划笔记" class="thumbnail-image"></span>
     
     
 </a>
@@ -483,9 +485,9 @@ moeala@outlook.com
             verify: "",
             appId: "IgQvaFO0ryAaOY7q5HfUtnUF-gzGzoHsz",
             appKey: "6gmUxC5QhGtJc6cm2Uqw86hP",
-            placeholder: "Just Do It",
+            placeholder: "这里支持Markdown语法和Tex公式哦",
             avatar:"identicon",
-            recordIP:"",
+            recordIP:"true",
             visitor: "true"
         });
     </script>

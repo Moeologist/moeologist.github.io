@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="萌理论研究室">
 <meta property="og:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://moeologist.github.io/images/travelling_salesman_problem.png">
-<meta property="og:updated_time" content="2020-10-14T14:15:05.162Z">
+<meta property="og:image" content="https://moeologist.github.io/images/np_complete.png">
+<meta property="og:updated_time" content="2020-10-14T17:07:17.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划笔记">
 <meta name="twitter:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。">
-<meta name="twitter:image" content="https://moeologist.github.io/images/travelling_salesman_problem.png">
+<meta name="twitter:image" content="https://moeologist.github.io/images/np_complete.png">
     
 
     
@@ -34,7 +34,9 @@
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
-
+    <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css">
+    <script src="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+    <script src="/js/knapsack.js"></script>
     <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
@@ -163,7 +165,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/knapsack/" class="article-date">
-     <time datetime="2020-10-14T14:15:05.162Z" itemprop="dateModified">2020-10-14</time>
+     <time datetime="2020-10-14T17:07:17.136Z" itemprop="dateModified">2020-10-15</time>
   </a>
 </div>
 
@@ -191,7 +193,7 @@
 
             
 
-            <p><img src="/images/travelling_salesman_problem.png"> <a href="https://xkcd.com/399/" target="_blank" rel="noopener">[src: xkcd]</a></p>
+            <p><img src="/images/np_complete.png"> <a href="https://xkcd.com/287/" target="_blank" rel="noopener">[src: xkcd]</a></p>
 <h2 id="前言">前言</h2>
 <p>动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。</p>
 <a id="more"></a>
@@ -209,7 +211,7 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> n 9</span></span><br><span class="line"><span class="keyword">int</span> s[n] = &#123;<span class="number">10</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">9</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">14</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> D[n] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    D[i] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)</span><br><span class="line">        <span class="keyword">if</span> (s[j] &lt; s[i])</span><br><span class="line">            D[i] = max(D[i], D[j] + <span class="number">1</span>);</span><br><span class="line"><span class="keyword">return</span> *max_element(D, D + n);</span><br></pre></td></tr></table></figure>
 <h4 id="优化">优化</h4>
 <p>上面解的时间复杂度是 <span class="math inline">\(O(n^2)\)</span>，使用<a href="https://en.wikipedia.org/wiki/Longest_increasing_subsequence" target="_blank" rel="noopener">二分法</a>可以将时间复杂度降低到 <span class="math inline">\(O(n\log(n))\)</span>，动态规划方法除了实现更容易似乎没有什么优势。实际上，换个思路，动态规划方法也能将时间复杂度降低到 <span class="math inline">\(O(n\log(n))\)</span>。</p>
-<p>设序列 <span class="math inline">\(s\)</span> 的 <em>长度为 <span class="math inline">\(k\)</span> 的最优上升子序列</em> 为 <span class="math inline">\(S^k\)</span>（什么是最优暂不讨论），<span class="math inline">\(\{S^1,S^2,S^3,S^n\}\)</span>的尾元素值构成数组 <span class="math inline">\(D\)</span>，<span class="math inline">\(D\)</span> 初始化为空数组，空数组 <span class="math inline">\(D\)</span> 可以看成是严格单调增的。考察每个元素 <span class="math inline">\(i\)</span>，如果 <span class="math inline">\(D\)</span> 里面所有 <span class="math inline">\(D_k\)</span> 都满足 <span class="math inline">\(D_k \lt s_i\)</span>，那么 <span class="math inline">\(D\)</span> 数组尾部增添一个元素 <span class="math inline">\(s_i\)</span>，LIS 长度增长 <span class="math inline">\(1\)</span>；如果并非所有 <span class="math inline">\(D_k\)</span> 都满足，那第一个恰不满足 <span class="math inline">\(D_k \lt s_i\)</span> 的 <span class="math inline">\(D_k\)</span> 应该被更新为 <span class="math inline">\(s_i\)</span>，意味着该 <span class="math inline">\(D_k\)</span> 对应的 <span class="math inline">\(S^k\)</span> 被更新为 <span class="math inline">\(S^{k-1}\)</span> 加上后缀 <span class="math inline">\(s_i\)</span>，这个序列被认为是比原序列更优的，因为该序列性质和原序列相同，并持有持有 <strong>更小</strong> 的尾元素，更小的尾巴更有利于序列增长（若原序列加上后缀 <span class="math inline">\(s_i\)</span> 为上升序列，则新序列加上后缀 <span class="math inline">\(s_i\)</span> 必定也是上升序列，反之不成立。）</p>
+<p>设序列 <span class="math inline">\(s\)</span> 的 <em>长度为 <span class="math inline">\(k\)</span> 的最优上升子序列</em> 为 <span class="math inline">\(S^k\)</span>（什么是最优暂不讨论），<span class="math inline">\(\{S^1,S^2,S^3...,S^n\}\)</span>的尾元素值构成数组 <span class="math inline">\(D\)</span>，<span class="math inline">\(D\)</span> 初始化为空数组，空数组 <span class="math inline">\(D\)</span> 可以看成是严格单调增的。考察每个元素 <span class="math inline">\(i\)</span>，如果 <span class="math inline">\(D\)</span> 里面所有 <span class="math inline">\(D_k\)</span> 都满足 <span class="math inline">\(D_k \lt s_i\)</span>，那么 <span class="math inline">\(D\)</span> 数组尾部增添一个元素 <span class="math inline">\(s_i\)</span>，LIS 长度增长 <span class="math inline">\(1\)</span>；如果并非所有 <span class="math inline">\(D_k\)</span> 都满足，那第一个恰不满足 <span class="math inline">\(D_k \lt s_i\)</span> 的 <span class="math inline">\(D_k\)</span> 应该被更新为 <span class="math inline">\(s_i\)</span>，意味着该 <span class="math inline">\(D_k\)</span> 对应的 <span class="math inline">\(S^k\)</span> 被更新为 <span class="math inline">\(S^{k-1}\)</span> 加上后缀 <span class="math inline">\(s_i\)</span>，这个序列被认为是比原序列更优的，因为该序列性质和原序列相同，并持有持有 <strong>更小</strong> 的尾元素，更小的尾巴更有利于序列增长（若原序列加上后缀 <span class="math inline">\(s_i\)</span> 为上升序列，则新序列加上后缀 <span class="math inline">\(s_i\)</span> 必定也是上升序列，反之不成立。）</p>
 <p>思路非常绕但是实现很简单：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[n] = &#123;&#125;;</span><br><span class="line"><span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">    <span class="keyword">int</span> pos = lower_bound(D, D + len, s[i]) - D;</span><br><span class="line">    <span class="comment">// lower_bound返回有序数组D中第一个不小于s[i]的元素对应的迭代器</span></span><br><span class="line">    D[pos] = s[i];</span><br><span class="line">    len = max(len, pos + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> len;</span><br></pre></td></tr></table></figure>
 <p>lower_bound 实现了二分查找，故总的时间复杂度是 <span class="math inline">\(O(nlog(n))\)</span>，这个算法比朴素的二分查找简洁，运行效率也更高。</p>
@@ -279,21 +281,29 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[W + <span class="number">1</span>] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j &gt;= w[i]; --j)</span><br><span class="line">        D[j] = max(D[j], D[j - w[i]] + v[i]);</span><br><span class="line"><span class="keyword">return</span> D[W];</span><br></pre></td></tr></table></figure>
 <p>《背包问题九讲》<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>中还提到一个不太显然的优化，该问题中循环还有一个下界：<span class="math inline">\(W-\sum_{k=i+1}^n w_k\)</span>，则共同下界为两者中的更大值，即代码中 j 的循环条件改为：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">j &gt;= max(w[i], W - accumulate(w + i + <span class="number">1</span>, w + n, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
-<p>我这样理解：已知结果为 D[W]，最后一次做外层循环时，D[W] 所需要先前的 D[W-w_{n}]，而 D[W-w_{n}] 又需要再先前的 D[W-w_{n}-w_{n-1}] …… 依此类推，则对于每一轮外层循环而言，其内层循环都可以给出下界 <span class="math inline">\(W-\sum_{k=i+1}^n w_k\)</span>。对应这样一种情况，到选择某个物品时，剩余价值量对于全选剩下的物品也足够的话，<span class="math inline">\(j\)</span> 小于该剩余价值量情况不会被最终结果用到。</p>
+<p>我这样理解：已知结果为 D[W]，最后一次做外层循环时，D[W] 所需要先前的 D[W-w[n]]，而 D[W-w[n]] 又需要再先前的 D[W-w[n]-w[n-1]] …… 依此类推，则对于每一轮外层循环而言，其内层循环都可以给出下界 <span class="math inline">\(W-\sum_{k=i+1}^n w_k\)</span>。对应这样一种情况，到选择某个物品时，剩余价值量对于全选剩下的物品也足够的话，<span class="math inline">\(j\)</span> 小于该剩余价值量情况不会被最终结果用到。</p>
 <p>可以预先好计算下界值以避免二重循环内重复计算下界，但是聪明的现代编译器往往可以自行处理该优化。</p>
 <p>该改进所能减少的计算次数因数据而异，画个折线图分析一下，横轴代表 <span class="math inline">\(i\)</span>，纵轴代表该 <span class="math inline">\(j\)</span>，围成的矩形可以看作二维 DP 数组的每个元素。折线对应下界的值，蓝紫色区域对应引入另一个下界所省去的计算。</p>
 
-<div id="myChart1"></div>
+<div id="chart"></div>
+<script>
+if (/MSIE|Trident/.test(window.navigator.userAgent)) {
+    document.getElementById("chart").innerHTML="<b>不支持 Internet Explorer 的元素</b>"
+}
+</script>
 
 <p>显然 W 相对越大，该下界越有效。对数据进行预处理也可以进一步优化下界，将原始数据按键值 <span class="math inline">\(w_i\)</span> 以降序排序后，该下界更加有效。到这里，背包问题的解应该比较完美，但是时间复杂度依旧为 <span class="math inline">\(O(nW)\)</span></p>
 <p>读者可以自行验证该结论，以空格分隔输入 <span class="math inline">\(w_i\)</span> 的值，再输入 <span class="math inline">\(W\)</span> 的值，刷新图表</p>
 
 <div id="interaction">
-<i>w[i]:&nbsp&nbsp</i><input id="wi">
-<i>&nbsp&nbspW:&nbsp&nbsp</i><input id="W">
+<i>w[i]:&nbsp&nbsp</i><input id="input_wi">
+<i>&nbsp&nbspW:&nbsp&nbsp</i><input id="input_W">
 <i>&nbsp&nbsp</i><input id="refresh" type="button" value="刷新">
 <i>&nbsp&nbsp</i><input id="sort" type="button" value="排序">
 </div>
+<link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css">
+<script src="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+<script src="/js/knapsack.js" defer></script>
 
 <h4 id="换个角度">换个角度</h4>
 <p>因为算法的时间复杂度为 <span class="math inline">\(O(nW)\)</span>，当物品的 <span class="math inline">\(w\)</span> 有较大的取值范围，<span class="math inline">\(W\)</span> 也是较大值的话，这个解的时间复杂度无法令人满意。如果 <span class="math inline">\(W\)</span> 和 <span class="math inline">\(w_i\)</span> 有最大公约数的话，在做动态规划之前除掉这个数可以大幅提高性能，如果最大公约数不存在，或者除掉后 <span class="math inline">\(W\)</span> 依然是很大的值，那我们不妨换个思路。</p>
@@ -358,11 +368,6 @@
 <li>利用“剪切-粘贴”技术证明：作为构成原问题最优解的组成部分，每个子问题的解就是它本身的最优解。利用反证法：假定子问题的解不是其自身的最优解，那么可以从原问题的解中“剪切”掉这些非最优的解，将最优解“粘贴”进去，从而得到原问题一个更优的解，这与最初的解是原问题的最优解矛盾</li>
 </ol>
 <p>可以比对前文中具体问题的解法体会这个通用模式。</p>
-
-<link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css">
-<script src="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
-<script src="/libs/demo/knapsack.js"></script>
-
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -378,7 +383,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/knapsack/" data-id="ckg9ha6mp0002fcg54szjdsw4" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/knapsack/" data-id="ckg9nhaaj0004a0g5gkffumi3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -449,17 +454,17 @@
             "name": "ala"
         },
         "headline": "动态规划笔记",
-        "image": "https://moeologist.github.io/images/travelling_salesman_problem.png",
+        "image": "https://moeologist.github.io/images/np_complete.png",
         "keywords": "",
         "genre": "Algorithm",
         "datePublished": "2019-08-10",
         "dateCreated": "2019-08-10",
-        "dateModified": "2020-10-14",
+        "dateModified": "2020-10-15",
         "url": "https://moeologist.github.io/knapsack/",
         "description": " [src: xkcd]
 前言
 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。",
-        "wordCount": 2887
+        "wordCount": 2897
     }
 </script>
 
@@ -607,7 +612,7 @@
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/travelling_salesman_problem.png)" alt="动态规划笔记" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/np_complete.png)" alt="动态规划笔记" class="thumbnail-image"></span>
     
     
 </a>
@@ -697,9 +702,9 @@
             verify: "",
             appId: "IgQvaFO0ryAaOY7q5HfUtnUF-gzGzoHsz",
             appKey: "6gmUxC5QhGtJc6cm2Uqw86hP",
-            placeholder: "Just Do It",
+            placeholder: "这里支持Markdown语法和Tex公式哦",
             avatar:"identicon",
-            recordIP:"",
+            recordIP:"true",
             visitor: "true"
         });
     </script>

@@ -126,16 +126,18 @@ function createChart(divID, w, W) {
     return myChart
 }
 
-var w = [2, 4, 2, 1, 3, 5, 2, 1, 5, 2, 1, 4, 1]
-W = 13
+{
 
-inputW = document.getElementById('W')
-inputwi = document.getElementById('wi')
+let w = [2, 4, 2, 1, 3, 5, 2, 1, 5, 2, 1, 4, 1]
+let W = 13
+
+let inputW = document.getElementById('input_W')
+let inputwi = document.getElementById('input_wi')
 
 inputW.value = W.toString()
 inputwi.value = w.reduce((a, b) => a + ' ' + b.toString())
 
-chart = createChart('myChart1', w, W)
+chart = createChart('chart', w, W)
 function updateChart() {
     let w = inputwi.value.split(' ').map(x => parseInt(x))
     let W = parseInt(inputW.value)
@@ -161,4 +163,6 @@ document.getElementById('sort').onclick = () => {
 
 document.getElementById('refresh').onclick = () => {
     updateChart()
+}
+
 }
