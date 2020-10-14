@@ -31,7 +31,7 @@
 }
 .widget h4,
 .article-entry h4 {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 .widget h5,
 .article-entry h5 {
@@ -1688,6 +1688,7 @@ a.article-title:hover {
   -webkit-background-size: 288px 38.400000000000006px;
   -moz-background-size: 288px 38.400000000000006px;
   background-size: 288px 38.400000000000006px;
+  font-size: 28px;
 }
 i.icon {
   display: inline-block;

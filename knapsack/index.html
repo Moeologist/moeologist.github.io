@@ -21,7 +21,7 @@
 <meta property="og:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://moeologist.github.io/images/travelling_salesman_problem.png">
-<meta property="og:updated_time" content="2020-10-10T20:36:02.947Z">
+<meta property="og:updated_time" content="2020-10-13T01:35:46.375Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划笔记">
 <meta name="twitter:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。">
@@ -33,9 +33,6 @@
     
 
     <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
-    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
-
     <link rel="stylesheet" href="/css/style.css">
 
     <script src="/libs/jquery/3.5.0/jquery.min.js"></script>
@@ -170,7 +167,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/knapsack/" class="article-date">
-     <time datetime="2020-10-10T20:36:02.947Z" itemprop="dateModified">2020-10-11</time>
+     <time datetime="2020-10-13T01:35:46.375Z" itemprop="dateModified">2020-10-13</time>
   </a>
 </div>
 
@@ -202,43 +199,43 @@
 <blockquote>
 <p>在一个给定的数值序列中，找到一个子序列，使得这个子序列元素的数值依次递增，并且这个子序列的长度尽可能地大。注意最长递增子序列中的元素在原序列中不一定是连续的。</p>
 </blockquote>
-<h5 id="解法">解法</h5>
+<h4 id="解法">解法</h4>
 <p>值得一提的是 —— 这类问题一般只要求出最优解就可以。</p>
-<p>设串为 <span class="math inline">\(s\)</span>，第 <span class="math inline">\(i\)</span> 个元素为 <span class="math inline">\(s_i\)</span>，以第 <span class="math inline">\(i\)</span> 个元素结束的 LIS 为 <span class="math inline">\(\text{LIS}(i)\)</span>，<span class="math inline">\(\text{LIS}(i)\)</span> 长度为 <span class="math inline">\(D_{i}\)</span>，那么 <span class="math inline">\(D_{i}\)</span> 只可能等于 <span class="math inline">\(D_j+1\)</span>（<span class="math inline">\(0 \le j \lt i\)</span>），即 <span class="math inline">\(\text{LIS}(i)\)</span> 一定是某个 <span class="math inline">\(\text{LIS}(j)\)</span> 的尾部增添 <span class="math inline">\(s_i\)</span> 构成的，约束 <span class="math inline">\(s_j \lt s_i\)</span> 并取所有 <span class="math inline">\(\text{LIS}(j)\)</span> 的最大值赋给 <span class="math inline">\(D_{i}\)</span>。边界 <span class="math inline">\(D_0=0\)</span>，从 <span class="math inline">\(D_0\)</span> 转移意味着 <span class="math inline">\(s_i\)</span> 不满足任何 <span class="math inline">\(s_j \lt s_i\)</span> ，则 <span class="math inline">\(\text{LIS}(j)\)</span> 是仅含有 <span class="math inline">\(s_i\)</span> 的单元素序列。总的结果是 <span class="math inline">\(\displaystyle \max_{0 \lt i \le N} (D_i)\)</span>。数学表达如下：</p>
+<p>设序列 <span class="math inline">\(s\)</span> 的第 <span class="math inline">\(i\)</span> 个元素为 <span class="math inline">\(s_i\)</span>，以第 <span class="math inline">\(i\)</span> 个元素结束的 LIS 为 <span class="math inline">\(\text{LIS}(i)\)</span>，<span class="math inline">\(\text{LIS}(i)\)</span> 长度为 <span class="math inline">\(D_{i}\)</span>，那么 <span class="math inline">\(D_{i}\)</span> 只可能等于 <span class="math inline">\(D_j+1\)</span>（<span class="math inline">\(0 \le j \lt i\)</span>），即 <span class="math inline">\(\text{LIS}(i)\)</span> 一定是某个 <span class="math inline">\(\text{LIS}(j)\)</span> 的尾部增添 <span class="math inline">\(s_i\)</span> 构成的，约束 <span class="math inline">\(s_j \lt s_i\)</span> 并取所有 <span class="math inline">\(\text{LIS}(j)\)</span> 的最大值赋给 <span class="math inline">\(D_{i}\)</span>。边界 <span class="math inline">\(D_0=0\)</span>，从 <span class="math inline">\(D_0\)</span> 转移意味着 <span class="math inline">\(s_i\)</span> 不满足任何 <span class="math inline">\(s_j \lt s_i\)</span> ，则 <span class="math inline">\(\text{LIS}(j)\)</span> 是仅含有 <span class="math inline">\(s_i\)</span> 的单元素序列。总的结果是 <span class="math inline">\(\displaystyle \max_{0 \lt i \le n} (D_i)\)</span>。数学表达如下：</p>
 <p><span class="math display">\[D_{i}= \displaystyle \max_{0 \le j \lt i, s_j \lt s_i} (D_j)+1\]</span></p>
 <p>这类表达式被称作 <em>状态转移方程</em>。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 9</span></span><br><span class="line"><span class="keyword">int</span> s[N] = &#123;<span class="number">10</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">9</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">14</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> D[N] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    D[i] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)</span><br><span class="line">        <span class="keyword">if</span> (s[j] &lt; s[i])</span><br><span class="line">            D[i] = max(D[i], D[j] + <span class="number">1</span>);</span><br><span class="line"><span class="keyword">return</span> *max_element(D, D + N);</span><br></pre></td></tr></table></figure>
-<h5 id="优化">优化</h5>
-<p>上面解的时间复杂度是 <span class="math inline">\(O(N^2)\)</span>，使用<a href="https://en.wikipedia.org/wiki/Longest_increasing_subsequence" target="_blank" rel="noopener">二分法</a>可以将时间复杂度降低到 <span class="math inline">\(O(N\log(N))\)</span>，动态规划方法除了实现更容易似乎没有什么优势。实际上，换个思路，动态规划方法也能将时间复杂度降低到 <span class="math inline">\(O(N\log(N))\)</span>。</p>
-<p>设 <em>长度为 <span class="math inline">\(k\)</span> 的最优上升子序列</em> 为 <span class="math inline">\(S^k\)</span>（什么是最优暂不讨论），它的尾元素值构成数组 <span class="math inline">\(D_k\)</span>，<span class="math inline">\(D\)</span> 初始化为空数组，空数组 <span class="math inline">\(D\)</span> 可以看成是严格单调增的。考察每个元素 <span class="math inline">\(i\)</span>，如果所有 <span class="math inline">\(D_k\)</span> 都满足 <span class="math inline">\(D_k \lt s_i\)</span>，那么 <span class="math inline">\(D\)</span> 数组尾部增添一个元素 <span class="math inline">\(s_i\)</span>，LIS 长度增长 <span class="math inline">\(1\)</span>；如果并非所有 <span class="math inline">\(D_k\)</span> 都满足，那第一个恰不满足 <span class="math inline">\(D_k \lt s_i\)</span> 的 <span class="math inline">\(D_k\)</span> 应该被更新为 <span class="math inline">\(s_i\)</span>，意味着该 <span class="math inline">\(D_k\)</span> 对应的 <span class="math inline">\(S^k\)</span> 被更新为 <span class="math inline">\(S^{k-1}\)</span> 加上后缀 <span class="math inline">\(s_i\)</span>，这个序列被认为是比原序列更优的，因为该序列性质和原序列相同，并持有持有 <strong>更小</strong> 的尾元素，更小的尾巴更有利于序列增长（若原序列加上后缀 <span class="math inline">\(s_i\)</span> 为上升序列，则新序列加上后缀 <span class="math inline">\(s_i\)</span> 必定也是上升序列，反之不成立）。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> n 9</span></span><br><span class="line"><span class="keyword">int</span> s[n] = &#123;<span class="number">10</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">9</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">14</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> D[n] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    D[i] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)</span><br><span class="line">        <span class="keyword">if</span> (s[j] &lt; s[i])</span><br><span class="line">            D[i] = max(D[i], D[j] + <span class="number">1</span>);</span><br><span class="line"><span class="keyword">return</span> *max_element(D, D + n);</span><br></pre></td></tr></table></figure>
+<h4 id="优化">优化</h4>
+<p>上面解的时间复杂度是 <span class="math inline">\(O(n^2)\)</span>，使用<a href="https://en.wikipedia.org/wiki/Longest_increasing_subsequence" target="_blank" rel="noopener">二分法</a>可以将时间复杂度降低到 <span class="math inline">\(O(n\log(n))\)</span>，动态规划方法除了实现更容易似乎没有什么优势。实际上，换个思路，动态规划方法也能将时间复杂度降低到 <span class="math inline">\(O(n\log(n))\)</span>。</p>
+<p>设序列 <span class="math inline">\(s\)</span> 的 <em>长度为 <span class="math inline">\(k\)</span> 的最优上升子序列</em> 为 <span class="math inline">\(S^k\)</span>（什么是最优暂不讨论），<span class="math inline">\(\{S^1,S^2,S^3,S^n\}\)</span>的尾元素值构成数组 <span class="math inline">\(D\)</span>，<span class="math inline">\(D\)</span> 初始化为空数组，空数组 <span class="math inline">\(D\)</span> 可以看成是严格单调增的。考察每个元素 <span class="math inline">\(i\)</span>，如果 <span class="math inline">\(D\)</span> 里面所有 <span class="math inline">\(D_k\)</span> 都满足 <span class="math inline">\(D_k \lt s_i\)</span>，那么 <span class="math inline">\(D\)</span> 数组尾部增添一个元素 <span class="math inline">\(s_i\)</span>，LIS 长度增长 <span class="math inline">\(1\)</span>；如果并非所有 <span class="math inline">\(D_k\)</span> 都满足，那第一个恰不满足 <span class="math inline">\(D_k \lt s_i\)</span> 的 <span class="math inline">\(D_k\)</span> 应该被更新为 <span class="math inline">\(s_i\)</span>，意味着该 <span class="math inline">\(D_k\)</span> 对应的 <span class="math inline">\(S^k\)</span> 被更新为 <span class="math inline">\(S^{k-1}\)</span> 加上后缀 <span class="math inline">\(s_i\)</span>，这个序列被认为是比原序列更优的，因为该序列性质和原序列相同，并持有持有 <strong>更小</strong> 的尾元素，更小的尾巴更有利于序列增长（若原序列加上后缀 <span class="math inline">\(s_i\)</span> 为上升序列，则新序列加上后缀 <span class="math inline">\(s_i\)</span> 必定也是上升序列，反之不成立。）</p>
 <p>思路非常绕但是实现很简单：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[N] = &#123;&#125;;</span><br><span class="line"><span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i) &#123;</span><br><span class="line">    <span class="keyword">int</span> pos = lower_bound(D, D + len, s[i]) - D;</span><br><span class="line">    <span class="comment">// lower_bound返回有序数组D中第一个不小于s[i]的元素对应的迭代器</span></span><br><span class="line">    D[pos] = s[i];</span><br><span class="line">    len = max(len, pos + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> len;</span><br></pre></td></tr></table></figure>
-<p>lower_bound 实现了二分查找，故总的时间复杂度是 <span class="math inline">\(O(Nlog(N))\)</span>，这个算法比朴素的二分查找简洁，运行效率也更高。</p>
-<h5 id="求解最优方案">求解最优方案</h5>
-<p>如果需要求最优解具体对应的方案，问题就不那么容易了。还要注意除非题目有约束，否则最优的方案可能不止一个。回顾下前面的解，也许立即就能意识到：<strong>状态转移的过程就是取方案的过程</strong>，只要记录下状态转移的过程，最优解的方案就到手了。</p>
-<p>为了代码好写，这里记录未优化的方案，并假设最优方案唯一：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 9</span></span><br><span class="line"><span class="keyword">int</span> s[N] = &#123;<span class="number">0</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> D[N] = &#123;&#125;;</span><br><span class="line"><span class="keyword">int</span> S[N] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    D[i] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    S[i] = <span class="number">-1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)</span><br><span class="line">        <span class="keyword">if</span> (s[j] &lt; s[i] &amp;&amp; D[i] &lt; D[j] + <span class="number">1</span>) &#123;</span><br><span class="line">            D[i] = D[j] + <span class="number">1</span>;</span><br><span class="line">            S[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="keyword">int</span> M = max_element(D, D + N) - D;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = M; i != <span class="number">-1</span>; i = S[i])</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d-&gt;"</span>,S[i]);</span><br><span class="line">print(<span class="string">"^"</span>)</span><br></pre></td></tr></table></figure>
-<p>该算法回溯DP数组，以逆序输出解方案的序列。注意题设不能保证最优方案唯一时，本算法依然输出其中一个解（这个解特殊吗？）如果我们希望输出所有的解，那么需要用二维数组记录转移状态，而且回溯DP数组的算法也是 <span class="math inline">\(O(N^2)\)</span> 的。后面的问题包括背包问题，都可以用此法给出解的方案，不再赘述。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[n] = &#123;&#125;;</span><br><span class="line"><span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">    <span class="keyword">int</span> pos = lower_bound(D, D + len, s[i]) - D;</span><br><span class="line">    <span class="comment">// lower_bound返回有序数组D中第一个不小于s[i]的元素对应的迭代器</span></span><br><span class="line">    D[pos] = s[i];</span><br><span class="line">    len = max(len, pos + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> len;</span><br></pre></td></tr></table></figure>
+<p>lower_bound 实现了二分查找，故总的时间复杂度是 <span class="math inline">\(O(nlog(n))\)</span>，这个算法比朴素的二分查找简洁，运行效率也更高。</p>
+<h4 id="求解最优方案">求解最优方案</h4>
+<p>前面说过这类问题一般只要求出最优解就可以，但是如果需要求最优解具体对应的方案，依然可以解决。还要注意除非题目有约束，否则最优的方案可能不止一个。回顾下前面的解，也许立即就能意识到：<strong>状态转移的过程就是取方案的过程</strong>，只要记录下状态转移的过程，最优解的方案就到手了。</p>
+<p>为了代码好写，这里假设最优方案唯一：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> n 9</span></span><br><span class="line"><span class="keyword">int</span> s[n] = &#123;<span class="number">0</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> D[n] = &#123;&#125;;</span><br><span class="line"><span class="keyword">int</span> S[n] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    D[i] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    S[i] = <span class="number">-1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; ++j)</span><br><span class="line">        <span class="keyword">if</span> (s[j] &lt; s[i] &amp;&amp; D[i] &lt; D[j] + <span class="number">1</span>) &#123;</span><br><span class="line">            D[i] = D[j] + <span class="number">1</span>;</span><br><span class="line">            S[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="keyword">int</span> M = max_element(D, D + n) - D;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = M; i != <span class="number">-1</span>; i = S[i])</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d-&gt;"</span>,S[i]);</span><br><span class="line">print(<span class="string">"^"</span>)</span><br></pre></td></tr></table></figure>
+<p>该算法回溯DP数组，以逆序输出解方案的序列。注意题设不能保证最优方案唯一时，本算法依然输出其中一个解（这个解特殊吗？）如果我们希望输出所有的解，那么需要用二维数组记录转移状态，而且回溯DP数组的算法也是 <span class="math inline">\(O(n^2)\)</span> 的。后面的问题包括背包问题，都可以用此法给出解的方案，不再赘述。</p>
 <h3 id="最长公共子序列lcs">最长公共子序列（LCS）</h3>
 <blockquote>
 <p>一个数值序列，如果分别是两个数值序列的子序列，且是所有符合此条件的序列中最长的，则称为已知序列的最长公共子序列。</p>
 </blockquote>
-<h5 id="解法-1">解法</h5>
-<p>设两个串分别为 <span class="math inline">\(X,Y\)</span>，它们的 LCS 是 <span class="math inline">\(\text{LCS}(X,Y)\)</span>，<span class="math inline">\(X^i\)</span> 是串 <span class="math inline">\(X\)</span> 长度为 <span class="math inline">\(i\)</span> 的前缀，<span class="math inline">\(Y^j\)</span> 是串 <span class="math inline">\(Y\)</span> 长度为 <span class="math inline">\(j\)</span> 的前缀，<span class="math inline">\(D_{i,j}\)</span> 是 <span class="math inline">\(\text{LCS}(X^i,Y^j)\)</span> 的长度。考察所有的前缀组合，当 <span class="math inline">\(X^i\)</span> 和 <span class="math inline">\(Y^j\)</span> 的尾元素相等（<span class="math inline">\(X^i_i=Y^j_j\)</span>）时， <span class="math inline">\(X^i\)</span> 和 <span class="math inline">\(Y^j\)</span> 都是 <span class="math inline">\(\text{LCS}(X^i,Y^j)\)</span> 的尾元素，或者说 <span class="math inline">\(\text{LCS}(X^{i-1},Y^{j-1})\)</span> 尾部增添此元素构成 <span class="math inline">\(\text{LCS}(X^i,Y^j)\)</span>，则 <span class="math inline">\(D_{i,j}=D_{i-1,j-1}+1\)</span>；如果 <span class="math inline">\(X^i_i \ne Y^j_j\)</span>，则 <span class="math inline">\(D_{i,j}\)</span> 只能从 <span class="math inline">\(D_{i-1,j},D_{i,j-1},D_{i-1,j-1}\)</span> 中的最大者转移，因为这些 <span class="math inline">\(D\)</span> 分别对应的 <span class="math inline">\(\text{LCS}\)</span> 一定也是 <span class="math inline">\(X^i\)</span> 和 <span class="math inline">\(Y^j\)</span> 的<strong>公共子序列</strong>，三个 <span class="math inline">\(D\)</span> 分别对应：仅 <span class="math inline">\(X^i_i\)</span> 更新 LCS，仅 <span class="math inline">\(Y^j_j\)</span> 更新 LCS，<span class="math inline">\(X^i_i\)</span> 和 <span class="math inline">\(Y^j_j\)</span> 都不能更新 LCS。边界 <span class="math inline">\(D_{0,j}=0,D_{i,0}=0\)</span>：</p>
+<h4 id="解法-1">解法</h4>
+<p>设两个序列分别为 <span class="math inline">\(X,Y\)</span>，它们的 LCS 是 <span class="math inline">\(\text{LCS}(X,Y)\)</span>，<span class="math inline">\(X^i\)</span> 是串 <span class="math inline">\(X\)</span> 长度为 <span class="math inline">\(i\)</span> 的前缀，<span class="math inline">\(Y^j\)</span> 是串 <span class="math inline">\(Y\)</span> 长度为 <span class="math inline">\(j\)</span> 的前缀，<span class="math inline">\(D_{i,j}\)</span> 是 <span class="math inline">\(\text{LCS}(X^i,Y^j)\)</span> 的长度。考察所有的前缀组合，当 <span class="math inline">\(X^i\)</span> 和 <span class="math inline">\(Y^j\)</span> 的尾元素相等（<span class="math inline">\(X^i_i=Y^j_j\)</span>）时， <span class="math inline">\(X^i\)</span> 和 <span class="math inline">\(Y^j\)</span> 都是 <span class="math inline">\(\text{LCS}(X^i,Y^j)\)</span> 的尾元素，或者说 <span class="math inline">\(\text{LCS}(X^{i-1},Y^{j-1})\)</span> 尾部增添此元素构成 <span class="math inline">\(\text{LCS}(X^i,Y^j)\)</span>，则 <span class="math inline">\(D_{i,j}=D_{i-1,j-1}+1\)</span>；如果 <span class="math inline">\(X^i_i \ne Y^j_j\)</span>，则 <span class="math inline">\(D_{i,j}\)</span> 只能从 <span class="math inline">\(D_{i-1,j},D_{i,j-1},D_{i-1,j-1}\)</span> 中的最大者转移，因为这些 <span class="math inline">\(D\)</span> 分别对应的 <span class="math inline">\(\text{LCS}\)</span> 一定也是 <span class="math inline">\(X^i\)</span> 和 <span class="math inline">\(Y^j\)</span> 的<strong>公共子序列</strong>，三个 <span class="math inline">\(D\)</span> 分别对应：仅 <span class="math inline">\(X^i_i\)</span> 更新 LCS，仅 <span class="math inline">\(Y^j_j\)</span> 更新 LCS，<span class="math inline">\(X^i_i\)</span> 和 <span class="math inline">\(Y^j_j\)</span> 都不能更新 LCS。边界 <span class="math inline">\(D_{0,j}=0,D_{i,0}=0\)</span>：</p>
 <p><span class="math display">\[same(x,y)= 
 \begin{cases}
     0 &amp;\text{if } s_i \ne t_j \\
     1 &amp;\text{if } s_i = t_j
 \end{cases}\]</span></p>
 <p><span class="math display">\[D_{i,j}=\max\{ D_{i-1,j-1}+same(X_i, Y_j), D_{i-1,j}, D_{i,j-1} \}\]</span></p>
-<h5 id="实现细节">实现细节</h5>
-<p>因为 <span class="math inline">\(D_{i-1,j-1}\)</span> 小于 <span class="math inline">\(D_{i-1,j-1}+same(X_i, Y_j)\)</span>，所以它没有办法影响状态转移，可以从 <span class="math inline">\(\max\)</span> 函数里去除，实际上，<span class="math inline">\(D_{i-1,j-1}\)</span>一定最小的，<span class="math inline">\(D_{i-1,j-1}+1\)</span> 一定是最大的（为什么？）</p>
+<h4 id="实现细节">实现细节</h4>
+<p>因为 <span class="math inline">\(D_{i-1,j-1}\)</span> 小于 <span class="math inline">\(D_{i-1,j-1}+same(X_i, Y_j)\)</span>，所以它没有办法影响状态转移，可以从 <span class="math inline">\(\max\)</span> 函数里去除，实际上，<span class="math inline">\(D_{i-1,j-1}\)</span>一定最小的，<span class="math inline">\(D_{i-1,j-1}+1\)</span> 一定是最大的。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> x[] = <span class="string">"abcde"</span>;</span><br><span class="line"><span class="keyword">char</span> y[] = <span class="string">"accabcdcced"</span>;</span><br><span class="line"><span class="keyword">int</span> n = <span class="built_in">strlen</span>(x);</span><br><span class="line"><span class="keyword">int</span> m = <span class="built_in">strlen</span>(y);</span><br><span class="line"><span class="keyword">int</span> D[<span class="number">2</span>][m]; <span class="comment">// VLA，在C++里属于GNU扩展功能，可以动态分配内存或用vector</span></span><br><span class="line"><span class="built_in">memset</span>(D, <span class="number">0</span>, <span class="number">2</span> * m * <span class="number">4</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; ++j)</span><br><span class="line">        D[(i + <span class="number">1</span>) % <span class="number">2</span>][j + <span class="number">1</span>] = max(D[i % <span class="number">2</span>][j] + <span class="keyword">int</span>(x[i] == y[j])),</span><br><span class="line">                                    D[i % <span class="number">2</span>][j + <span class="number">1</span>],</span><br><span class="line">                                    D[(i + <span class="number">1</span>) % <span class="number">2</span>][j]);</span><br><span class="line"><span class="keyword">return</span> D[n % <span class="number">2</span>][m];</span><br></pre></td></tr></table></figure>
 <p>因为二维数组中，元素依赖的项目只有上一行 <span class="math inline">\(i-1\)</span>，上面的算法交替使用 <span class="math inline">\(2 \times m\)</span> 数组的行来节省空间复杂度。这是一种通用的优化动态规划空间复杂度的方法。</p>
-<h5 id="更多个序列的-lcs">更多个序列的 LCS</h5>
+<h4 id="更多个序列的-lcs">更多个序列的 LCS</h4>
 <p>类比两个序列的情况，状态转移方程加一维，有：</p>
 <p><span class="math display">\[D_{i,j,k}=\max\{ D_{i-1,j-1,k-1}+same(X_i, Y_j, Z_k), D_{i-1,j,k}, D_{i,j-1,k}, D_{i,j,k-1} \}\]</span></p>
-<h5 id="扩展阅读">扩展阅读</h5>
+<h4 id="扩展阅读">扩展阅读</h4>
 <p>LCS 实际上是很多实际问题的基础，比如著名的GNU diff。正因为如此，许许多多的科学工作者研究了这个问题，并给出了一些一定条件下的更优解。读者可以自行阅读<a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem" target="_blank" rel="noopener">wiki</a>。</p>
 <h3 id="编辑距离">编辑距离</h3>
 <p>编辑距离可以看成 LCS 问题的扩展，因为比较实用且变种较多所以额外提及一下：</p>
@@ -252,7 +249,7 @@
 <li>Jaro距离只允许交换的两个相邻的字符。</li>
 </ul>
 </blockquote>
-<p>拼写矫正，DNA序列相似度分析，图片相似度等问题都是编辑距离的实际应用。这里给出最复杂的求Damerau-Levenshtein距离的状态转移方程，假设所有操作的费用都是1，思路类似 LCS，边界 <span class="math inline">\(D_{0,0}=0\)</span>：</p>
+<p>拼写校正，DNA序列相似度分析，图片相似度等问题都是编辑距离的实际应用。这里给出最复杂的求Damerau-Levenshtein距离的状态转移方程，假设所有操作的费用都是1，思路类似 LCS，边界 <span class="math inline">\(D_{0,0}=0\)</span>：</p>
 <p><span class="math display">\[D_{i,j}=\min 
 \begin{cases}
     D_{i-1,j}+1 &amp;\text{if } i \gt 0 \\
@@ -262,31 +259,31 @@
 \end{cases}\]</span></p>
 <p>尽管状态转移方程的项很多，但是代码很好写，注意如果费用不是1，甚至费用不是定值，方程稍加修改就能使用，实际编码时，可以额外初始化 <span class="math inline">\(D_{0,j}=j, D_{i,0}=i\)</span> 来减少内层循环中的条件判断。</p>
 <h2 id="背包问题">背包问题</h2>
-<p>背包问题是一类解可以优化到伪多项式时间复杂度的NP-C问题，这类问题也常常被作为动态规划方法的入门问题被提及，最著名的就是<a href="https://github.com/tianyicui/pack" target="_blank" rel="noopener">《背包问题九讲》</a></p>
+<p>背包问题是一类解法可以优化到伪多项式时间复杂度的NP-C问题，这类问题也常常被作为动态规划方法的入门问题被提及，最著名的教程就是<a href="https://github.com/tianyicui/pack" target="_blank" rel="noopener">《背包问题九讲》</a></p>
 <h3 id="背包问题-1">0-1背包问题</h3>
 <blockquote>
-<p>Q：有 N 件物品，每件物品有其对应的重量 <span class="math inline">\(w_i\)</span> 和价值 <span class="math inline">\(v_i\)</span>，有一个总重量限制为 <span class="math inline">\(W\)</span> 背包，求背包能装下的最大总价值</p>
+<p>Q：有 n 件物品，每件物品有其对应的重量 <span class="math inline">\(w_i\)</span> 和价值 <span class="math inline">\(v_i\)</span>，有一个总重量限制为 <span class="math inline">\(W\)</span> 背包，求背包能装下的最大总价值</p>
 </blockquote>
-<h5 id="解法-2">解法</h5>
+<h4 id="解法-2">解法</h4>
 <p>设<span class="math inline">\(D_{i,j}\)</span>为前 <span class="math inline">\(i\)</span> 种物品在重量限制 <span class="math inline">\(j\)</span> 下所能取出的最大值（限重 <span class="math inline">\(j\)</span> 的背包所能装下的最大价值）。对第 <span class="math inline">\(i\)</span> 种物品都可以有取与不取两种选择，假设前 <span class="math inline">\(i-1\)</span> 种物品在重量限制 <span class="math inline">\(j\)</span> 下能获得的最大价值为 <span class="math inline">\(D_{i-1,j}\)</span>，如果选第 <span class="math inline">\(i\)</span> 种物品，<span class="math inline">\(D_{i,j}\)</span> 应为 <span class="math inline">\(D_{i-1,j-w_i}+v_i\)</span>；不选的话，<span class="math inline">\(D_{i,j}\)</span> 为 <span class="math inline">\(D_{i-1,j}\)</span>。二者中更大者为问题的解：</p>
 <p><span class="math display">\[D_{i,j}= \max \{ D_{i-1,j-w_i}+v_i, D_{i-1,j} \}\]</span></p>
-<h5 id="实现细节-1">实现细节</h5>
-<p>容易得知DP数组的边界 <span class="math inline">\(D_{0,0}=0\)</span>，最终解为 <span class="math inline">\(D_{N,W}\)</span>，当 <span class="math inline">\(j \lt w_i\)</span> 时则意味着剩余重量已经不能支持取该物品了，可以直接置 <span class="math inline">\(D_{i,j}=D_{i-1,j}\)</span>。该算法的时间复杂度与空间复杂度均为 <span class="math inline">\(O(nW)\)</span>，当直接写成深搜时大量情况被重复计算，时间复杂度是 <span class="math inline">\(O(2^N)\)</span>。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> W 7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> w[N] = &#123;<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> v[N] = &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> D[N + <span class="number">1</span>][W + <span class="number">1</span>] = &#123;&#123;&#125;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= W; ++j)</span><br><span class="line">        <span class="keyword">if</span> (j &lt; w[i])</span><br><span class="line">            D[i + <span class="number">1</span>][j] = D[i][j];</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            D[i + <span class="number">1</span>][j] = max(D[i][j], D[i][j - w[i]] + v[i]);</span><br><span class="line"><span class="keyword">return</span> D[N][W];</span><br></pre></td></tr></table></figure>
+<h4 id="实现细节-1">实现细节</h4>
+<p>容易得知DP数组的边界 <span class="math inline">\(D_{0,0}=0\)</span>，最终解为 <span class="math inline">\(D_{n,W}\)</span>，当 <span class="math inline">\(j \lt w_i\)</span> 时则意味着剩余重量已经不能支持取该物品了，可以直接置 <span class="math inline">\(D_{i,j}=D_{i-1,j}\)</span>。该算法的时间复杂度与空间复杂度均为 <span class="math inline">\(O(nW)\)</span>，相较之下，直接写成深搜时大量情况被重复计算，时间复杂度是 <span class="math inline">\(O(2^n)\)</span>。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> n 5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> W 7</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> w[n] = &#123;<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> v[n] = &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> D[n + <span class="number">1</span>][W + <span class="number">1</span>] = &#123;&#123;&#125;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= W; ++j)</span><br><span class="line">        <span class="keyword">if</span> (j &lt; w[i])</span><br><span class="line">            D[i + <span class="number">1</span>][j] = D[i][j];</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            D[i + <span class="number">1</span>][j] = max(D[i][j], D[i][j - w[i]] + v[i]);</span><br><span class="line"><span class="keyword">return</span> D[n][W];</span><br></pre></td></tr></table></figure>
 <p>注意 <span class="math inline">\(D\)</span> 下标 <strong>1</strong> 指代第一种物品，<span class="math inline">\(w,v\)</span> 下标 <strong>0</strong> 指代第一种物品。</p>
 <p>《背包问题九讲》提到一个初始化细节，将 <span class="math inline">\(D_{0,j}(j \ne 0)\)</span> 的值全置为 -inf 时，得出的解同时约束已选的物品总重恰好等于 <span class="math inline">\(W\)</span>，因为此时所有“非完全填充”的中间状态都被移除了，合法解一定直接或间接地从 <span class="math inline">\(D_{0,0}\)</span> 转移。</p>
-<h5 id="优化-1">优化</h5>
-<p><span class="math inline">\(D_{i,j}\)</span> 由 <span class="math inline">\(D_{i-1,j-w_i}+v_i\)</span> 与 <span class="math inline">\(D_{i-1,j}\)</span> 两个子问题递推而来，我们颠倒内层循环的顺序（<span class="math inline">\(j\)</span> 从大到小迭代），并用一维数组D[W+1]代替二维数组D[N+1][W+1]，计算到 <span class="math inline">\(i\)</span> 时，就能使<span class="math inline">\(D_{j-w_i}\)</span> 始终持有 <span class="math inline">\(D_{i-1,j-w_i}\)</span> 的值，并把空间复杂度优化到 <span class="math inline">\(O(W)\)</span>。此时还能改进循环下界，省去分支判断（<span class="math inline">\(j \lt w_i\)</span> 时不修改数组即完成状态转移）</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[W + <span class="number">1</span>] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j &gt;= w[i]; --j)</span><br><span class="line">        D[j] = max(D[j], D[j - w[i]] + v[i]);</span><br><span class="line"><span class="keyword">return</span> D[W];</span><br></pre></td></tr></table></figure>
-<p>《背包问题九讲》<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>中还提到一个不太显然的优化，该问题中循环还有一个下界：<span class="math inline">\(W-\sum_{k=i+1}^N w_k\)</span>，则共同下界为两者中的更大值，即代码中 j 的循环条件改为：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">j &gt;= max(w[i], W - accumulate(w + i + <span class="number">1</span>, w + N, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
-<p>我这样理解：已知结果为D[W]，最后一次做外层循环时，<span class="math inline">\(D[W]\)</span>所需要先前的 <span class="math inline">\(D[W-w_{N}]\)</span>，而 <span class="math inline">\(D[W-w_{N}]\)</span> 又需要再先前的 <span class="math inline">\(D[W-w_{N}-w_{N-1}]\)</span> …… 依此类推，则对于每一轮外层循环而言，其内层循环都可以给出下界 <span class="math inline">\(W-\sum_{k=i+1}^N w_k\)</span>。对应这样一种情况，到选择某个物品时，剩余价值量对于全选剩下的物品也足够的话，<span class="math inline">\(j\)</span> 小于该剩余价值量情况不会被最终结果用到。</p>
+<h4 id="优化-1">优化</h4>
+<p><span class="math inline">\(D_{i,j}\)</span> 由 <span class="math inline">\(D_{i-1,j-w_i}+v_i\)</span> 与 <span class="math inline">\(D_{i-1,j}\)</span> 两个子问题递推而来，我们颠倒内层循环的顺序（<span class="math inline">\(j\)</span> 从大到小迭代），并用一维数组D[W+1]代替二维数组D[n+1][W+1]，计算到 <span class="math inline">\(i\)</span> 时，就能使<span class="math inline">\(D_{j-w_i}\)</span> 始终持有 <span class="math inline">\(D_{i-1,j-w_i}\)</span> 的值，并把空间复杂度优化到 <span class="math inline">\(O(W)\)</span>。此时还能改进循环下界，省去分支判断（<span class="math inline">\(j \lt w_i\)</span> 时不修改数组即完成状态转移）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[W + <span class="number">1</span>] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j &gt;= w[i]; --j)</span><br><span class="line">        D[j] = max(D[j], D[j - w[i]] + v[i]);</span><br><span class="line"><span class="keyword">return</span> D[W];</span><br></pre></td></tr></table></figure>
+<p>《背包问题九讲》<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>中还提到一个不太显然的优化，该问题中循环还有一个下界：<span class="math inline">\(W-\sum_{k=i+1}^n w_k\)</span>，则共同下界为两者中的更大值，即代码中 j 的循环条件改为：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">j &gt;= max(w[i], W - accumulate(w + i + <span class="number">1</span>, w + n, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+<p>我这样理解：已知结果为 D[W]，最后一次做外层循环时，D[W] 所需要先前的 D[W-w_{n}]，而 D[W-w_{n}] 又需要再先前的 D[W-w_{n}-w_{n-1}] …… 依此类推，则对于每一轮外层循环而言，其内层循环都可以给出下界 <span class="math inline">\(W-\sum_{k=i+1}^n w_k\)</span>。对应这样一种情况，到选择某个物品时，剩余价值量对于全选剩下的物品也足够的话，<span class="math inline">\(j\)</span> 小于该剩余价值量情况不会被最终结果用到。</p>
 <p>可以预先好计算下界值以避免二重循环内重复计算下界，但是聪明的现代编译器往往可以自行处理该优化。</p>
-<p>该改进所能减少的计算次数因数据而异，画出折线图分析一下，横轴代表 <span class="math inline">\(i\)</span>，纵轴代表该 <span class="math inline">\(j\)</span>，围成的矩形可以看作二维 DP 数组的每个元素。折线对应下界的值，蓝紫色区域对应引入另一个下界所省去的计算。</p>
+<p>该改进所能减少的计算次数因数据而异，画个折线图分析一下，横轴代表 <span class="math inline">\(i\)</span>，纵轴代表该 <span class="math inline">\(j\)</span>，围成的矩形可以看作二维 DP 数组的每个元素。折线对应下界的值，蓝紫色区域对应引入另一个下界所省去的计算。</p>
 
 <div id="myChart1"></div>
 
-<p>显然 W 越大，该下界越有效。对数据进行预处理也可以进一步优化下界，将原始数据按键值 <span class="math inline">\(w_i\)</span> 以降序排序后，该下界更加有效。到这里，背包问题的解应该比较完美，但是时间复杂度依旧为 <span class="math inline">\(O(nW)\)</span></p>
+<p>显然 W 相对越大，该下界越有效。对数据进行预处理也可以进一步优化下界，将原始数据按键值 <span class="math inline">\(w_i\)</span> 以降序排序后，该下界更加有效。到这里，背包问题的解应该比较完美，但是时间复杂度依旧为 <span class="math inline">\(O(nW)\)</span></p>
 <p>读者可以自行验证该结论，以空格分隔输入 <span class="math inline">\(w_i\)</span> 的值，再输入 <span class="math inline">\(W\)</span> 的值，刷新图表</p>
 
 <div id="interaction">
@@ -296,26 +293,26 @@
 <i>&nbsp&nbsp</i><input id="sort" type="button" value="排序">
 </div>
 
-<h5 id="换个思路">换个思路</h5>
+<h4 id="换个角度">换个角度</h4>
 <p>因为算法的时间复杂度为 <span class="math inline">\(O(nW)\)</span>，当物品的 <span class="math inline">\(w\)</span> 有较大的取值范围，<span class="math inline">\(W\)</span> 也是较大值的话，这个解的时间复杂度无法令人满意。如果 <span class="math inline">\(W\)</span> 和 <span class="math inline">\(w_i\)</span> 有最大公约数的话，在做动态规划之前除掉这个数可以大幅提高性能，如果最大公约数不存在，或者除掉后 <span class="math inline">\(W\)</span> 依然是很大的值，那我们不妨换个思路。</p>
 <p>设 <span class="math inline">\(D_{i,j}\)</span> 为前 <span class="math inline">\(i\)</span> 种物品在总价值恰好为 <span class="math inline">\(j\)</span> 的方案下能做到的最小体积，<span class="math inline">\(0 \lt j \le \sum{v_i}\)</span>，转移方程：</p>
 <p><span class="math display">\[D_{i,j}= min \{ D_{i-1,j-v_i}+w_i, D_{i-1,j} \}\]</span></p>
-<p>原问题的最终解为 <span class="math inline">\(\displaystyle \max_{0 \lt j \le \,D_{N, j} \le W}(j)\)</span>，该方法有点类似于 LIS 的优化方法。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> S = accumulate(v, v + N, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">int</span> D[S + <span class="number">1</span>]; <span class="comment">// VLA</span></span><br><span class="line"><span class="built_in">memset</span>(D, <span class="number">0x3f</span>, S * <span class="number">4</span>);</span><br><span class="line">D[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = S; j &gt;= v[i]; --j)</span><br><span class="line">        D[j] = min(D[j], D[j - v[i]] + w[i]);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = S; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">    <span class="keyword">if</span> (D[i] &lt;= W) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>易知此算法时间复杂度为 <span class="math inline">\(O(N\sum{v_i})\)</span></p>
+<p>原问题的最终解为 <span class="math inline">\(\displaystyle \max_{0 \lt j \le \,D_{n, j} \le W}(j)\)</span>，该方法思路有点类似于 LIS 的优化方法。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> S = accumulate(v, v + n, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">int</span> D[S + <span class="number">1</span>]; <span class="comment">// VLA</span></span><br><span class="line"><span class="built_in">memset</span>(D, <span class="number">0x3f</span>, S * <span class="number">4</span>);</span><br><span class="line">D[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = S; j &gt;= v[i]; --j)</span><br><span class="line">        D[j] = min(D[j], D[j - v[i]] + w[i]);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = S; i &gt;= <span class="number">0</span>; --i)</span><br><span class="line">    <span class="keyword">if</span> (D[i] &lt;= W) &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>易知此算法时间复杂度为 <span class="math inline">\(O(n\sum{v_i})\)</span></p>
 <h3 id="完全背包问题">完全背包问题</h3>
 <blockquote>
-<p>Q：有 N 种物品，每种有无穷多个，每种物品有其对应的重量 <span class="math inline">\(w_i\)</span> 和价值 <span class="math inline">\(v_i\)</span>，求在总重量限制为 <span class="math inline">\(W\)</span> 下取出最高价值的方案</p>
+<p>Q：有 n 种物品，每种有无穷多个，每种物品有其对应的重量 <span class="math inline">\(w_i\)</span> 和价值 <span class="math inline">\(v_i\)</span>，求在总重量限制为 <span class="math inline">\(W\)</span> 下取出最高价值的方案</p>
 </blockquote>
-<h5 id="解法-3">解法</h5>
+<h4 id="解法-3">解法</h4>
 <p>类比前文的思考方法，对第 <span class="math inline">\(i\)</span> 种物品有 <span class="math inline">\(k\)</span> 种选择，其中最大值为当前约束下的最优决策，很容易写出以下递推公式和代码：</p>
 <p><span class="math display">\[D_{i,j}= \displaystyle \max_{k=0}^{ \lfloor j/w[i] \rfloor} (D_{i-1,j-k \cdot w_i}+k \cdot v_{i})\]</span></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[W + <span class="number">1</span>] = &#123;&#123;&#125;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j &gt;= w[i]; --j)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k * w[i] &lt;= j; ++k)</span><br><span class="line">            D[j] = max(D[j], D[i][j - k * w[i]] + k * v[i]);</span><br><span class="line"><span class="keyword">return</span> D[W];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[W + <span class="number">1</span>] = &#123;&#123;&#125;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = W; j &gt;= w[i]; --j)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k * w[i] &lt;= j; ++k)</span><br><span class="line">            D[j] = max(D[j], D[i][j - k * w[i]] + k * v[i]);</span><br><span class="line"><span class="keyword">return</span> D[W];</span><br></pre></td></tr></table></figure>
 <p>该算法的时间复杂度是 <span class="math inline">\(O(nW \widehat{\frac{W}{w_i}} )\)</span>，不是很让人满意，但是类比该方法容易给出一些变种背包问题的解。<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<h5 id="优化-2">优化</h5>
+<h4 id="优化-2">优化</h4>
 <p>《背包问题九讲》中直接将 0-1背包问题的空间优化代码的内层循环次序再次颠倒，即为完全背包问题的解，这里同时给出对应的状态转移方程和代码：</p>
 <p><span class="math display">\[D_{i,j}= \max \{D_{i,j-w_i}+v_i,D_{i-1,j} \}\]</span></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[W + <span class="number">1</span>] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = w[i]; j &lt;= W; ++j)</span><br><span class="line">        D[j] = max(D[j], D[j - w[i]] + v[i]);</span><br><span class="line"><span class="keyword">return</span> D[W];</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> D[W + <span class="number">1</span>] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = w[i]; j &lt;= W; ++j)</span><br><span class="line">        D[j] = max(D[j], D[j - w[i]] + v[i]);</span><br><span class="line"><span class="keyword">return</span> D[W];</span><br></pre></td></tr></table></figure>
 <p>这里的 DP 数组<strong>从小到大</strong>更新，除此之外和0-1背包完全相同，意味着<span class="math inline">\(D_{i,j}\)</span> 从 <span class="math inline">\(D_{i,j-w_i}+v_i\)</span> 转移。这个解非常出乎意料，但是冷静下来，考虑 <span class="math inline">\(D\)</span> 的意义，新问题规定物品可以重复选取，在加选第 <span class="math inline">\(i\)</span> 种物品时，应该从<strong>可能已选选取</strong> <span class="math inline">\(i\)</span> 的情况转移。通过简单的方程变形能证明这个转移方程是正确的：</p>
 <p><span class="math inline">\(D_{i,j}= \displaystyle \max_{k=0}^{ \lfloor j/w[i] \rfloor} (D_{i-1,j-k \cdot w_i}+k \cdot v_{i})\)</span></p>
 <p><span class="math inline">\(~~~~~~~=\max \{ \displaystyle \max_{k=1}^{ \lfloor j/w[i] \rfloor} (D_{i-1,j-k \cdot w_i}+k \cdot v_{i}),D_{i-1,j} \}\)</span></p>
@@ -326,7 +323,7 @@
 <p><span class="math inline">\(~~~~~~~= \max \{D_{i,j-w_i}+v_i,D_{i-1,j} \}\)</span></p>
 <h3 id="二维费用的背包问题">二维费用的背包问题</h3>
 <blockquote>
-<p>Q：有 N 件物品，每件物品有其对应的重量 <span class="math inline">\(w_i\)</span>、体积 <span class="math inline">\(u_i\)</span> 和价值 <span class="math inline">\(v_i\)</span>，求在总重量限制为 <span class="math inline">\(W\)</span> 且总体积限制为 <span class="math inline">\(U\)</span> 下取出最高价值的方案</p>
+<p>Q：有 n 件物品，每件物品有其对应的重量 <span class="math inline">\(w_i\)</span>、体积 <span class="math inline">\(u_i\)</span> 和价值 <span class="math inline">\(v_i\)</span>，求在总重量限制为 <span class="math inline">\(W\)</span> 且总体积限制为 <span class="math inline">\(U\)</span> 下取出最高价值的方案</p>
 </blockquote>
 <p>这个背包同时限制重量与体积，类比0-1背包问题的解，只需将状态转移方程加一维：</p>
 <p><span class="math display">\[D_{i,j,k}= \max \{ D_{i-1,j-w_i,k-u_i}+v_i, D_{i-1,j,k} \}\]</span></p>
@@ -379,7 +376,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/knapsack/" data-id="ckg43tmk40003gkg5c1yaw11l" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/knapsack/" data-id="ckg9d7cdf0002m0g5wwsczzkq" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -455,18 +452,23 @@
         "genre": "Algorithm",
         "datePublished": "2019-08-10",
         "dateCreated": "2019-08-10",
-        "dateModified": "2020-10-11",
+        "dateModified": "2020-10-13",
         "url": "https://moeologist.github.io/knapsack/",
         "description": " [src: xkcd]
 前言
 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。",
-        "wordCount": 2882
+        "wordCount": 2887
     }
 </script>
 
 </article>
 
     <section id="comments">
+    
+        
+<div id="comment-container"></div>
+
+
     
     </section>
 
@@ -542,7 +544,7 @@
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/clang_bug.png)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/clang_bug.jpg)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -559,7 +561,7 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/font/" class="thumbnail">
+                            <a href="/win-font/" class="thumbnail">
     
     
         <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
@@ -571,7 +573,7 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
-                            <p class="item-title"><a href="/font/" class="title">Windows 字体折腾指南</a></p>
+                            <p class="item-title"><a href="/win-font/" class="title">Windows 字体折腾指南</a></p>
                             <p class="item-date"><time datetime="2020-06-07T15:46:28.000Z" itemprop="datePublished">2020-06-07</time></p>
                         </div>
                     </li>
@@ -582,7 +584,7 @@
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/js.png)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -677,6 +679,23 @@
 
     </div>
     
+    
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<script>
+    var gitalk = new Gitalk({
+        clientID: '957c5640658f4988c59d',
+        clientSecret: '107f807ea7aa25e55e3907559340f7f72ce02ba1',
+        id: 'd03edfc8ac5b6b7365c931fc16a28b97',
+        repo: 'https://github.com/moeologist/moeologist.github.io',
+        owner: 'Moeologist',
+        admin: "Moeologist"
+    })
+    gitalk.render('comment-container')
+</script>
+
+
+
 
 
     

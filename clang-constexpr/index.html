@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="萌理论研究室">
 <meta property="og:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库啊，C++用户最喜欢的事就是这个啦，简单搜索一下Github，已经有了gcem,stati">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://moeologist.github.io/images/clang_bug.png">
-<meta property="og:updated_time" content="2020-10-10T23:06:03.446Z">
+<meta property="og:image" content="https://moeologist.github.io/images/clang_bug.jpg">
+<meta property="og:updated_time" content="2020-10-13T18:09:00.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="constexpr 的数学函数">
 <meta name="twitter:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库啊，C++用户最喜欢的事就是这个啦，简单搜索一下Github，已经有了gcem,stati">
-<meta name="twitter:image" content="https://moeologist.github.io/images/clang_bug.png">
+<meta name="twitter:image" content="https://moeologist.github.io/images/clang_bug.jpg">
     
 
     
@@ -33,9 +33,6 @@
     
 
     <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
-    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
-
     <link rel="stylesheet" href="/css/style.css">
 
     <script src="/libs/jquery/3.5.0/jquery.min.js"></script>
@@ -170,7 +167,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/clang-constexpr/" class="article-date">
-     <time datetime="2020-10-10T23:06:03.446Z" itemprop="dateModified">2020-10-11</time>
+     <time datetime="2020-10-13T18:09:00.024Z" itemprop="dateModified">2020-10-14</time>
   </a>
 </div>
 
@@ -192,25 +189,27 @@
 
             
 
-            <p><img src="/images/clang_bug.png"></p>
+            <p><img src="/images/clang_bug.jpg"></p>
 <h2 id="动机">动机</h2>
 <p>constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。</p>
 <h2 id="解决方案">解决方案</h2>
 <h3 id="写个编译期数学库">写个编译期数学库</h3>
 <p>想要在编译期做数学运算的的话可以自己写库啊，C++用户最喜欢的事就是这个啦，简单搜索一下Github，已经有了<a href="https://github.com/kthohr/gcem" target="_blank" rel="noopener">gcem</a>,<a href="https://github.com/Morwenn/static_math" target="_blank" rel="noopener">static_math</a></p>
-<p>只要熟悉数值算法，不需要太多的元编程知识也能写出上述的编译期数学函数。可惜的是constexpr的限制意味着无法使用汇编，所以写出来的数学函数不可能与高度优化的数学库相提并论。这不是什么大问题，因为C++程序员（尤其是爱摆弄模板的程序员）绝不会介意编译时间多一点。最大的问题在于，constexpr一个好处就是编译时运行时都可用，除非程序员能肯定编译期可以算出这个值，运行期运算回退到低效的数学函数是如何使用C++的程序员都无法接受的。</p>
+<p>只要熟悉数值算法，不需要太多的元编程知识也能写出上述的编译期数学函数。可惜的是constexpr的限制意味着无法使用汇编，所以写出来的数学函数不可能与高度优化的数学库相提并论。这不是什么大问题，因为C++程序员（尤其是酷爱模板的程序员）绝不会介意编译时间多一点。最大的问题在于，constexpr一个好处就是编译时运行时都可用，除非肯定这些函数只在编译期用，因为运行期运算回退到低效的数学函数是任何使用C++的程序员都无法接受的。</p>
 <p>GCC的扩展 __builtin_constant_p 或者 C++20 的 is_constant_evaluated 可以用于解决这个问题，探测求值语境选择合适算法。</p>
 <p>举个例子，写一个开平方函数，先请出牛顿法：方程<span class="math inline">\(f(x)=0\)</span>的根的近似值x可以由<span class="math inline">\(x&#39;= x-\frac{f(x)}{f&#39;(x)}\)</span>迭代求得，迭代次数越多精度越高，所以对于开平方函数sqrt(a)，构造<span class="math inline">\(f(x)=x^2-a\)</span>求根即可。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_slow</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> x = a;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">        x = (x + a / x) / <span class="number">2</span>; <span class="comment">// 牛顿法迭代八次</span></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_adapter</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (__builtin_is_constant_evaluated())</span><br><span class="line">        <span class="keyword">return</span> sqrt_slow(a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sqrt</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_adapter_gcc_only</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (__builtin_constant_p(a)) <span class="comment">// Clang的这个函数和GCC行为不同，参见 https://bugs.llvm.org/show_bug.cgi?id=4898</span></span><br><span class="line">        <span class="keyword">return</span> sqrt_slow(a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sqrt</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = sqrt_adapter(<span class="number">2.</span>);</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; d;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; sqrt_adapter(d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_slow</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> x = a;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">        x = (x + a / x) / <span class="number">2</span>; <span class="comment">// 牛顿法迭代八次,因为constexpr的限制著名的卡马克魔法数也不能用</span></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_adapter</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (__builtin_is_constant_evaluated())</span><br><span class="line">        <span class="keyword">return</span> sqrt_slow(a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sqrt</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_adapter_gcc_only</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123; <span class="comment">// 至少需要GCC支持C++14的constexpr,不推荐使用</span></span><br><span class="line">    <span class="keyword">if</span> (__builtin_constant_p(a)) <span class="comment">// Clang的这个函数和GCC行为不同 https://reviews.llvm.org/D35190</span></span><br><span class="line">        <span class="keyword">return</span> sqrt_slow(a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sqrt</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = sqrt_adapter(<span class="number">2.</span>);</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; d;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; sqrt_adapter(d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="等新标准">等新标准</h3>
-<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0533r0.pdf" target="_blank" rel="noopener">p0533r0</a>,<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1383r0.pdf" target="_blank" rel="noopener">p1383r0</a>似乎没什么动静，不说C++23，恐怕猴年马月也不一定有。</p>
+<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0533r0.pdf" target="_blank" rel="noopener">p0533r0</a>,<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1383r0.pdf" target="_blank" rel="noopener">p1383r0</a>似乎没什么动静，且不说C++23，恐怕猴年马月也不一定有。</p>
 <h3 id="自己动手丰衣足食">自己动手丰衣足食</h3>
-<p>奇怪的是下面的代码对GCC来讲并没有什么压力：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = <span class="built_in">sqrt</span>(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尝试下面的代码对GCC来讲并没有什么压力：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = <span class="built_in">sqrt</span>(<span class="number">2</span>); <span class="comment">// 仅GCC可用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>搜索了一下又是GCC扩展，&lt;cmath&gt;里的函数支持了constexpr，这些浮点函数在有浮点错误时由编译器报出<code>is not a constant expression</code>错误，这似乎一定程度上就解决了问题（p1383r0里讨论了其他方面的潜在问题）。</p>
-<p>要命的是Clang不支持这个扩展。想要只能自己动手，事实上，Clang源码比想象中的要好改。</p>
-<p>把<a href="https://github.com/llvm/llvm-project.git" target="_blank" rel="noopener">repo</a>拉下来，花上不少时间找到是这个文件<strong>clang/lib/AST/ExprConstant.cpp</strong>负责对常量表达式求值，于是照龙画蛇，找里面已经支持的__builtin函数看看咋写的，把不支持的补上，浮点错误则求值失败，就可以使内建函数支持constexpr。这里有改好的<a href="/raw/llvm-constexpr.patch">patch</a>。</p>
-<p>现在内建函数是可以用在常量求值语境里了，但是如果希望&lt;cmath&gt;里的函数也可以，还要在libc++的&lt;cmath&gt;里受支持的函数签名加上constexpr，如果clang使用--stdlib=libstdc++则不需要此修改。</p>
+<p>要命的是Clang不支持这个扩展。想要只能自己动手，事后发现，Clang源码比想象中的要好改。</p>
+<p>把<a href="https://github.com/llvm/llvm-project.git" target="_blank" rel="noopener">repo</a>拉下来，花上不少时间找到是这个文件<strong>clang/lib/AST/ExprConstant.cpp</strong>负责对常量表达式求值，于是照龙画蛇，找里面已经支持 constexpr 的 __builtin 函数观摩一番，然后把不支持的补上，浮点错误则让求值失败，就可以使内建函数支持 constexpr。这里有改好的<a href="/raw/llvm-constexpr.patch">patch</a>。</p>
+<p>现在内建函数（如 __builtin_sqrt）是可以用在常量求值语境里了，但是如果希望&lt;cmath&gt;里的函数也可以，还要在libc++的&lt;cmath&gt;里受支持的函数签名加上constexpr，如果clang使用--stdlib=libstdc++则不需要此修改。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = __builtin_sqrt(<span class="number">2</span>); <span class="comment">// 修改版Clang也能用</span></span><br><span class="line">    <span class="comment">// constexpr double t = sqrt(2); // 还需要改libc++</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如何构建 Clang 参照官方文档即可。</p>
 
         </div>
         <footer class="article-footer">
@@ -218,7 +217,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="ckg43tmjz0001gkg53zliioxx" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="ckg9d7cda0001m0g581yhimt5" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -289,12 +288,12 @@
             "name": "ala"
         },
         "headline": "constexpr 的数学函数",
-        "image": "https://moeologist.github.io/images/clang_bug.png",
+        "image": "https://moeologist.github.io/images/clang_bug.jpg",
         "keywords": "",
         "genre": "C/C++",
         "datePublished": "2020-10-08",
         "dateCreated": "2020-10-08",
-        "dateModified": "2020-10-11",
+        "dateModified": "2020-10-14",
         "url": "https://moeologist.github.io/clang-constexpr/",
         "description": "
 动机
@@ -302,13 +301,18 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
 解决方案
 写个编译期数学库
 想要在编译期做数学运算的的话可以自己写库啊，C++用户最喜欢的事就是这个啦，简单搜索一下Github，已经有了gcem,stati",
-        "wordCount": 282
+        "wordCount": 335
     }
 </script>
 
 </article>
 
     <section id="comments">
+    
+        
+<div id="comment-container"></div>
+
+
     
     </section>
 
@@ -353,7 +357,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
 <nav id="article-nav">
     
     
-        <a href="/font/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/win-font/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">上一篇</strong>
         <p class="article-nav-title">Windows 字体折腾指南</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
@@ -380,7 +384,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/clang_bug.png)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/clang_bug.jpg)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -397,7 +401,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/font/" class="thumbnail">
+                            <a href="/win-font/" class="thumbnail">
     
     
         <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
@@ -409,7 +413,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
-                            <p class="item-title"><a href="/font/" class="title">Windows 字体折腾指南</a></p>
+                            <p class="item-title"><a href="/win-font/" class="title">Windows 字体折腾指南</a></p>
                             <p class="item-date"><time datetime="2020-06-07T15:46:28.000Z" itemprop="datePublished">2020-06-07</time></p>
                         </div>
                     </li>
@@ -420,7 +424,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/js.png)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -515,6 +519,23 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
 
     </div>
     
+    
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<script>
+    var gitalk = new Gitalk({
+        clientID: '957c5640658f4988c59d',
+        clientSecret: '107f807ea7aa25e55e3907559340f7f72ce02ba1',
+        id: 'b03311f69928bb561ce545058bbf8e24',
+        repo: 'https://github.com/moeologist/moeologist.github.io',
+        owner: 'Moeologist',
+        admin: "Moeologist"
+    })
+    gitalk.render('comment-container')
+</script>
+
+
+
 
 
     
