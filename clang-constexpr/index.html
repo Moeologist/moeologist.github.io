@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="萌理论研究室">
 <meta property="og:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库啊，C++用户最喜欢的事就是这个啦，简单搜索一下Github，已经有了gcem,stati">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://moeologist.github.io/images/clang_bug.jpg">
-<meta property="og:updated_time" content="2020-10-13T18:09:00.024Z">
+<meta property="og:image" content="https://moeologist.github.io/images/clang_bug.png">
+<meta property="og:updated_time" content="2020-10-14T13:13:07.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="constexpr 的数学函数">
 <meta name="twitter:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库啊，C++用户最喜欢的事就是这个啦，简单搜索一下Github，已经有了gcem,stati">
-<meta name="twitter:image" content="https://moeologist.github.io/images/clang_bug.jpg">
+<meta name="twitter:image" content="https://moeologist.github.io/images/clang_bug.png">
     
 
     
@@ -37,8 +37,6 @@
 
     <script src="/libs/jquery/3.5.0/jquery.min.js"></script>
     
-    
-        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
     
     
         <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
@@ -167,7 +165,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/clang-constexpr/" class="article-date">
-     <time datetime="2020-10-13T18:09:00.024Z" itemprop="dateModified">2020-10-14</time>
+     <time datetime="2020-10-14T13:13:07.124Z" itemprop="dateModified">2020-10-14</time>
   </a>
 </div>
 
@@ -189,7 +187,7 @@
 
             
 
-            <p><img src="/images/clang_bug.jpg"></p>
+            <p><img src="/images/clang_bug.png"></p>
 <h2 id="动机">动机</h2>
 <p>constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。</p>
 <h2 id="解决方案">解决方案</h2>
@@ -217,7 +215,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="ckg9e9r7g0001qkg5zlajb6yi" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="ckg9fitvz0001bog5gej57ccg" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -288,7 +286,7 @@
             "name": "ala"
         },
         "headline": "constexpr 的数学函数",
-        "image": "https://moeologist.github.io/images/clang_bug.jpg",
+        "image": "https://moeologist.github.io/images/clang_bug.png",
         "keywords": "",
         "genre": "C/C++",
         "datePublished": "2020-10-08",
@@ -384,7 +382,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/clang_bug.jpg)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/clang_bug.png)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -525,9 +523,9 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
 <script>
     var gitalk = new Gitalk({
         clientID: '957c5640658f4988c59d',
-        clientSecret: '107f807ea7aa25e55e3907559340f7f72ce02ba1',
+        clientSecret: '71f22a7b4ea4bd36fff568e00092ce7464398708',
         id: 'b03311f69928bb561ce545058bbf8e24',
-        repo: 'https://github.com/moeologist/moeologist.github.io',
+        repo: 'https://github.com/Moeologist/Moeologist.github.io',
         owner: 'Moeologist',
         admin: "Moeologist"
     })
@@ -538,16 +536,6 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
 
 
 
-    
-        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
     
     
         <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
