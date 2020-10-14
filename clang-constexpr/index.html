@@ -21,7 +21,7 @@
 <meta property="og:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库啊，C++用户最喜欢的事就是这个啦，简单搜索一下Github，已经有了gcem,stati">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://moeologist.github.io/images/clang_bug.png">
-<meta property="og:updated_time" content="2020-10-14T13:13:07.124Z">
+<meta property="og:updated_time" content="2020-10-14T14:15:05.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="constexpr 的数学函数">
 <meta name="twitter:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库啊，C++用户最喜欢的事就是这个啦，简单搜索一下Github，已经有了gcem,stati">
@@ -32,14 +32,12 @@
 
     
 
-    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
 
-    <script src="/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
-    
-        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
     
@@ -165,7 +163,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/clang-constexpr/" class="article-date">
-     <time datetime="2020-10-14T13:13:07.124Z" itemprop="dateModified">2020-10-14</time>
+     <time datetime="2020-10-14T14:15:05.161Z" itemprop="dateModified">2020-10-14</time>
   </a>
 </div>
 
@@ -174,6 +172,12 @@
 
                 
                 
+   <span id="/clang-constexpr/" class="leancloud-visitors" data-flag-title="constexpr 的数学函数">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">阅读次数: </span>
+   <i class="leancloud-visitors-count">1000000</i>
+   </span>
+
 
                 
 
@@ -215,7 +219,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="ckg9fitvz0001bog5gej57ccg" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="ckg9h8asq0002rcg5wrwc6i73" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -308,7 +312,8 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
     <section id="comments">
     
         
-<div id="comment-container"></div>
+    <!-- Valine -->
+    <div class="vcomments"></div>
 
 
     
@@ -354,10 +359,20 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
         
 <nav id="article-nav">
     
+        <a href="/win-font/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            Windows 字体折腾指南
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
     
-        <a href="/win-font/" id="article-nav-older" class="article-nav-link-wrap">
+    
+        <a href="/var-vs-let/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">上一篇</strong>
-        <p class="article-nav-title">Windows 字体折腾指南</p>
+        <p class="article-nav-title">JavaScript 走马观花</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -379,6 +394,26 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/win-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
+                            <p class="item-title"><a href="/win-font/" class="title">Windows 字体折腾指南</a></p>
+                            <p class="item-date"><time datetime="2020-10-14T14:15:05.162Z" itemprop="datePublished">2020-10-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
@@ -393,26 +428,6 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
                             <p class="item-title"><a href="/clang-constexpr/" class="title">constexpr 的数学函数</a></p>
                             <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/win-font/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
-                            <p class="item-title"><a href="/win-font/" class="title">Windows 字体折腾指南</a></p>
-                            <p class="item-date"><time datetime="2020-06-07T15:46:28.000Z" itemprop="datePublished">2020-06-07</time></p>
                         </div>
                     </li>
                 
@@ -475,7 +490,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -518,27 +533,32 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
     </div>
     
     
-<script src="/libs/gitalk/gitalk.min.js"></script>
-<link rel="stylesheet" href="/libs/gitalk/gitalk.css">
-<script>
-    var gitalk = new Gitalk({
-        clientID: '957c5640658f4988c59d',
-        clientSecret: '71f22a7b4ea4bd36fff568e00092ce7464398708',
-        id: 'b03311f69928bb561ce545058bbf8e24',
-        repo: 'https://github.com/Moeologist/Moeologist.github.io',
-        owner: 'Moeologist',
-        admin: "Moeologist"
-    })
-    gitalk.render('comment-container')
-</script>
+    <script src="//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+    <script>
+        var GUEST = ['nick','mail','link'];
+        var meta = '';
+        meta = meta.split(',').filter(function (item) {
+            return GUEST.indexOf(item)>-1;
+        });
+        var avatarcdn = 'https://gravatar.loli.net/avatar/' == true;
+        new Valine({
+            el: '.vcomments',
+            notify: "",
+            verify: "",
+            appId: "IgQvaFO0ryAaOY7q5HfUtnUF-gzGzoHsz",
+            appKey: "6gmUxC5QhGtJc6cm2Uqw86hP",
+            placeholder: "Just Do It",
+            avatar:"identicon",
+            recordIP:"",
+            visitor: "true"
+        });
+    </script>
 
 
 
 
 
     
-    
-        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
     
     
         <script>
@@ -553,9 +573,9 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                 });
             });
         </script>
-        <link rel="stylesheet" href="/libs/katex/katex.min.css">
-        <script src="/libs/katex/katex.min.js"></script>
-        <script src="/libs/katex/contrib/auto-render.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+        <script src="//cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
     
     
 
