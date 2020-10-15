@@ -230,7 +230,7 @@ body,
 }
 body {
   background: #eaeaea;
-  font: 14px sans-serif;
+  font: 14px "思源黑体", sans-serif;
   -webkit-text-size-adjust: 100%;
 }
 code {
@@ -239,7 +239,7 @@ code {
   padding: 3px 5px;
   font-size: 0.8em;
   border-radius: 2px;
-  font-family: monospace;
+  font-family: "Dejavu Sans Mono", Hack, Monaco, Menlo, Consolas, monospace;
   background-color: #f8f8f8;
 }
 .container {
@@ -279,7 +279,7 @@ code {
   font-size: 48px;
   text-decoration: none;
   color: #fff;
-  font-family: serif;
+  font-family: "思源宋体", serif;
   background-image: url("");
   background-position: 0px 10px;
   background-repeat: no-repeat;
@@ -408,7 +408,7 @@ code {
 }
 #header-title .subtitle {
   font-size: 16px;
-  font-family: serif;
+  font-family: "思源宋体", serif;
   line-height: 58px;
   color: rgba(255,255,255,0.7);
   text-shadow: 0 1px rgba(0,0,0,0.2);
@@ -564,7 +564,7 @@ code {
   -moz-transition: 0.2s ease-in;
   -ms-transition: 0.2s ease-in;
   transition: 0.2s ease-in;
-  font: 16px sans-serif;
+  font: 16px "思源黑体", sans-serif;
   color: rgba(255,255,255,0.7);
 }
 .search-form-input:focus,
@@ -1235,7 +1235,7 @@ a.article-title:hover {
 .article-entry blockquote footer {
   font-size: 14px;
   margin: 1.6em 0;
-  font-family: sans-serif;
+  font-family: "思源黑体", sans-serif;
 }
 .article-entry blockquote footer cite:before {
   content: "—";
@@ -1347,7 +1347,7 @@ a.article-title:hover {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  font: 14px sans-serif;
+  font: 14px "思源黑体", sans-serif;
   padding: 0 15px;
   color: #555;
   outline: none;
@@ -1843,7 +1843,7 @@ i.icon:before {
   overflow-x: auto;
   padding: 15px 20px;
   font-size: 14px;
-  font-family: monospace;
+  font-family: "Dejavu Sans Mono", Hack, Monaco, Menlo, Consolas, monospace;
   line-height: 22.400000000000002px;
 }
 .highlight table {
