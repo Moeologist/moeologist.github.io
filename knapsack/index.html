@@ -21,7 +21,7 @@
 <meta property="og:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://moeologist.github.io/images/np_complete.png">
-<meta property="og:updated_time" content="2020-10-19T14:34:27.108Z">
+<meta property="og:updated_time" content="2020-10-20T02:54:57.929Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划笔记">
 <meta name="twitter:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。">
@@ -34,10 +34,7 @@
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css">
-    <script src="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
-    <script src="/js/knapsack.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
     
     
     
@@ -46,6 +43,14 @@
     
 
 
+    <script>
+        (function () {
+            let imgs = document.getElementsByTagName("img")
+            for (let i of imgs)
+                if (i.getAttribute("src").startsWith('/'))
+                    i.setAttribute("src", "https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io"+i.getAttribute("src"))
+        })()
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 </html>
 <body>
@@ -165,7 +170,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/knapsack/" class="article-date">
-     <time datetime="2020-10-19T14:34:27.108Z" itemprop="dateModified">2020-10-19</time>
+     <time datetime="2020-10-20T02:54:57.929Z" itemprop="dateModified">2020-10-20</time>
   </a>
 </div>
 
@@ -193,7 +198,7 @@
 
             
 
-            <p><img src="/images/np_complete.png"> <a href="https://xkcd.com/287/" target="_blank" rel="noopener">[src: xkcd]</a></p>
+            <p><img src="/images/np_complete.png"> [src: <a href="https://xkcd.com/287/" target="_blank" rel="noopener">xkcd</a>]</p>
 <h2 id="前言">前言</h2>
 <p>动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。</p>
 <a id="more"></a>
@@ -383,7 +388,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
 
 
 
-    <a data-url="https://moeologist.github.io/knapsack/" data-id="ckggrsoi10005rsg5zczzxx4q" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/knapsack/" data-id="ckghfd3040006w8g5e50f8w4r" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -459,7 +464,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
         "genre": "Algorithm",
         "datePublished": "2019-08-10",
         "dateCreated": "2019-08-10",
-        "dateModified": "2020-10-19",
+        "dateModified": "2020-10-20",
         "url": "https://moeologist.github.io/knapsack/",
         "description": " [src: xkcd]
 前言

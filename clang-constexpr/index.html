@@ -34,10 +34,7 @@
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css">
-    <script src="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
-    <script src="/js/knapsack.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
     
     
     
@@ -46,6 +43,14 @@
     
 
 
+    <script>
+        (function () {
+            let imgs = document.getElementsByTagName("img")
+            for (let i of imgs)
+                if (i.getAttribute("src").startsWith('/'))
+                    i.setAttribute("src", "https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io"+i.getAttribute("src"))
+        })()
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 </html>
 <body>
@@ -221,7 +226,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="ckggrsohw0002rsg5cv8nx68o" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="ckghfd2zz0002w8g5ntpua91w" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
