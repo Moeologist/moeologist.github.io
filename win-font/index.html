@@ -6,7 +6,7 @@
     
 
     
-    <title>Windows 字体折腾指南 | 萌理论研究室</title>
+    <title>Windows 字体折腾指南 | 萌学研究室</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
@@ -17,11 +17,11 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows 字体折腾指南">
 <meta property="og:url" content="https://moeologist.github.io/win-font/index.html">
-<meta property="og:site_name" content="萌理论研究室">
+<meta property="og:site_name" content="萌学研究室">
 <meta property="og:description" content="改善Windows自身的字体渲染效果 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://moeologist.github.io/images/font_1080p.png">
-<meta property="og:updated_time" content="2020-10-14T14:15:05.163Z">
+<meta property="og:updated_time" content="2020-10-19T14:06:30.787Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows 字体折腾指南">
 <meta name="twitter:description" content="改善Windows自身的字体渲染效果 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。">
@@ -56,7 +56,7 @@
             <div class="container-inner">
                 <div id="header-title">
                     <h1 class="logo-wrap">
-                        <a href="/" class="logo">萌理论研究室</a>
+                        <a href="/" class="logo">萌学研究室</a>
                     </h1>
                     
                         <h2 class="subtitle-wrap">
@@ -165,7 +165,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/win-font/" class="article-date">
-     <time datetime="2020-10-14T14:15:05.163Z" itemprop="dateModified">2020-10-14</time>
+     <time datetime="2020-10-19T14:06:30.787Z" itemprop="dateModified">2020-10-19</time>
   </a>
 </div>
 
@@ -207,7 +207,7 @@
 <h2 id="替换字体">替换字体</h2>
 <p>安装了新字体后，浏览器可以注入样式表强制启用新字体，但桌面软件的UI还是该用啥用啥，除非能手动改（逐软件改也很麻烦），否则新字体还是不能用。如果希望把系统字体替换掉，可以尝试以下方法，这个方法需要安装<a href="https://github.com/adobe-type-tools/afdko" target="_blank" rel="noopener">AFDKO</a>置换新字体的name表<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>为系统字体的name表，然后伪装成系统字体安装。</p>
 <p><strong>请小心使用以下内容，这些操作可能损坏你的系统，本文作者不承担任何责任:</strong></p>
-<p>安装好<a href="https://github.com/adobe-type-tools/afdko" target="_blank" rel="noopener">AFDKO</a>，克隆这个<a href="https://github.com/Moeologist/font_hack" target="_blank" rel="noopener">repo</a>，里面包含了一些本文作者处理字体问题的脚本。</p>
+<p>安装好<a href="https://github.com/adobe-type-tools/afdko" target="_blank" rel="noopener">AFDKO</a>，克隆这个<a href="https://github.com/Moeologist/font-hack" target="_blank" rel="noopener">repo</a>，里面包含了一些本文作者处理字体问题的脚本。</p>
 <p>进入本地repo目录，如果需要替换微软雅黑，进入MicrosoftYahei目录，如果需要替换宋体，进入SimSun目录，后面以微软雅黑为例：</p>
 <p>右键以管理员身份运行backup.bat，备份原版字体和字体文件的权限：</p>
 <details>
@@ -229,7 +229,7 @@ backup.bat期待的输出：（点击展开）
 <summary>
 conv.bat期待的输出：
 </summary>
-<figure class="highlight prolog"><table><tr><td class="code"><pre><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHei.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font_hack\MicrosoftYahei\Sarasa\MicrosoftYaHei.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiUI.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font_hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiUI.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiLight.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font_hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiLight.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiUILight.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font_hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiUILight.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHei-Bold.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font_hack\MicrosoftYahei\Sarasa\MicrosoftYaHei-Bold.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiUI-Bold.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font_hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiUI-Bold.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Input</span> fonts: [<span class="string">'MicrosoftYaHei.ttf'</span>, <span class="string">'MicrosoftYaHeiUI.ttf'</span>]</span><br><span class="line"><span class="symbol">Output</span> font: msyh.ttc</span><br><span class="line"><span class="symbol">Shared</span> tables: [<span class="string">'GDEF'</span>, <span class="string">'GPOS'</span>, <span class="string">'GSUB'</span>, <span class="string">'OS/2'</span>, <span class="string">'cmap'</span>, <span class="string">'cvt '</span>, <span class="string">'fpgm'</span>, <span class="string">'gasp'</span>, <span class="string">'glyf'</span>, <span class="string">'hhea'</span>, <span class="string">'hmtx'</span>, <span class="string">'loca'</span>, <span class="string">'maxp'</span>, <span class="string">'post'</span>, <span class="string">'prep'</span>, <span class="string">'vhea'</span>, <span class="string">'vmtx'</span>]</span><br><span class="line"><span class="symbol">Un</span>-shared tables: [<span class="string">'head'</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="symbol">Done</span></span><br><span class="line"><span class="symbol">Input</span> fonts: [<span class="string">'MicrosoftYaHeiLight.ttf'</span>, <span class="string">'MicrosoftYaHeiUILight.ttf'</span>]</span><br><span class="line"><span class="symbol">Output</span> font: msyhl.ttc</span><br><span class="line"><span class="symbol">Shared</span> tables: [<span class="string">'GDEF'</span>, <span class="string">'GPOS'</span>, <span class="string">'GSUB'</span>, <span class="string">'OS/2'</span>, <span class="string">'cmap'</span>, <span class="string">'cvt '</span>, <span class="string">'fpgm'</span>, <span class="string">'gasp'</span>, <span class="string">'glyf'</span>, <span class="string">'hhea'</span>, <span class="string">'hmtx'</span>, <span class="string">'loca'</span>, <span class="string">'maxp'</span>, <span class="string">'post'</span>, <span class="string">'prep'</span>, <span class="string">'vhea'</span>, <span class="string">'vmtx'</span>]</span><br><span class="line"><span class="symbol">Un</span>-shared tables: [<span class="string">'head'</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="symbol">Done</span></span><br><span class="line"><span class="symbol">Input</span> fonts: [<span class="string">'MicrosoftYaHei-Bold.ttf'</span>, <span class="string">'MicrosoftYaHeiUI-Bold.ttf'</span>]</span><br><span class="line"><span class="symbol">Output</span> font: msyhbd.ttc</span><br><span class="line"><span class="symbol">Shared</span> tables: [<span class="string">'GDEF'</span>, <span class="string">'GPOS'</span>, <span class="string">'GSUB'</span>, <span class="string">'OS/2'</span>, <span class="string">'cmap'</span>, <span class="string">'cvt '</span>, <span class="string">'fpgm'</span>, <span class="string">'gasp'</span>, <span class="string">'glyf'</span>, <span class="string">'hhea'</span>, <span class="string">'hmtx'</span>, <span class="string">'loca'</span>, <span class="string">'maxp'</span>, <span class="string">'post'</span>, <span class="string">'prep'</span>, <span class="string">'vhea'</span>, <span class="string">'vmtx'</span>]</span><br><span class="line"><span class="symbol">Un</span>-shared tables: [<span class="string">'head'</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="symbol">Done</span></span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+<figure class="highlight prolog"><table><tr><td class="code"><pre><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHei.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHei.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiUI.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiUI.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiLight.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiLight.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiUILight.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiUILight.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHei-Bold.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHei-Bold.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiUI-Bold.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiUI-Bold.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Input</span> fonts: [<span class="string">'MicrosoftYaHei.ttf'</span>, <span class="string">'MicrosoftYaHeiUI.ttf'</span>]</span><br><span class="line"><span class="symbol">Output</span> font: msyh.ttc</span><br><span class="line"><span class="symbol">Shared</span> tables: [<span class="string">'GDEF'</span>, <span class="string">'GPOS'</span>, <span class="string">'GSUB'</span>, <span class="string">'OS/2'</span>, <span class="string">'cmap'</span>, <span class="string">'cvt '</span>, <span class="string">'fpgm'</span>, <span class="string">'gasp'</span>, <span class="string">'glyf'</span>, <span class="string">'hhea'</span>, <span class="string">'hmtx'</span>, <span class="string">'loca'</span>, <span class="string">'maxp'</span>, <span class="string">'post'</span>, <span class="string">'prep'</span>, <span class="string">'vhea'</span>, <span class="string">'vmtx'</span>]</span><br><span class="line"><span class="symbol">Un</span>-shared tables: [<span class="string">'head'</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="symbol">Done</span></span><br><span class="line"><span class="symbol">Input</span> fonts: [<span class="string">'MicrosoftYaHeiLight.ttf'</span>, <span class="string">'MicrosoftYaHeiUILight.ttf'</span>]</span><br><span class="line"><span class="symbol">Output</span> font: msyhl.ttc</span><br><span class="line"><span class="symbol">Shared</span> tables: [<span class="string">'GDEF'</span>, <span class="string">'GPOS'</span>, <span class="string">'GSUB'</span>, <span class="string">'OS/2'</span>, <span class="string">'cmap'</span>, <span class="string">'cvt '</span>, <span class="string">'fpgm'</span>, <span class="string">'gasp'</span>, <span class="string">'glyf'</span>, <span class="string">'hhea'</span>, <span class="string">'hmtx'</span>, <span class="string">'loca'</span>, <span class="string">'maxp'</span>, <span class="string">'post'</span>, <span class="string">'prep'</span>, <span class="string">'vhea'</span>, <span class="string">'vmtx'</span>]</span><br><span class="line"><span class="symbol">Un</span>-shared tables: [<span class="string">'head'</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="symbol">Done</span></span><br><span class="line"><span class="symbol">Input</span> fonts: [<span class="string">'MicrosoftYaHei-Bold.ttf'</span>, <span class="string">'MicrosoftYaHeiUI-Bold.ttf'</span>]</span><br><span class="line"><span class="symbol">Output</span> font: msyhbd.ttc</span><br><span class="line"><span class="symbol">Shared</span> tables: [<span class="string">'GDEF'</span>, <span class="string">'GPOS'</span>, <span class="string">'GSUB'</span>, <span class="string">'OS/2'</span>, <span class="string">'cmap'</span>, <span class="string">'cvt '</span>, <span class="string">'fpgm'</span>, <span class="string">'gasp'</span>, <span class="string">'glyf'</span>, <span class="string">'hhea'</span>, <span class="string">'hmtx'</span>, <span class="string">'loca'</span>, <span class="string">'maxp'</span>, <span class="string">'post'</span>, <span class="string">'prep'</span>, <span class="string">'vhea'</span>, <span class="string">'vmtx'</span>]</span><br><span class="line"><span class="symbol">Un</span>-shared tables: [<span class="string">'head'</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="symbol">Done</span></span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
 </details>
 <p>如果生成了 msyh.ttc,msyhl.ttc,msyhb.ttc 三个文件，则新字体置换name表就成功了。这些就是顶着微软雅黑之名，里面字形却是思源的魔改字体，只要把这些魔改字体安装到系统目的就达到了。</p>
 <p>系统字体被占用不能直接删除，返回 MicrosoftYahei 目录，右键以管理员身份运行delreg.bat删掉字体的注册表条目，<strong>注销</strong>系统，重新登陆。</p>
@@ -250,7 +250,7 @@ replace.bat期待的输出：
 <h2 id="品如的字体">品如的字体</h2>
 <p>macOS里预装了很多可爱的字体，如果你学会绕过系统的限制把它们提取了出来，就会遗憾地发现很多字体在Windows下不能用</p>
 <p><img src="/images/font_err.png"></p>
-<p>网络流传有用sed替换苹方cmap表的attribute的方法，可惜这只对苹方和其它部分字体有用，sed替换命令没有处理name表，对cmap表的处理也过于草率。 上面的<a href="https://github.com/Moeologist/font_hack" target="_blank" rel="noopener">font_hack</a>里还提供了一个名为macfonts.py的脚本，可以改善mac字体的兼容性，用法：</p>
+<p>网络流传有用sed替换苹方cmap表的attribute的方法，可惜这只对苹方和其它部分字体有用，sed替换命令没有处理name表，对cmap表的处理也过于草率。 上面的<a href="https://github.com/Moeologist/font-hack" target="_blank" rel="noopener">font-hack</a>里还提供了一个名为macfonts.py的脚本，可以改善mac字体的兼容性，用法：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python macfonts.py [*.ttf|*.otf|*.ttc|dir]</span><br></pre></td></tr></table></figure>
 <h2 id="几个字体相关的注册表键值">几个字体相关的注册表键值</h2>
 <figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\F</span>onts]</span><br></pre></td></tr></table></figure>
@@ -280,7 +280,7 @@ replace.bat期待的输出：
 
 
 
-    <a data-url="https://moeologist.github.io/win-font/" data-id="ckg9nhvhv000450g5nhdbcfid" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/win-font/" data-id="ckggrsoi30007rsg5nxgbi4ji" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -356,7 +356,7 @@ replace.bat期待的输出：
         "genre": "Windows",
         "datePublished": "2020-10-14",
         "dateCreated": "2020-10-14",
-        "dateModified": "2020-10-14",
+        "dateModified": "2020-10-19",
         "url": "https://moeologist.github.io/win-font/",
         "description": "改善Windows自身的字体渲染效果
 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。",
@@ -416,6 +416,16 @@ replace.bat期待的输出：
         
 <nav id="article-nav">
     
+        <a href="/hook-wndproc/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            挂钩 Windows 的窗口消息处理函数
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
     
         <a href="/clang-constexpr/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">上一篇</strong>
@@ -437,6 +447,26 @@ replace.bat期待的输出：
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/hook-wndproc/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
+                            <p class="item-title"><a href="/hook-wndproc/" class="title">挂钩 Windows 的窗口消息处理函数</a></p>
+                            <p class="item-date"><time datetime="2020-10-19T07:51:50.606Z" itemprop="datePublished">2020-10-19</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -464,7 +494,7 @@ replace.bat期待的输出：
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/clang_bug.png)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/things.jpg)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -527,7 +557,7 @@ replace.bat期待的输出：
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -537,7 +567,7 @@ replace.bat期待的输出：
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -562,7 +592,7 @@ replace.bat期待的输出：
             <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
             <div class="credit">
                 <h1 class="logo-wrap">
-                    <a href="/" class="logo">萌理论研究室</a>
+                    <a href="/" class="logo">萌学研究室</a>
                 </h1>
                 <p>&copy; 2020 ala</p>
                 

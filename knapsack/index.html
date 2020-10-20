@@ -6,7 +6,7 @@
     
 
     
-    <title>动态规划笔记 | 萌理论研究室</title>
+    <title>动态规划笔记 | 萌学研究室</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
@@ -17,11 +17,11 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="动态规划笔记">
 <meta property="og:url" content="https://moeologist.github.io/knapsack/index.html">
-<meta property="og:site_name" content="萌理论研究室">
+<meta property="og:site_name" content="萌学研究室">
 <meta property="og:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://moeologist.github.io/images/np_complete.png">
-<meta property="og:updated_time" content="2020-10-14T17:13:51.050Z">
+<meta property="og:updated_time" content="2020-10-19T14:34:27.108Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划笔记">
 <meta name="twitter:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。">
@@ -56,7 +56,7 @@
             <div class="container-inner">
                 <div id="header-title">
                     <h1 class="logo-wrap">
-                        <a href="/" class="logo">萌理论研究室</a>
+                        <a href="/" class="logo">萌学研究室</a>
                     </h1>
                     
                         <h2 class="subtitle-wrap">
@@ -165,7 +165,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/knapsack/" class="article-date">
-     <time datetime="2020-10-14T17:13:51.050Z" itemprop="dateModified">2020-10-15</time>
+     <time datetime="2020-10-19T14:34:27.108Z" itemprop="dateModified">2020-10-19</time>
   </a>
 </div>
 
@@ -371,9 +371,9 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1" role="doc-endnote"><p>请读者注意<a href="https://github.com/tianyicui/pack" target="_blank" rel="noopener">《背包问题九讲》</a>中有关内容（1.5节）可能有笔误。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>指<strong>多重背包问题</strong>和<strong>分组背包问题</strong>，详见<a href="https://github.com/tianyicui/pack" target="_blank" rel="noopener">《背包问题九讲》</a>3节和6节。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>LIS 问题解决后，LDS（最长下降子序列）也同样容易，没错很多类似问题都这样，但是《算法导论》15.3节给出了一个反例。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>请读者注意<a href="https://github.com/tianyicui/pack" target="_blank" rel="noopener">《背包问题九讲》</a>中有关内容（1.5节）可能有笔误<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>指<strong>多重背包问题</strong>和<strong>分组背包问题</strong>，详见<a href="https://github.com/tianyicui/pack" target="_blank" rel="noopener">《背包问题九讲》</a>3节和6节<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>LIS 问题解决后，LDS（最长下降子序列）也同样容易，没错很多类似问题都这样，但是《算法导论》15.3节给出了一个反例<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -383,7 +383,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
 
 
 
-    <a data-url="https://moeologist.github.io/knapsack/" data-id="ckg9nhvh0000350g523us2wd8" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/knapsack/" data-id="ckggrsoi10005rsg5zczzxx4q" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -459,7 +459,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
         "genre": "Algorithm",
         "datePublished": "2019-08-10",
         "dateCreated": "2019-08-10",
-        "dateModified": "2020-10-15",
+        "dateModified": "2020-10-19",
         "url": "https://moeologist.github.io/knapsack/",
         "description": " [src: xkcd]
 前言
@@ -549,6 +549,26 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/hook-wndproc/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
+                            <p class="item-title"><a href="/hook-wndproc/" class="title">挂钩 Windows 的窗口消息处理函数</a></p>
+                            <p class="item-date"><time datetime="2020-10-19T07:51:50.606Z" itemprop="datePublished">2020-10-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/win-font/" class="thumbnail">
     
     
@@ -572,7 +592,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/clang_bug.png)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/things.jpg)" alt="constexpr 的数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -635,7 +655,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -645,7 +665,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -670,7 +690,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
             <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
             <div class="credit">
                 <h1 class="logo-wrap">
-                    <a href="/" class="logo">萌理论研究室</a>
+                    <a href="/" class="logo">萌学研究室</a>
                 </h1>
                 <p>&copy; 2020 ala</p>
                 

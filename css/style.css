@@ -1025,9 +1025,10 @@ code {
   width: 100%;
   height: 100%;
   opacity: 1;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
   -webkit-transition: opacity 0.3s ease-in;
   -moz-transition: opacity 0.3s ease-in;
@@ -1176,7 +1177,7 @@ a.article-title:hover {
   margin: 1.3em 0;
 }
 .article-entry a {
-  color: #858585;
+  color: #4da6d3;
   text-decoration: none;
 }
 .article-entry a:hover {
