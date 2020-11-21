@@ -1,0 +1,299 @@
+diff --git a/clang/include/clang/Driver/Options.td b/clang/include/clang/Driver/Options.td
+index 0a60873443f..142a5319530 100644
+--- a/clang/include/clang/Driver/Options.td
++++ b/clang/include/clang/Driver/Options.td
+@@ -2787,7 +2787,7 @@ def std_EQ : Joined<["-", "--"], "std=">, Flags<[CC1Option]>,
+     #include "clang/Basic/LangStandards.def"
+     ;
+   }]>;
+-def stdlib_EQ : Joined<["-", "--"], "stdlib=">, Flags<[CC1Option]>,
++def stdlib_EQ : Joined<["-", "--"], "stdlib=">, Flags<[CC1Option, CoreOption]>,
+   HelpText<"C++ standard library to use">, Values<"libc++,libstdc++,platform">;
+ def stdlibxx_isystem : JoinedOrSeparate<["-"], "stdlib++-isystem">,
+   Group<clang_i_Group>,
+diff --git a/clang/lib/AST/ExprConstant.cpp b/clang/lib/AST/ExprConstant.cpp
+index 7af1edb9565..0214bb971e5 100644
+--- a/clang/lib/AST/ExprConstant.cpp
++++ b/clang/lib/AST/ExprConstant.cpp
+@@ -58,6 +58,46 @@
+ #include "llvm/Support/raw_ostream.h"
+ #include <cstring>
+ #include <functional>
++#include <math.h>
++
++#define _ExprConstantMathTernary(_f) \
++  case Builtin::BI__builtin_ ## _f: { \
++    APFloat Arg0(0.), Arg1(0.), Arg2(0.); \
++    if (!EvaluateFloat(E->getArg(0), Arg0, Info) || \
++        !EvaluateFloat(E->getArg(1), Arg1, Info) || \
++        !EvaluateFloat(E->getArg(2), Arg2, Info)) \
++      return false; \
++    double result = _f(Arg0.convertToDouble(), Arg1.convertToDouble(), Arg2.convertToDouble()); \
++    if(errno) \
++      return false; \
++    Result = APFloat(result); \
++    return true; \
++  }
++
++#define _ExprConstantMathBinary(_f) \
++  case Builtin::BI__builtin_ ## _f: { \
++    APFloat Arg0(0.), Arg1(0.); \
++    if (!EvaluateFloat(E->getArg(0), Arg0, Info) || \
++        !EvaluateFloat(E->getArg(1), Arg1, Info)) \
++      return false; \
++    double result = _f(Arg0.convertToDouble(), Arg1.convertToDouble()); \
++    if(errno) \
++      return false; \
++    Result = APFloat(result); \
++    return true; \
++  }
++
++#define _ExprConstantMathUnary(_f) \
++  case Builtin::BI__builtin_ ## _f: { \
++    APFloat Arg0(0.); \
++    if (!EvaluateFloat(E->getArg(0), Arg0, Info)) \
++      return false; \
++    double result = _f(Arg0.convertToDouble()); \
++    if(errno) \
++      return false; \
++    Result = APFloat(result); \
++    return true; \
++  }
+ 
+ #define DEBUG_TYPE "exprconstant"
+ 
+@@ -12790,6 +12830,44 @@ bool FloatExprEvaluator::VisitCallExpr(const CallExpr *E) {
+     Result.copySign(RHS);
+     return true;
+   }
++
++  _ExprConstantMathTernary(fma)
++  _ExprConstantMathBinary(fmod)
++  _ExprConstantMathBinary(remainder)
++  _ExprConstantMathBinary(fmax)
++  _ExprConstantMathBinary(fmin)
++  _ExprConstantMathBinary(fdim)
++  _ExprConstantMathBinary(pow)
++  _ExprConstantMathBinary(hypot)
++  _ExprConstantMathBinary(nextafter)
++  _ExprConstantMathUnary(exp)
++  _ExprConstantMathUnary(exp2)
++  _ExprConstantMathUnary(expm1)
++  _ExprConstantMathUnary(log)
++  _ExprConstantMathUnary(log10)
++  _ExprConstantMathUnary(log2)
++  _ExprConstantMathUnary(log1p)
++  _ExprConstantMathUnary(sqrt)
++  _ExprConstantMathUnary(cbrt)
++  _ExprConstantMathUnary(sin)
++  _ExprConstantMathUnary(cos)
++  _ExprConstantMathUnary(tan)
++  _ExprConstantMathUnary(asin)
++  _ExprConstantMathUnary(acos)
++  _ExprConstantMathUnary(atan)
++  _ExprConstantMathUnary(sinh)
++  _ExprConstantMathUnary(cosh)
++  _ExprConstantMathUnary(tanh)
++  _ExprConstantMathUnary(asinh)
++  _ExprConstantMathUnary(acosh)
++  _ExprConstantMathUnary(atanh)
++  _ExprConstantMathUnary(erf)
++  _ExprConstantMathUnary(erfc)
++  _ExprConstantMathUnary(ceil)
++  _ExprConstantMathUnary(floor)
++  _ExprConstantMathUnary(trunc)
++  _ExprConstantMathUnary(round)
++  _ExprConstantMathUnary(logb)
+   }
+ }
+ 
+diff --git a/clang/lib/Driver/ToolChains/MSVC.cpp b/clang/lib/Driver/ToolChains/MSVC.cpp
+index 4e143f6a5d3..82b4387db8d 100644
+--- a/clang/lib/Driver/ToolChains/MSVC.cpp
++++ b/clang/lib/Driver/ToolChains/MSVC.cpp
+@@ -454,6 +454,11 @@ void visualstudio::Linker::ConstructJob(Compilation &C, const JobAction &JA,
+     }
+   }
+ 
++  if (TC.GetCXXStdlibType(Args) == ToolChain::CST_Libcxx) {
++    CmdArgs.push_back(Args.MakeArgString(std::string("-libpath:") +
++                                         TC.getDriver().Dir + "/../lib"));
++  }
++
+   // Add compiler-rt lib in case if it was explicitly
+   // specified as an argument for --rtlib option.
+   if (!Args.hasArg(options::OPT_nostdlib)) {
+@@ -1314,7 +1319,15 @@ void MSVCToolChain::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
+ 
+ void MSVCToolChain::AddClangCXXStdlibIncludeArgs(const ArgList &DriverArgs,
+                                                  ArgStringList &CC1Args) const {
+-  // FIXME: There should probably be logic here to find libc++ on Windows.
++
++  if (!DriverArgs.hasArg(options::OPT_nostdlibinc) &&
++       !DriverArgs.hasArg(options::OPT_nostdincxx) &&
++       GetCXXStdlibType(DriverArgs) == ToolChain::CST_Libcxx) {
++    std::string Base = llvm::sys::path::parent_path(getDriver().getInstalledDir());
++    StringRef Slash = llvm::sys::path::get_separator();
++    addSystemInclude(DriverArgs, CC1Args,
++                     Base + Slash + "include" + Slash + "c++" + Slash + "v1");
++  }
+ }
+ 
+ VersionTuple MSVCToolChain::computeMSVCVersion(const Driver *D,
+diff --git a/libcxx/include/filesystem b/libcxx/include/filesystem
+index 0f7a4d55698..05f9547abdd 100644
+--- a/libcxx/include/filesystem
++++ b/libcxx/include/filesystem
+@@ -1353,6 +1353,9 @@ public:
+     return __storage_->__what_.c_str();
+   }
+ 
++#ifndef _MSC_VER
++  _LIBCPP_FUNC_VIS
++#endif
+   void __create_what(int __num_paths);
+ 
+ private:
+diff --git a/lldb/CMakeLists.txt b/lldb/CMakeLists.txt
+index 573b8556989..0ef2b63573e 100644
+--- a/lldb/CMakeLists.txt
++++ b/lldb/CMakeLists.txt
+@@ -46,7 +46,7 @@ endif()
+ if (LLDB_ENABLE_PYTHON)
+   execute_process(
+     COMMAND ${PYTHON_EXECUTABLE}
+-        -c "import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(True, False, ''))"
++        -c "import distutils.sysconfig; print(distutils.sysconfig.get_python_lib(True, False, '').replace('\\\\','/'))"
+     OUTPUT_VARIABLE LLDB_PYTHON_DEFAULT_RELATIVE_PATH
+     OUTPUT_STRIP_TRAILING_WHITESPACE)
+ 
+diff --git a/llvm/include/llvm/Support/Windows/WindowsSupport.h b/llvm/include/llvm/Support/Windows/WindowsSupport.h
+index bb7e79b8601..15a422e2200 100644
+--- a/llvm/include/llvm/Support/Windows/WindowsSupport.h
++++ b/llvm/include/llvm/Support/Windows/WindowsSupport.h
+@@ -43,6 +43,7 @@
+ #include "llvm/Support/Compiler.h"
+ #include "llvm/Support/ErrorHandling.h"
+ #include "llvm/Support/VersionTuple.h"
++#include "llvm/Support/StringSaver.h"
+ #include <cassert>
+ #include <string>
+ #include <system_error>
+@@ -236,6 +237,8 @@ namespace windows {
+ // UTF-8 regardless of the current code page setting.
+ std::error_code GetCommandLineArguments(SmallVectorImpl<const char *> &Args,
+                                         BumpPtrAllocator &Alloc);
++
++void WildcardExpandArgs(SmallVectorImpl<const char *> &Args, StringSaver Saver);
+ } // end namespace windows
+ } // end namespace sys
+ } // end namespace llvm.
+diff --git a/llvm/lib/Support/CommandLine.cpp b/llvm/lib/Support/CommandLine.cpp
+index cb73380ba38..53ec05111f6 100644
+--- a/llvm/lib/Support/CommandLine.cpp
++++ b/llvm/lib/Support/CommandLine.cpp
+@@ -44,6 +44,9 @@
+ #include <cstdlib>
+ #include <map>
+ #include <string>
++#ifdef _WIN32
++#include "llvm/Support/Windows/WindowsSupport.h"
++#endif
+ using namespace llvm;
+ using namespace cl;
+ 
+@@ -1200,6 +1203,14 @@ bool cl::ExpandResponseFiles(StringSaver &Saver, TokenizerCallback Tokenizer,
+       continue;
+     }
+ 
++#ifdef _WIN32
++    sys::windows::WildcardExpandArgs(ExpandedArgv, Saver);
++#endif
++
++#ifdef _WIN32
++    sys::windows::WildcardExpandArgs(ExpandedArgv, Saver);
++#endif
++
+     for (ResponseFileRecord &Record : FileStack) {
+       // Increase the end of all active records by the number of newly expanded
+       // arguments, minus the response file itself.
+diff --git a/llvm/lib/Support/Windows/Process.inc b/llvm/lib/Support/Windows/Process.inc
+index 518ecdb9889..db62415d9a2 100644
+--- a/llvm/lib/Support/Windows/Process.inc
++++ b/llvm/lib/Support/Windows/Process.inc
+@@ -259,6 +259,20 @@ windows::GetCommandLineArguments(SmallVectorImpl<const char *> &Args,
+   return std::error_code();
+ }
+ 
++void windows::WildcardExpandArgs(SmallVectorImpl<const char *> &Args, StringSaver Saver) {
++  SmallVector<const char *, 256> WildArgs;
++  for (const char *Arg : Args) {
++    if (Arg == NULL) {
++      WildArgs.push_back(NULL);
++      continue;
++    }
++    std::error_code EC = WildcardExpand(Arg, WildArgs, Saver);
++    if (EC)
++      return;
++  }
++  Args.swap(WildArgs);
++}
++
+ std::error_code Process::FixupStandardFileDescriptors() {
+   return std::error_code();
+ }
+diff --git a/llvm/tools/msbuild/install.bat b/llvm/tools/msbuild/install.bat
+index bbc8a746151..7e052dfed57 100644
+--- a/llvm/tools/msbuild/install.bat
++++ b/llvm/tools/msbuild/install.bat
+@@ -15,7 +15,7 @@ REM but with VS2017 it seems to look for these directly in the Visual Studio ins
+ REM This means we'll need to do a little extra work to properly detect all the various
+ REM instances, but in reality we can probably sidestep all of this by just wrapping this
+ REM in a vsix and calling it a day, as that should handle everything for us.
+-SET VCTargets=%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets
++SET VCTargets=%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160
+ 
+ ECHO Installing Common Files
+ copy LLVM.Cpp.Common.props "%VCTargets%"
+diff --git a/llvm/tools/msbuild/uninstall.bat b/llvm/tools/msbuild/uninstall.bat
+index 0c8852ec46d..8172d896f78 100644
+--- a/llvm/tools/msbuild/uninstall.bat
++++ b/llvm/tools/msbuild/uninstall.bat
+@@ -9,7 +9,7 @@ REM uninstall is through the Visual Studio extension manager.
+ REM CD to the directory of this batch file.
+ cd /d %~dp0
+ 
+-SET VCTargets=%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Professional\Common7\IDE\VC\VCTargets
++SET VCTargets=%ProgramFiles(x86)%\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160
+ 
+ ECHO Uninstalling Common Files
+ IF EXIST "%VCTargets%\LLVM.Cpp.Common.props" del "%VCTargets%\LLVM.Cpp.Common.props"
+diff --git a/openmp/CMakeLists.txt b/openmp/CMakeLists.txt
+index 9825183a0dd..5b37e967dfc 100644
+--- a/openmp/CMakeLists.txt
++++ b/openmp/CMakeLists.txt
+@@ -3,6 +3,11 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+ # Add cmake directory to search for custom cmake functions.
+ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+ 
++# Link fail when use lld-link on Windows
++if(CMAKE_LINKER MATCHES "lld-link(.exe)?$")
++  set(CMAKE_LINKER "link.exe")
++endif()
++
+ # llvm/runtimes/ will set OPENMP_STANDALONE_BUILD.
+ if (OPENMP_STANDALONE_BUILD OR "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+   set(OPENMP_STANDALONE_BUILD TRUE)
+diff --git a/openmp/runtime/cmake/LibompHandleFlags.cmake b/openmp/runtime/cmake/LibompHandleFlags.cmake
+index 0b8e3a35c88..01465c7959a 100644
+--- a/openmp/runtime/cmake/LibompHandleFlags.cmake
++++ b/openmp/runtime/cmake/LibompHandleFlags.cmake
+@@ -101,7 +101,7 @@ function(libomp_get_ldflags ldflags)
+   libomp_append(ldflags_local -Wl,-z,noexecstack LIBOMP_HAVE_Z_NOEXECSTACK_FLAG)
+   libomp_append(ldflags_local -no-intel-extensions LIBOMP_HAVE_NO_INTEL_EXTENSIONS_FLAG)
+   libomp_append(ldflags_local -static-intel LIBOMP_HAVE_STATIC_INTEL_FLAG)
+-  libomp_append(ldflags_local /SAFESEH LIBOMP_HAVE_SAFESEH_FLAG)
++  # libomp_append(ldflags_local /SAFESEH LIBOMP_HAVE_SAFESEH_FLAG)
+   # Architectural linker flags
+   if(${IA32})
+     if(CMAKE_SIZEOF_VOID_P EQUAL 8)

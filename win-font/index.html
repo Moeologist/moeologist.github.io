@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+
+    
+
+    
+    <title>Windows 字体折腾指南 | 萌学研究室</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="改善Windows自身的字体渲染效果 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。">
+<meta name="keywords" content="编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows 字体折腾指南">
+<meta property="og:url" content="https://moeologist.github.io/win-font/index.html">
+<meta property="og:site_name" content="萌学研究室">
+<meta property="og:description" content="改善Windows自身的字体渲染效果 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png">
+<meta property="og:updated_time" content="2020-11-21T17:06:50.406Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows 字体折腾指南">
+<meta name="twitter:description" content="改善Windows自身的字体渲染效果 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png">
+    
+
+    
+
+    
+        <link rel="icon" href="data:image/x-icon;base64,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">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/css/style.css">
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo">萌学研究室</a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">后来我就念了两首诗</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/C-C/">C/C++</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Windows/">Windows</a></li></ul>
+                                
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/',
+        CONTENT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/insight.js" /></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Windows/">Windows</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-win-font" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Windows 字体折腾指南
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/win-font/" class="article-date">
+       <time datetime="2020-10-14T14:15:05.162Z" itemprop="datePublished">2020-10-14</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/win-font/" class="article-date">
+     <time datetime="2020-11-21T17:06:50.406Z" itemprop="dateModified">2020-11-22</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+   <span id="/win-font/" class="leancloud-visitors" data-flag-title="Windows 字体折腾指南">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">阅读次数: </span>
+   <i class="leancloud-visitors-count">1000000</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <h2 id="改善windows自身的字体渲染效果">改善Windows自身的字体渲染效果</h2>
+<p>众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，<a href="https://www.zhihu.com/question/67196637" target="_blank" rel="noopener">新版微软雅黑</a>又迟迟不见踪影。</p>
+<a id="more"></a>
+<p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png"> <em>2160p对比1080p，2160p为200%UI缩放，1080p为nearest-neighbor插值upscaling到2x，字体为微软雅黑（Microsoft Yahei UI），字号为10pt</em></p>
+<p>实际上，并非Windows对字体有偏见，而是进行了良好 <a href="https://en.wikipedia.org/wiki/Font_hinting" target="_blank" rel="noopener">hinting</a> 字体在 Windows10 上面有较佳的渲染效果，而 <a href="https://www.freetype.org/ttfautohint/doc/ttfautohint.html" target="_blank" rel="noopener">ttfautohint</a> 能自动生成 hinting 后的新字体。（由 FreeType 的 auto-hinting 模块处理）</p>
+<p>ttfautohint 的 Introduction 摘录：</p>
+<blockquote>
+<p>ttfautohint is a library written in C that takes a TrueType font as the input, removes its bytecode instructions (if any), and returns a new font where all glyphs are bytecode hinted using the information given by FreeType’s auto-hinting module. The idea is to provide the excellent quality of the auto-hinter on platforms that don’t use FreeType.</p>
+</blockquote>
+<p>可以把喜爱的字体通过 ttfautohint 处理后安装到 Windows，至于如何使用这个软件，请大家读读文档自行摸索，因为 <del>本文的作者也不会用</del> 这个软件比较专业。</p>
+<p>如果想要一个现成的中文字体，知乎大佬 Belleve 提供了 <a href="https://github.com/be5invis/Sarasa-Gothic" target="_blank" rel="noopener">更纱黑体</a>，基于思源黑体调整，很适合用来做Windows系统字体。 ​ 以下所有讨论都基于2160p/27″屏幕、200%UI缩放和Windows10 1909更新，更旧或更新的版本请自行验证。</p>
+<h2 id="替换字体">替换字体</h2>
+<p>安装了新字体后，浏览器可以注入样式表强制启用新字体，但桌面软件的UI还是该用啥用啥，除非能手动改（逐软件改也很麻烦），否则新字体还是不能用。如果希望把系统字体替换掉，可以尝试以下方法，这个方法需要安装<a href="https://github.com/adobe-type-tools/afdko" target="_blank" rel="noopener">AFDKO</a>置换新字体的name表<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>为系统字体的name表，然后伪装成系统字体安装。</p>
+<p><strong>请小心使用以下内容，这些操作可能损坏你的系统，本文作者不承担任何责任:</strong></p>
+<p>安装好<a href="https://github.com/adobe-type-tools/afdko" target="_blank" rel="noopener">AFDKO</a>，克隆这个<a href="https://github.com/Moeologist/font-hack" target="_blank" rel="noopener">repo</a>，里面包含了一些本文作者处理字体问题的脚本。</p>
+<p>进入本地repo目录，如果需要替换微软雅黑，进入MicrosoftYahei目录，如果需要替换宋体，进入SimSun目录，后面以微软雅黑为例：</p>
+<p>右键以管理员身份运行backup.bat，备份原版字体和字体文件的权限：</p>
+<details>
+<summary>
+backup.bat期待的输出：（点击展开）
+</summary>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">已处理的文件: c:\windows\Fonts\msyh.ttc</span><br><span class="line">已处理的文件: c:\windows\Fonts\msyhbd.ttc</span><br><span class="line">已处理的文件: c:\windows\Fonts\msyhl.ttc</span><br><span class="line">已成功处理 <span class="number">3</span> 个文件; 处理 <span class="number">0</span> 个文件时失败</span><br><span class="line">C:\Windows\Fonts\msyh.ttc</span><br><span class="line">C:\Windows\Fonts\msyhbd.ttc</span><br><span class="line">C:\Windows\Fonts\msyhl.ttc</span><br><span class="line">已复制         <span class="number">3</span> 个文件。</span><br><span class="line">Dumping <span class="string">"MicrosoftYaHei.ttf"</span> <span class="keyword">to</span> <span class="string">"MicrosoftYaHei.ttx"</span><span class="params">...</span></span><br><span class="line">Dumping <span class="string">'name'</span> table<span class="params">...</span></span><br><span class="line">Dumping <span class="string">"MicrosoftYaHeiUI.ttf"</span> <span class="keyword">to</span> <span class="string">"MicrosoftYaHeiUI.ttx"</span><span class="params">...</span></span><br><span class="line">Dumping <span class="string">'name'</span> table<span class="params">...</span></span><br><span class="line">Dumping <span class="string">"MicrosoftYaHeiLight.ttf"</span> <span class="keyword">to</span> <span class="string">"MicrosoftYaHeiLight.ttx"</span><span class="params">...</span></span><br><span class="line">Dumping <span class="string">'name'</span> table<span class="params">...</span></span><br><span class="line">Dumping <span class="string">"MicrosoftYaHeiUILight.ttf"</span> <span class="keyword">to</span> <span class="string">"MicrosoftYaHeiUILight.ttx"</span><span class="params">...</span></span><br><span class="line">Dumping <span class="string">'name'</span> table<span class="params">...</span></span><br><span class="line">Dumping <span class="string">"MicrosoftYaHei-Bold.ttf"</span> <span class="keyword">to</span> <span class="string">"MicrosoftYaHei-Bold.ttx"</span><span class="params">...</span></span><br><span class="line">Dumping <span class="string">'name'</span> table<span class="params">...</span></span><br><span class="line">Dumping <span class="string">"MicrosoftYaHeiUI-Bold.ttf"</span> <span class="keyword">to</span> <span class="string">"MicrosoftYaHeiUI-Bold.ttx"</span><span class="params">...</span></span><br><span class="line">Dumping <span class="string">'name'</span> table<span class="params">...</span></span><br><span class="line">Done.</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+</details>
+<p>无误的话系统字体已经备份到Original文件夹，雅黑的name表也已经dump出来了，Original文件夹里面有这些文件：</p>
+<details>
+<summary>
+文件列表：
+</summary>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="number">2020</span>/<span class="number">10</span>/<span class="number">08</span>  <span class="number">03</span>:<span class="number">45</span>    &lt;DIR&gt;          .</span><br><span class="line"><span class="number">2020</span>/<span class="number">10</span>/<span class="number">08</span>  <span class="number">03</span>:<span class="number">45</span>    &lt;DIR&gt;          ..</span><br><span class="line"><span class="number">2020</span>/<span class="number">10</span>/<span class="number">08</span>  <span class="number">03</span>:<span class="number">45</span>             <span class="number">1</span>,<span class="number">152</span> acl</span><br><span class="line"><span class="number">2020</span>/<span class="number">10</span>/<span class="number">08</span>  <span class="number">03</span>:<span class="number">45</span>            <span class="number">11</span>,<span class="number">001</span> MicrosoftYaHei-Bold.ttx</span><br><span class="line"><span class="number">2020</span>/<span class="number">10</span>/<span class="number">08</span>  <span class="number">03</span>:<span class="number">45</span>             <span class="number">8</span>,<span class="number">054</span> MicrosoftYaHei.ttx</span><br><span class="line"><span class="number">2020</span>/<span class="number">10</span>/<span class="number">08</span>  <span class="number">03</span>:<span class="number">45</span>             <span class="number">5</span>,<span class="number">828</span> MicrosoftYaHeiLight.ttx</span><br><span class="line"><span class="number">2020</span>/<span class="number">10</span>/<span class="number">08</span>  <span class="number">03</span>:<span class="number">45</span>            <span class="number">11</span>,<span class="number">104</span> MicrosoftYaHeiUI-Bold.ttx</span><br><span class="line"><span class="number">2020</span>/<span class="number">10</span>/<span class="number">08</span>  <span class="number">03</span>:<span class="number">45</span>             <span class="number">8</span>,<span class="number">085</span> MicrosoftYaHeiUI.ttx</span><br><span class="line"><span class="number">2020</span>/<span class="number">10</span>/<span class="number">08</span>  <span class="number">03</span>:<span class="number">45</span>             <span class="number">5</span>,<span class="number">869</span> MicrosoftYaHeiUILight.ttx</span><br><span class="line"><span class="number">2019</span>/<span class="number">03</span>/<span class="number">19</span>  <span class="number">12</span>:<span class="number">44</span>        <span class="number">19</span>,<span class="number">647</span>,<span class="number">736</span> msyh.ttc</span><br><span class="line"><span class="number">2019</span>/<span class="number">03</span>/<span class="number">19</span>  <span class="number">12</span>:<span class="number">45</span>        <span class="number">16</span>,<span class="number">829</span>,<span class="number">116</span> msyhbd.ttc</span><br><span class="line"><span class="number">2019</span>/<span class="number">03</span>/<span class="number">19</span>  <span class="number">12</span>:<span class="number">45</span>        <span class="number">12</span>,<span class="number">139</span>,<span class="number">380</span> msyhl.ttc</span><br></pre></td></tr></table></figure>
+</details>
+<p>进入要替换的新字体的文件夹，更纱=&gt;Sarasa，苹方=&gt;PingFang，思源=&gt;Source。因为原版苹方（来自macOS）和原版思源（来自GitHub）都没有hinting，除非自己处理字体 hinting，否则只建议更纱，如果替换自己的字体则新建文件夹，并自行参考上面三个文件夹的 conv.bat 写处理自己字体的 conv.bat。后面以更纱黑体为例：</p>
+<p>进入Sarasa文件夹，运行conv.bat，修改字体的name表。</p>
+<details>
+<summary>
+conv.bat期待的输出：
+</summary>
+<figure class="highlight prolog"><table><tr><td class="code"><pre><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHei.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHei.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiUI.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiUI.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiLight.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiLight.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiUILight.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiUILight.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHei-Bold.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHei-Bold.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Compiling</span> <span class="string">"..\Original\MicrosoftYaHeiUI-Bold.ttx"</span> to <span class="string">"C:\Users\ala\Work\Project\font-hack\MicrosoftYahei\Sarasa\MicrosoftYaHeiUI-Bold.ttf"</span>...</span><br><span class="line"><span class="symbol">Parsing</span> <span class="string">'name'</span> table...</span><br><span class="line"><span class="symbol">Input</span> fonts: [<span class="string">'MicrosoftYaHei.ttf'</span>, <span class="string">'MicrosoftYaHeiUI.ttf'</span>]</span><br><span class="line"><span class="symbol">Output</span> font: msyh.ttc</span><br><span class="line"><span class="symbol">Shared</span> tables: [<span class="string">'GDEF'</span>, <span class="string">'GPOS'</span>, <span class="string">'GSUB'</span>, <span class="string">'OS/2'</span>, <span class="string">'cmap'</span>, <span class="string">'cvt '</span>, <span class="string">'fpgm'</span>, <span class="string">'gasp'</span>, <span class="string">'glyf'</span>, <span class="string">'hhea'</span>, <span class="string">'hmtx'</span>, <span class="string">'loca'</span>, <span class="string">'maxp'</span>, <span class="string">'post'</span>, <span class="string">'prep'</span>, <span class="string">'vhea'</span>, <span class="string">'vmtx'</span>]</span><br><span class="line"><span class="symbol">Un</span>-shared tables: [<span class="string">'head'</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="symbol">Done</span></span><br><span class="line"><span class="symbol">Input</span> fonts: [<span class="string">'MicrosoftYaHeiLight.ttf'</span>, <span class="string">'MicrosoftYaHeiUILight.ttf'</span>]</span><br><span class="line"><span class="symbol">Output</span> font: msyhl.ttc</span><br><span class="line"><span class="symbol">Shared</span> tables: [<span class="string">'GDEF'</span>, <span class="string">'GPOS'</span>, <span class="string">'GSUB'</span>, <span class="string">'OS/2'</span>, <span class="string">'cmap'</span>, <span class="string">'cvt '</span>, <span class="string">'fpgm'</span>, <span class="string">'gasp'</span>, <span class="string">'glyf'</span>, <span class="string">'hhea'</span>, <span class="string">'hmtx'</span>, <span class="string">'loca'</span>, <span class="string">'maxp'</span>, <span class="string">'post'</span>, <span class="string">'prep'</span>, <span class="string">'vhea'</span>, <span class="string">'vmtx'</span>]</span><br><span class="line"><span class="symbol">Un</span>-shared tables: [<span class="string">'head'</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="symbol">Done</span></span><br><span class="line"><span class="symbol">Input</span> fonts: [<span class="string">'MicrosoftYaHei-Bold.ttf'</span>, <span class="string">'MicrosoftYaHeiUI-Bold.ttf'</span>]</span><br><span class="line"><span class="symbol">Output</span> font: msyhbd.ttc</span><br><span class="line"><span class="symbol">Shared</span> tables: [<span class="string">'GDEF'</span>, <span class="string">'GPOS'</span>, <span class="string">'GSUB'</span>, <span class="string">'OS/2'</span>, <span class="string">'cmap'</span>, <span class="string">'cvt '</span>, <span class="string">'fpgm'</span>, <span class="string">'gasp'</span>, <span class="string">'glyf'</span>, <span class="string">'hhea'</span>, <span class="string">'hmtx'</span>, <span class="string">'loca'</span>, <span class="string">'maxp'</span>, <span class="string">'post'</span>, <span class="string">'prep'</span>, <span class="string">'vhea'</span>, <span class="string">'vmtx'</span>]</span><br><span class="line"><span class="symbol">Un</span>-shared tables: [<span class="string">'head'</span>, <span class="string">'name'</span>]</span><br><span class="line"><span class="symbol">Done</span></span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+</details>
+<p>如果生成了 msyh.ttc,msyhl.ttc,msyhb.ttc 三个文件，则新字体置换name表就成功了。这些就是顶着微软雅黑之名，里面字形却是思源的魔改字体，只要把这些魔改字体安装到系统目的就达到了。</p>
+<p>系统字体被占用不能直接删除，返回 MicrosoftYahei 目录，右键以管理员身份运行delreg.bat删掉字体的注册表条目，<strong>注销</strong>系统，重新登陆。</p>
+<details>
+<summary>
+delreg.bat期待的输出：
+</summary>
+<figure class="highlight erlang"><table><tr><td class="code"><pre><span class="line">操作成功完成。</span><br><span class="line">操作成功完成。</span><br><span class="line">操作成功完成。</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+</details>
+<p>登录后注意到本来以微软雅黑显示的内容都换成了其他字体，右键以管理员身份运行replace.bat，键入含有魔改字体msyh.ttc,msyhl.ttc,msyhb.ttc的文件夹的路径（可以是相对路径，相对于replace.bat所在文件夹），重启，大功告成。</p>
+<details>
+<summary>
+replace.bat期待的输出：
+</summary>
+<figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">font dir:Sarasa</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc" 现在由管理员组所有。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc" 现在由管理员组所有。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc" 现在由管理员组所有。</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc</span><br><span class="line">已成功处理 3 个文件; 处理 0 个文件时失败</span><br><span class="line">删除文件 - C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc</span><br><span class="line">删除文件 - C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc</span><br><span class="line">删除文件 - C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc</span><br><span class="line">msyh.ttc</span><br><span class="line">msyhbd.ttc</span><br><span class="line">msyhl.ttc</span><br><span class="line">已复制         3 个文件。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc" 现在由管理员组所有。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc" 现在由管理员组所有。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc" 现在由管理员组所有。</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc</span><br><span class="line">已成功处理 3 个文件; 处理 0 个文件时失败</span><br><span class="line">已处理的文件: C:<span class="symbol">\w</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\w</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\w</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc</span><br><span class="line">已成功处理 3 个文件; 处理 0 个文件时失败</span><br><span class="line">已成功处理 3 个文件; 处理 0 个文件时失败</span><br><span class="line">操作成功完成。</span><br><span class="line">操作成功完成。</span><br><span class="line">操作成功完成。</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
+</details>
+<p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_sarasa.png"> <em>下面是更纱黑体，尽管摆脱了肥硕的微软雅黑，但是新字体部分字形表现不佳</em></p>
+<h2 id="品如的字体">品如的字体</h2>
+<p>macOS里预装了很多可爱的字体，如果你学会绕过系统的限制把它们提取了出来，就会遗憾地发现很多字体在Windows下不能用</p>
+<p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_err.png"></p>
+<p>网络流传有用sed替换苹方cmap表的attribute的方法，可惜这只对苹方和其它部分字体有用，sed替换命令没有处理name表，对cmap表的处理也过于草率。 上面的<a href="https://github.com/Moeologist/font-hack" target="_blank" rel="noopener">font-hack</a>里还提供了一个名为macfonts.py的脚本，可以改善mac字体的兼容性，用法：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python macfonts.py [*.ttf|*.otf|*.ttc|dir]</span><br></pre></td></tr></table></figure>
+<h2 id="几个字体相关的注册表键值">几个字体相关的注册表键值</h2>
+<figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\F</span>onts]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>映射已安装的字体文件 <figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\F</span>ontLink<span class="symbol">\S</span>ystemLink]</span><br></pre></td></tr></table></figure></p></li>
+<li><p>字体的 fallback 表，很多软件喜欢用Tahoma作UI字体，这个字体没有中文码位，所有中文字形都通过此条目 fallback 到宋体上面（无衬线配衬线，嗯），把Tahoma键对应数据里的SIMSUN.TTC,SimSun替换成MSYH.TTC,Microsoft YaHei UI,128,96，用Tahoma显示字体的软件就不会显示成宋体了 <figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">[HKEY_LOCAL_MACHINE<span class="symbol">\S</span>OFTWARE<span class="symbol">\M</span>icrosoft<span class="symbol">\W</span>indows NT<span class="symbol">\C</span>urrentVersion<span class="symbol">\F</span>ontSubstitutes]</span><br></pre></td></tr></table></figure></p></li>
+<li><p>字体的 substitute 表，没有安装、但键值存在于的字体会被键值对应的数据指代的字体冒充</p></li>
+</ul>
+<h2 id="替换qt程序的字体引擎">替换Qt程序的字体引擎</h2>
+<p>在存在Qt动态库(Qt5Core.dll等等)的文件夹下面新建qt.conf，如果已经有文件则直接编辑该文件，添加以下行：</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[Platforms]</span></span><br><span class="line"><span class="attr">WindowsArguments</span> = fontengine=freetype</span><br></pre></td></tr></table></figure>
+<p>显式要求Qt程序使用freetype渲染字体。</p>
+<h2 id="替换系统字体渲染引擎">替换系统字体渲染引擎</h2>
+<p><a href="https://www.mactype.net/" target="_blank" rel="noopener">MacType</a> 可以通过 Hook Windows API 替换 GDI 字体渲染引擎为 FreeType，规避了Windows提供的糟糕字体渲染，还能自定义许多渲染选项和字体热替换。这个软件本来是年久失修的，最近忽然又开始更新了，而且实验性的支持了 DirectWrite，尽管这个解决方案有诸多问题，还是建议大家尝试。</p>
+<h2 id="终极解决方案">终极解决方案</h2>
+<p>如果追求完美的字体体验，还是 <del>购买mac</del> 使用Linux DE吧！</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>MS的字体文档： https://docs.microsoft.com/en-us/typography/opentype/spec/name Apple的字体文档：https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6name.html<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://moeologist.github.io/win-font/" data-id="ckhrz8wil0007gcw2p1fccjee" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "ala"
+        },
+        "headline": "Windows 字体折腾指南",
+        "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png",
+        "keywords": "",
+        "genre": "Windows",
+        "datePublished": "2020-10-14",
+        "dateCreated": "2020-10-14",
+        "dateModified": "2020-11-22",
+        "url": "https://moeologist.github.io/win-font/",
+        "description": "改善Windows自身的字体渲染效果
+众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。",
+        "wordCount": 1023
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <!-- Valine -->
+    <div class="vcomments"></div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/Moeologist" target="_blank" rel="noopener">
+                        <i class="icon fa fa-zhihu"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/moeologist" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/MoeologistAla" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/hook-wndproc/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            挂钩 Windows 的窗口消息处理函数
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/clang-constexpr/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">实现 constexpr 数学函数</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/hook-wndproc/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
+                            <p class="item-title"><a href="/hook-wndproc/" class="title">挂钩 Windows 的窗口消息处理函数</a></p>
+                            <p class="item-date"><time datetime="2020-10-19T07:51:50.606Z" itemprop="datePublished">2020-10-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/win-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
+                            <p class="item-title"><a href="/win-font/" class="title">Windows 字体折腾指南</a></p>
+                            <p class="item-date"><time datetime="2020-10-14T14:15:05.162Z" itemprop="datePublished">2020-10-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/clang-constexpr/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
+                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数</a></p>
+                            <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/var-vs-let/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Web/">Web</a></p>
+                            <p class="item-title"><a href="/var-vs-let/" class="title">JavaScript 走马观花</a></p>
+                            <p class="item-date"><time datetime="2019-08-09T16:01:43.196Z" itemprop="datePublished">2019-08-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/knapsack/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Algorithm/">Algorithm</a></p>
+                            <p class="item-title"><a href="/knapsack/" class="title">动态规划——从入门到入门</a></p>
+                            <p class="item-date"><time datetime="2019-08-09T16:01:43.173Z" itemprop="datePublished">2019-08-10</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo">萌学研究室</a>
+                </h1>
+                <p>&copy; 2020 ala</p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script src="//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+    <script>
+        var GUEST = ['nick','mail','link'];
+        var meta = '';
+        meta = meta.split(',').filter(function (item) {
+            return GUEST.indexOf(item)>-1;
+        });
+        var avatarcdn = 'https://gravatar.loli.net/avatar/' == true;
+        new Valine({
+            el: '.vcomments',
+            notify: "",
+            verify: "",
+            appId: "IgQvaFO0ryAaOY7q5HfUtnUF-gzGzoHsz",
+            appKey: "6gmUxC5QhGtJc6cm2Uqw86hP",
+            placeholder: "这里支持Markdown语法和Tex公式哦",
+            avatar:"identicon",
+            recordIP:"true",
+            visitor: "true"
+        });
+    </script>
+
+
+
+
+
+    
+    
+    
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ]
+                });
+            });
+        </script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+        <script src="//cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

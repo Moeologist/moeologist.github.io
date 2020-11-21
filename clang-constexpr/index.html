@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+
+    
+
+    
+    <title>实现 constexpr 数学函数 | 萌学研究室</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="keywords" content>
+    
+    <meta name="description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法，">
+<meta name="keywords" content="编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现 constexpr 数学函数">
+<meta property="og:url" content="https://moeologist.github.io/clang-constexpr/index.html">
+<meta property="og:site_name" content="萌学研究室">
+<meta property="og:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg">
+<meta property="og:updated_time" content="2020-10-27T17:09:49.237Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实现 constexpr 数学函数">
+<meta name="twitter:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法，">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="data:image/x-icon;base64,R0lGODlhEAAQAPIAAAAAAHArAIw2AK1DANGGWP+fY////wAAACH5BAkUAAcAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAAD6nh3d3fnnHPOOeecc845x3Ecx3Ecx3EcxwEcAHAAx3Ecx3EcByAAgwFgAAAADofD4QAQDASDwWAwGAwAhwMAMBgMBoPBQCAYAA4HgGAgGAgCg4FgMBgMAIcDQDAQDAYDAgIAAgMDAAcHBwADAwEAAQAABQAAAwAHBwACAgMABQAGAAUABwAHBwcHAAICAAUFBgAFAAcHBwcHBwcAAAAEBQUFBQUABwcHBwcHBwcHAAQFBQUABwcHBwcHBwcHBwcAAAAABwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcOHDhw4MCBAwcSAAAh+QQJFAAHACwAAAAAEAAQAAAD6nh3d3fnnHPOOeecc845x3Ecx3Ecx3EcxwEcAHAAx3Ecx3EcByAAgwFgAAAADofD4QAQDASDwWAwGAwAhwMAMBgMBoPBQCAYAA4HgGAgGAgCg4FgMBgMAIcDQDAQDAYDAgIAAgMDAAcHBwADAwEAAQAABQAAAwAHBwACAgMABQAGAAUABwAHBwcHAAICAAUFBgAFAAcHBwcHBwcAAAAEBQUFBQUABwcHBwcHBwcHAAQFBQUABwcHBwcHBwcHBwcAAAAABwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcOHDhw4MCBAwcSAAAh+QQJFAAHACwAAAAAEAAQAAAD6nh3d3fnnHPOOeecc845x3Ecx3Ecx3EcxwEcAHAAx3Ecx3EcByAAgwFgAAAADofD4QAQDASDwWAwGAwAhwMAMBgMBoPBQCAYAA4HgGAgGAgCg4FgMBgMAIcDQDAQDAYDAgIAAgMDAAcHBwADAwEAAQAABQAAAwAHBwACAgMABQAGAAUABwAHBwcHAAICAAUFBgAFAAcHBwcHBwcAAAAEBQUFBQUABwcHBwcHBwcHAAQFBQUABwcHBwcHBwcHBwcAAAAABwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcOHDhw4MCBAwcSAAAh+QQJCgAIACwAAAAAEAAQAIMAAAAFAgBwKwCMNgCtQwDRhlj/n2P///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE7xAhhBBCCCGEEEIIgiAIgiAIgiAIgiAIgiAIAiAAgAAIgiAIBAKBAAwABAKAAAAAEAgEAgEYEAYEAoFAIBAACAQAQCAQCAQCYTAgABAIwIAwIAwEBMKAQCAQAAgIAAMEAwQEBAMDAAMEBAAICAgABAQCAAIAAAYAAAQACAgAAwMEAAYAAQAGAAgACAgICAADAwAGBgcABgAICAgICAgIAAAABQYGBgYGAAgICAgICAgICAAFBgYGAAgICAgICAgICAgIAAAAAAgICAgICAgICAgICAgICAgICAgICBAgQIAAAQIECBAgQIAAAQIECCIAACH5BAkKAAcALAAAAAAQABAAggAAAAUCAHArAIw2AK1DANGGWP+fYwAAAAPqeHd3d+ecc84555xzzjnHcRzHcRzHcRzHARwAcADHcRzHcRwHMAAEAoAAAAAOh8PhABgQBgQCgUAgEACHAwBAIBAIBAJhMCAADgfAgDAgDAQEwoBAIBAAhwNgQBgQCAQDAwADBAQABwcHAAQEAgACAAAGAAAEAAcHAAMDBAAGAAYGBgAHAAcHBwcAAwMABgYBAQYABwcHBwcHBwAAAAUGBgYGBgAHBwcHBwcHBwcABQYGBgAHBwcHBwcHBwcHBwAAAAAHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBw4cOHDgwIEDBxIAACH5BAkKAAgALAAAAAAQABAAgwAAAAUCAHArAIw2AK1DANGGWP+fY////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATvECGEEEIIIYQQQgiCIAiCIAiCIAiCIAiCIAgCIACAAAiCIAgEAoEADAAEAoAAAAAQCAQCARgQBgQCgUAgEAAIBABAIBAIBAJhMCAAEAjAgDAgDAQEwoBAIBAACAgAAwQDBAQEAwMAAwQEAAgICAAEBAIAAgAABgAABAAICAADAwQABgAAAAYACAAICAgIAAMDAAYGBwEGAAgICAgICAgAAAAFBgYGBgYACAgICAgICAgIAAUGBgYACAgICAgICAgICAgAAAAACAgICAgICAgICAgICAgICAgICAgIECBAgAABAgQIECBAgAABAgQIIgAAOw==">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/css/style.css">
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo">萌学研究室</a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">后来我就念了两首诗</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">主页</a>
+                                </li>
+                            
+                                    <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/C-C/">C/C++</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Windows/">Windows</a></li></ul>
+                                
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/',
+        CONTENT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/insight.js" /></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/C-C/">C/C++</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-clang-constexpr" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        实现 constexpr 数学函数
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+  <div class="article-date">
+    <i class="fa fa-calendar"></i>
+    <a href="/clang-constexpr/" class="article-date">
+       <time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time>
+    </a>
+  </div>
+
+
+<div class="article-date">
+  <i class="fa fa-calendar-plus-o"></i>
+  <a href="/clang-constexpr/" class="article-date">
+     <time datetime="2020-10-27T17:09:49.237Z" itemprop="dateModified">2020-10-28</time>
+  </a>
+</div>
+
+
+                
+
+                
+                
+   <span id="/clang-constexpr/" class="leancloud-visitors" data-flag-title="实现 constexpr 数学函数">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">阅读次数: </span>
+   <i class="leancloud-visitors-count">1000000</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            
+
+            
+
+            
+
+            <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg"></p>
+<h2 id="动机">动机</h2>
+<p>constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。</p>
+<h2 id="解决方案">解决方案</h2>
+<h3 id="写个编译期数学库">写个编译期数学库</h3>
+<p>想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了<a href="https://github.com/kthohr/gcem" target="_blank" rel="noopener">gcem</a>,<a href="https://github.com/Morwenn/static_math" target="_blank" rel="noopener">static_math</a></p>
+<p>只要熟悉数值算法，不需要太多的元编程知识也能写出上述的编译期数学函数。可惜的是constexpr的限制意味着无法使用汇编，所以写出来的数学函数不可能与高度优化的数学库相提并论。这不是什么大问题，因为C++程序员（尤其是酷爱模板的程序员）绝不会介意编译时间多一点。最大的问题在于，constexpr一个好处就是编译时运行时都可用，除非肯定这些函数只在编译期用，因为运行期运算回退到低效的数学函数是任何使用C++的程序员都无法接受的。</p>
+<p>GCC的扩展 __builtin_constant_p 或者 C++20 的 is_constant_evaluated 可以用于解决这个问题，探测求值语境选择合适算法。</p>
+<p>举个例子，写一个开平方函数，先请出牛顿法：方程<span class="math inline">\(f(x)=0\)</span>的根的近似值x可以由<span class="math inline">\(x&#39;= x-\frac{f(x)}{f&#39;(x)}\)</span>迭代求得，迭代次数越多精度越高，所以对于开平方函数sqrt(a)，构造<span class="math inline">\(f(x)=x^2-a\)</span>求根即可。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_slow</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> x = a;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">        x = (x + a / x) / <span class="number">2</span>; <span class="comment">// 牛顿法迭代八次,因为constexpr的限制著名的卡马克魔法数也不能用</span></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_adapter</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (__builtin_is_constant_evaluated())</span><br><span class="line">        <span class="keyword">return</span> sqrt_slow(a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sqrt</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_adapter_gcc_only</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123; <span class="comment">// 至少需要GCC支持C++14的constexpr,不推荐使用</span></span><br><span class="line">    <span class="keyword">if</span> (__builtin_constant_p(a)) <span class="comment">// Clang的这个函数和GCC行为不同 https://reviews.llvm.org/D35190</span></span><br><span class="line">        <span class="keyword">return</span> sqrt_slow(a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sqrt</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = sqrt_adapter(<span class="number">2.</span>);</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; d;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; sqrt_adapter(d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="等新标准">等新标准</h3>
+<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0533r0.pdf" target="_blank" rel="noopener">p0533r0</a>,<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1383r0.pdf" target="_blank" rel="noopener">p1383r0</a>似乎没什么动静，且不说C++23，恐怕猴年马月也不一定有。</p>
+<h3 id="自己动手丰衣足食">自己动手丰衣足食</h3>
+<p>尝试下面的代码对GCC来讲并没有什么压力：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = <span class="built_in">sqrt</span>(<span class="number">2</span>); <span class="comment">// 仅GCC可用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>搜索了一下又是GCC扩展，&lt;cmath&gt;里的函数支持了constexpr，这些浮点函数在有浮点错误时由编译器报出<code>is not a constant expression</code>错误，这似乎一定程度上就解决了问题（p1383r0里讨论了其他方面的潜在问题）。</p>
+<p>要命的是Clang不支持这个扩展。想要只能自己动手，事后发现，Clang源码比想象中的要好改。</p>
+<p>把<a href="https://github.com/llvm/llvm-project.git" target="_blank" rel="noopener">repo</a>拉下来，花上不少时间找到是这个文件<strong>clang/lib/AST/ExprConstant.cpp</strong>负责对常量表达式求值，于是照龙画蛇，找里面已经支持 constexpr 的 __builtin 函数观摩一番，然后把不支持的补上，浮点错误则让求值失败，就可以使内建函数支持 constexpr。这里有一个<a href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/raw/llvm-v10.patch">patch</a>，可以参考里面的内容。</p>
+<p>现在内建函数（如 __builtin_sqrt）是可以用在常量求值语境里了，但是如果希望&lt;cmath&gt;里的函数也可以，还要在libc++的&lt;cmath&gt;里受支持的函数签名加上constexpr，如果clang使用--stdlib=libstdc++则不需要此修改。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = __builtin_sqrt(<span class="number">2</span>); <span class="comment">// 修改版Clang也能用</span></span><br><span class="line">    <span class="comment">// constexpr double t = sqrt(2); // 还需要改libc++</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如何构建 Clang 参照<a href="https://llvm.org/docs/CMake.html" target="_blank" rel="noopener">官方文档</a>即可。</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="ckhrz8wie0002gcw28c8e5q7m" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "ala"
+        },
+        "headline": "实现 constexpr 数学函数",
+        "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg",
+        "keywords": "",
+        "genre": "C/C++",
+        "datePublished": "2020-10-08",
+        "dateCreated": "2020-10-08",
+        "dateModified": "2020-10-28",
+        "url": "https://moeologist.github.io/clang-constexpr/",
+        "description": "
+动机
+constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。
+解决方案
+写个编译期数学库
+想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math
+只要熟悉数值算法，",
+        "wordCount": 338
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <!-- Valine -->
+    <div class="vcomments"></div>
+
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>关注我 :</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/Moeologist" target="_blank" rel="noopener">
+                        <i class="icon fa fa-zhihu"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/moeologist" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/MoeologistAla" target="_blank" rel="noopener">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/win-font/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            Windows 字体折腾指南
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/var-vs-let/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">JavaScript 走马观花</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/hook-wndproc/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
+                            <p class="item-title"><a href="/hook-wndproc/" class="title">挂钩 Windows 的窗口消息处理函数</a></p>
+                            <p class="item-date"><time datetime="2020-10-19T07:51:50.606Z" itemprop="datePublished">2020-10-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/win-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Windows/">Windows</a></p>
+                            <p class="item-title"><a href="/win-font/" class="title">Windows 字体折腾指南</a></p>
+                            <p class="item-date"><time datetime="2020-10-14T14:15:05.162Z" itemprop="datePublished">2020-10-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/clang-constexpr/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
+                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数</a></p>
+                            <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/var-vs-let/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Web/">Web</a></p>
+                            <p class="item-title"><a href="/var-vs-let/" class="title">JavaScript 走马观花</a></p>
+                            <p class="item-date"><time datetime="2019-08-09T16:01:43.196Z" itemprop="datePublished">2019-08-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/knapsack/" class="thumbnail">
+    
+    
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Algorithm/">Algorithm</a></p>
+                            <p class="item-title"><a href="/knapsack/" class="title">动态规划——从入门到入门</a></p>
+                            <p class="item-date"><time datetime="2019-08-09T16:01:43.173Z" itemprop="datePublished">2019-08-10</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Algorithm/">Algorithm</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Windows/">Windows</a><span class="category-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+
+            
+                
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo">萌学研究室</a>
+                </h1>
+                <p>&copy; 2020 ala</p>
+                
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+    
+    <script src="//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+    <script>
+        var GUEST = ['nick','mail','link'];
+        var meta = '';
+        meta = meta.split(',').filter(function (item) {
+            return GUEST.indexOf(item)>-1;
+        });
+        var avatarcdn = 'https://gravatar.loli.net/avatar/' == true;
+        new Valine({
+            el: '.vcomments',
+            notify: "",
+            verify: "",
+            appId: "IgQvaFO0ryAaOY7q5HfUtnUF-gzGzoHsz",
+            appKey: "6gmUxC5QhGtJc6cm2Uqw86hP",
+            placeholder: "这里支持Markdown语法和Tex公式哦",
+            avatar:"identicon",
+            recordIP:"true",
+            visitor: "true"
+        });
+    </script>
+
+
+
+
+
+    
+    
+    
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ]
+                });
+            });
+        </script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+        <script src="//cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+    
+    
+
+    
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
