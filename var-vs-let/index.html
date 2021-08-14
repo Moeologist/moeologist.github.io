@@ -6,7 +6,7 @@
     
 
     
-    <title>JavaScript 走马观花 | 萌学研究室</title>
+    <title>JavaScript 走马观花 | 何もありません</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
@@ -17,15 +17,15 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript 走马观花">
 <meta property="og:url" content="https://moeologist.github.io/var-vs-let/index.html">
-<meta property="og:site_name" content="萌学研究室">
+<meta property="og:site_name" content="何もありません">
 <meta property="og:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，把受的苦记下来，引用内容全来自MDN。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg">
+<meta property="og:image" content="https://moeologist.github.io/images/js.jpg">
 <meta property="og:updated_time" content="2020-11-21T16:53:43.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 走马观花">
 <meta name="twitter:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，把受的苦记下来，引用内容全来自MDN。">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg">
+<meta name="twitter:image" content="https://moeologist.github.io/images/js.jpg">
     
 
     
@@ -34,7 +34,7 @@
         <link rel="icon" href="data:image/x-icon;base64,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">
     
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
@@ -54,11 +54,11 @@
             <div class="container-inner">
                 <div id="header-title">
                     <h1 class="logo-wrap">
-                        <a href="/" class="logo">萌学研究室</a>
+                        <a href="/" class="logo">何もありません</a>
                     </h1>
                     
                         <h2 class="subtitle-wrap">
-                            <p class="subtitle">后来我就念了两首诗</p>
+                            <p class="subtitle">想到哪写到哪</p>
                         </h2>
                     
                 </div>
@@ -107,13 +107,13 @@
             TAGS: '标签',
             UNTITLED: '(未命名)',
         },
-        ROOT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/',
-        CONTENT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/content.json',
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/insight.js" /></script>
+<script src="/js/insight.js" /></script>
 
 </div>
                         </nav>
@@ -191,7 +191,7 @@
 
             
 
-            <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg"> [src: 粗点心战争]</p>
+            <p><img src="/images/js.jpg"> [src: 粗点心战争]</p>
 <p>为了写博客被迫学了一点点JavaScript，把受的苦记下来，引用内容全来自MDN。</p>
 <a id="more"></a>
 <h2 id="自动分号插入">自动分号插入</h2>
@@ -307,7 +307,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
 
 
 
-    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="ckhrz8wii0004gcw2usftethy" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="cksbsahei00047cud19elcag1" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -378,7 +378,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
             "name": "ala"
         },
         "headline": "JavaScript 走马观花",
-        "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg",
+        "image": "https://moeologist.github.io/images/js.jpg",
         "keywords": "",
         "genre": "Web",
         "datePublished": "2019-08-10",
@@ -415,24 +415,8 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
             
                 
                 <li>
-                    <a class="social-tooltip" title="zhihu" href="https://www.zhihu.com/people/Moeologist" target="_blank" rel="noopener">
-                        <i class="icon fa fa-zhihu"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
                     <a class="social-tooltip" title="github" href="https://github.com/moeologist" target="_blank" rel="noopener">
                         <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="twitter" href="https://twitter.com/MoeologistAla" target="_blank" rel="noopener">
-                        <i class="icon fa fa-twitter"></i>
                     </a>
                 </li>
                 
@@ -481,7 +465,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/hook-wndproc/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -501,7 +485,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/win-font/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
     
     
 </a>
@@ -521,7 +505,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -541,7 +525,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -561,7 +545,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
     
     
 </a>
@@ -619,9 +603,9 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
             <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
             <div class="credit">
                 <h1 class="logo-wrap">
-                    <a href="/" class="logo">萌学研究室</a>
+                    <a href="/" class="logo">何もありません</a>
                 </h1>
-                <p>&copy; 2020 ala</p>
+                <p>&copy; 2021 ala</p>
                 
             </div>
             <div class="footer-plugins">
@@ -652,7 +636,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
             appId: "IgQvaFO0ryAaOY7q5HfUtnUF-gzGzoHsz",
             appKey: "6gmUxC5QhGtJc6cm2Uqw86hP",
             placeholder: "这里支持Markdown语法和Tex公式哦",
-            avatar:"identicon",
+            avatar:"retro",
             recordIP:"true",
             visitor: "true"
         });
@@ -690,7 +674,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
 
 
 <!-- Custom Scripts -->
-<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>
