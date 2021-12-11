@@ -6,7 +6,7 @@
     
 
     
-    <title>挂钩 Windows 的窗口消息处理函数 | 何もありません</title>
+    <title>挂钩 Windows 的窗口消息处理函数 | 泛用型自宅机器人</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
@@ -17,7 +17,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="挂钩 Windows 的窗口消息处理函数">
 <meta property="og:url" content="https://moeologist.github.io/hook-wndproc/index.html">
-<meta property="og:site_name" content="何もありません">
+<meta property="og:site_name" content="泛用型自宅机器人">
 <meta property="og:description" content="[src: Terraria] 动机 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着进">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://moeologist.github.io/images/Achievement_Hold_on_Tight.png">
@@ -54,7 +54,7 @@
             <div class="container-inner">
                 <div id="header-title">
                     <h1 class="logo-wrap">
-                        <a href="/" class="logo">何もありません</a>
+                        <a href="/" class="logo">泛用型自宅机器人</a>
                     </h1>
                     
                         <h2 class="subtitle-wrap">
@@ -226,7 +226,7 @@
 <p>这节实在没什么可写的（毕竟作者也所知甚少），就直接把<a href="https://en.wikipedia.org/wiki/DLL_injection" target="_blank" rel="noopener">wiki</a>放在在这里了，里面搜罗了很多方法。值得一提的是，除了注册表方法（全局），可实施性和通用性都比较好的方法应该就是 CreateRemoteThread 的代码注入方法了，也很适合用在这里。</p>
 <p>我把 wiki 的示例代码增补成了一个命令行工具 Injector，和前文的 Hook DLL 源码放在了同一个 <a href="https://github.com/Moeologist/win-hack" target="_blank" rel="noopener">repo</a> 里，非常粗糙的程序，小心取用。</p>
 <p>实际上，要求程序加载指定 DLL，也可以不在运行时注入 DLL，通过修改 PE 文件的导入表（import table）解决问题<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>，这有一定的侵入性但某些情况下可能有优势。</p>
-<section class="footnotes" role="doc-endnotes">
+<section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn1" role="doc-endnote"><p>尽管类似，但是挂钩 Win32 API 比本文的问题复杂得多<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -240,7 +240,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/hook-wndproc/" data-id="cksbsbdwu0004esud9o632n19" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/hook-wndproc/" data-id="ckx29746x0005ysg557vdwlaj" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -322,7 +322,7 @@
  [src: Terraria]
 动机
 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE",
-        "wordCount": 771
+        "wordCount": 772
     }
 </script>
 
@@ -528,7 +528,7 @@
             <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
             <div class="credit">
                 <h1 class="logo-wrap">
-                    <a href="/" class="logo">何もありません</a>
+                    <a href="/" class="logo">泛用型自宅机器人</a>
                 </h1>
                 <p>&copy; 2021 ala</p>
                 
