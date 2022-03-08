@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="泛用型自宅机器人">
 <meta property="og:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，把受的苦记下来，引用内容全来自MDN。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://moeologist.github.io/images/js.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg">
 <meta property="og:updated_time" content="2020-11-21T16:53:43.118Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 走马观花">
 <meta name="twitter:description" content="[src: 粗点心战争] 为了写博客被迫学了一点点JavaScript，把受的苦记下来，引用内容全来自MDN。">
-<meta name="twitter:image" content="https://moeologist.github.io/images/js.jpg">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg">
     
 
     
@@ -34,7 +34,7 @@
         <link rel="icon" href="data:image/x-icon;base64,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">
     
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/css/style.css">
     <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
@@ -107,13 +107,13 @@
             TAGS: '标签',
             UNTITLED: '(未命名)',
         },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
+        ROOT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/',
+        CONTENT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="/js/insight.js" /></script>
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/insight.js" /></script>
 
 </div>
                         </nav>
@@ -191,7 +191,7 @@
 
             
 
-            <p><img src="/images/js.jpg"> [src: 粗点心战争]</p>
+            <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg"> [src: 粗点心战争]</p>
 <p>为了写博客被迫学了一点点JavaScript，把受的苦记下来，引用内容全来自MDN。</p>
 <a id="more"></a>
 <h2 id="自动分号插入">自动分号插入</h2>
@@ -307,7 +307,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
 
 
 
-    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="cl0i3xf4t0007b0g5qzd7358q" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="cl0i44qy100075cg55pyyf5i3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -378,7 +378,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
             "name": "ala"
         },
         "headline": "JavaScript 走马观花",
-        "image": "https://moeologist.github.io/images/js.jpg",
+        "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg",
         "keywords": "",
         "genre": "Web",
         "datePublished": "2019-08-10",
@@ -465,7 +465,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/hook-wndproc/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -485,7 +485,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/win-font/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
     
     
 </a>
@@ -505,7 +505,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -525,7 +525,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -545,7 +545,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
     
     
 </a>
@@ -674,7 +674,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
 
 
 <!-- Custom Scripts -->
-<script src="/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>

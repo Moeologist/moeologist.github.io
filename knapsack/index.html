@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="泛用型自宅机器人">
 <meta property="og:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。注意：本文内容非常多！">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://moeologist.github.io/images/np_complete.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png">
 <meta property="og:updated_time" content="2020-12-13T17:21:26.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="动态规划——从入门到入门">
 <meta name="twitter:description" content="[src: xkcd] 前言 动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。注意：本文内容非常多！">
-<meta name="twitter:image" content="https://moeologist.github.io/images/np_complete.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png">
     
 
     
@@ -34,7 +34,7 @@
         <link rel="icon" href="data:image/x-icon;base64,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">
     
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/css/style.css">
     <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
@@ -107,13 +107,13 @@
             TAGS: '标签',
             UNTITLED: '(未命名)',
         },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
+        ROOT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/',
+        CONTENT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="/js/insight.js" /></script>
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/insight.js" /></script>
 
 </div>
                         </nav>
@@ -191,7 +191,7 @@
 
             
 
-            <p><img src="/images/np_complete.png"> [src: <a href="https://xkcd.com/287/" target="_blank" rel="noopener">xkcd</a>]</p>
+            <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png"> [src: <a href="https://xkcd.com/287/" target="_blank" rel="noopener">xkcd</a>]</p>
 <h2 id="前言">前言</h2>
 <p>动态规划一直是我很困扰的一个问题，最近读了一些资料，写了一些代码，顺便把一些经典问题的思路捋了捋，并把过程记录下来。注意：本文内容非常多！</p>
 <a id="more"></a>
@@ -301,7 +301,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
 </div>
 <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css">
 <script src="//cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
-<script src="/js/knapsack.js"></script>
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/knapsack.js"></script>
 
 <h4 id="换个角度">换个角度</h4>
 <p>因为算法的时间复杂度为 <span class="math inline">\(O(nW)\)</span>，当物品的 <span class="math inline">\(w\)</span> 有较大的取值范围，<span class="math inline">\(W\)</span> 也是较大值的话，这个解的时间复杂度无法令人满意。如果 <span class="math inline">\(W\)</span> 和 <span class="math inline">\(w_i\)</span> 有最大公约数的话，在做动态规划之前除掉这个数可以大幅提高性能，如果最大公约数不存在，或者除掉后 <span class="math inline">\(W\)</span> 依然是很大的值，那我们不妨换个思路。</p>
@@ -414,7 +414,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
 
 
 
-    <a data-url="https://moeologist.github.io/knapsack/" data-id="cl0i3xf4r0005b0g598h2o9jv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/knapsack/" data-id="cl0i44qxz00055cg5doxqgb2v" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -485,7 +485,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
             "name": "ala"
         },
         "headline": "动态规划——从入门到入门",
-        "image": "https://moeologist.github.io/images/np_complete.png",
+        "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png",
         "keywords": "",
         "genre": "Algorithm",
         "datePublished": "2019-08-10",
@@ -567,7 +567,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
                             <a href="/hook-wndproc/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -587,7 +587,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
                             <a href="/win-font/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
     
     
 </a>
@@ -607,7 +607,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -627,7 +627,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -647,7 +647,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
     
     
 </a>
@@ -776,7 +776,7 @@ if (/MSIE|Trident/.test(window.navigator.userAgent)) {
 
 
 <!-- Custom Scripts -->
-<script src="/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>

@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="泛用型自宅机器人">
 <meta property="og:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://moeologist.github.io/images/things.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg">
 <meta property="og:updated_time" content="2020-10-27T17:09:49.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实现 constexpr 数学函数">
 <meta name="twitter:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法，">
-<meta name="twitter:image" content="https://moeologist.github.io/images/things.jpg">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg">
     
 
     
@@ -34,7 +34,7 @@
         <link rel="icon" href="data:image/x-icon;base64,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">
     
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/css/style.css">
     <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
@@ -107,13 +107,13 @@
             TAGS: '标签',
             UNTITLED: '(未命名)',
         },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
+        ROOT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/',
+        CONTENT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="/js/insight.js" /></script>
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/insight.js" /></script>
 
 </div>
                         </nav>
@@ -191,7 +191,7 @@
 
             
 
-            <p><img src="/images/things.jpg"></p>
+            <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg"></p>
 <h2 id="动机">动机</h2>
 <p>constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。</p>
 <h2 id="解决方案">解决方案</h2>
@@ -208,7 +208,7 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = <span class="built_in">sqrt</span>(<span class="number">2</span>); <span class="comment">// 仅GCC可用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>搜索了一下又是GCC扩展，&lt;cmath&gt;里的函数支持了constexpr，这些浮点函数在有浮点错误时由编译器报出<code>is not a constant expression</code>错误，这似乎一定程度上就解决了问题（p1383r0里讨论了其他方面的潜在问题）。</p>
 <p>要命的是Clang不支持这个扩展。想要只能自己动手，事后发现，Clang源码比想象中的要好改。</p>
-<p>把<a href="https://github.com/llvm/llvm-project.git" target="_blank" rel="noopener">repo</a>拉下来，花上不少时间找到是这个文件<strong>clang/lib/AST/ExprConstant.cpp</strong>负责对常量表达式求值，于是照龙画蛇，找里面已经支持 constexpr 的 __builtin 函数观摩一番，然后把不支持的补上，浮点错误则让求值失败，就可以使内建函数支持 constexpr。这里有一个<a href="/raw/llvm-v10.patch">patch</a>，可以参考里面的内容。</p>
+<p>把<a href="https://github.com/llvm/llvm-project.git" target="_blank" rel="noopener">repo</a>拉下来，花上不少时间找到是这个文件<strong>clang/lib/AST/ExprConstant.cpp</strong>负责对常量表达式求值，于是照龙画蛇，找里面已经支持 constexpr 的 __builtin 函数观摩一番，然后把不支持的补上，浮点错误则让求值失败，就可以使内建函数支持 constexpr。这里有一个<a href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/raw/llvm-v10.patch">patch</a>，可以参考里面的内容。</p>
 <p>现在内建函数（如 __builtin_sqrt）是可以用在常量求值语境里了，但是如果希望&lt;cmath&gt;里的函数也可以，还要在libc++的&lt;cmath&gt;里受支持的函数签名加上constexpr，如果clang使用--stdlib=libstdc++则不需要此修改。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = __builtin_sqrt(<span class="number">2</span>); <span class="comment">// 修改版Clang也能用</span></span><br><span class="line">    <span class="comment">// constexpr double t = sqrt(2); // 还需要改libc++</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如何构建 Clang 参照<a href="https://llvm.org/docs/CMake.html" target="_blank" rel="noopener">官方文档</a>即可。</p>
@@ -219,7 +219,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="cl0i3xf4n0002b0g5e3vduxd0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="cl0i44qxu00025cg5r50vvspn" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -290,7 +290,7 @@
             "name": "ala"
         },
         "headline": "实现 constexpr 数学函数",
-        "image": "https://moeologist.github.io/images/things.jpg",
+        "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg",
         "keywords": "",
         "genre": "C/C++",
         "datePublished": "2020-10-08",
@@ -382,7 +382,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/hook-wndproc/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -402,7 +402,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/win-font/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
     
     
 </a>
@@ -422,7 +422,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -442,7 +442,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -462,7 +462,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
     
     
 </a>
@@ -591,7 +591,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
 
 
 <!-- Custom Scripts -->
-<script src="/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>

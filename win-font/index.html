@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="泛用型自宅机器人">
 <meta property="og:description" content="改善Windows自身的字体渲染效果 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://moeologist.github.io/images/font_1080p.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png">
 <meta property="og:updated_time" content="2020-11-21T17:06:50.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows 字体折腾指南">
 <meta name="twitter:description" content="改善Windows自身的字体渲染效果 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。">
-<meta name="twitter:image" content="https://moeologist.github.io/images/font_1080p.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png">
     
 
     
@@ -34,7 +34,7 @@
         <link rel="icon" href="data:image/x-icon;base64,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">
     
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/css/style.css">
     <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
@@ -107,13 +107,13 @@
             TAGS: '标签',
             UNTITLED: '(未命名)',
         },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
+        ROOT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/',
+        CONTENT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="/js/insight.js" /></script>
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/insight.js" /></script>
 
 </div>
                         </nav>
@@ -194,7 +194,7 @@
             <h2 id="改善windows自身的字体渲染效果">改善Windows自身的字体渲染效果</h2>
 <p>众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，<a href="https://www.zhihu.com/question/67196637" target="_blank" rel="noopener">新版微软雅黑</a>又迟迟不见踪影。</p>
 <a id="more"></a>
-<p><img src="/images/font_1080p.png"> <em>2160p对比1080p，2160p为200%UI缩放，1080p为nearest-neighbor插值upscaling到2x，字体为微软雅黑（Microsoft Yahei UI），字号为10pt</em></p>
+<p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png"> <em>2160p对比1080p，2160p为200%UI缩放，1080p为nearest-neighbor插值upscaling到2x，字体为微软雅黑（Microsoft Yahei UI），字号为10pt</em></p>
 <p>实际上，并非Windows对字体有偏见，而是进行了良好 <a href="https://en.wikipedia.org/wiki/Font_hinting" target="_blank" rel="noopener">hinting</a> 字体在 Windows10 上面有较佳的渲染效果，而 <a href="https://www.freetype.org/ttfautohint/doc/ttfautohint.html" target="_blank" rel="noopener">ttfautohint</a> 能自动生成 hinting 后的新字体。（由 FreeType 的 auto-hinting 模块处理）</p>
 <p>ttfautohint 的 Introduction 摘录：</p>
 <blockquote>
@@ -244,10 +244,10 @@ replace.bat期待的输出：
 </summary>
 <figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">font dir:Sarasa</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc" 现在由管理员组所有。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc" 现在由管理员组所有。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc" 现在由管理员组所有。</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc</span><br><span class="line">已成功处理 3 个文件; 处理 0 个文件时失败</span><br><span class="line">删除文件 - C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc</span><br><span class="line">删除文件 - C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc</span><br><span class="line">删除文件 - C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc</span><br><span class="line">msyh.ttc</span><br><span class="line">msyhbd.ttc</span><br><span class="line">msyhl.ttc</span><br><span class="line">已复制         3 个文件。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc" 现在由管理员组所有。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc" 现在由管理员组所有。</span><br><span class="line"></span><br><span class="line">成功: 此文件(或文件夹): "C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc" 现在由管理员组所有。</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\W</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc</span><br><span class="line">已成功处理 3 个文件; 处理 0 个文件时失败</span><br><span class="line">已处理的文件: C:<span class="symbol">\w</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syh.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\w</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhbd.ttc</span><br><span class="line">已处理的文件: C:<span class="symbol">\w</span>indows<span class="symbol">\F</span>onts<span class="symbol">\m</span>syhl.ttc</span><br><span class="line">已成功处理 3 个文件; 处理 0 个文件时失败</span><br><span class="line">已成功处理 3 个文件; 处理 0 个文件时失败</span><br><span class="line">操作成功完成。</span><br><span class="line">操作成功完成。</span><br><span class="line">操作成功完成。</span><br><span class="line">请按任意键继续. . .</span><br></pre></td></tr></table></figure>
 </details>
-<p><img src="/images/font_sarasa.png"> <em>下面是更纱黑体，尽管摆脱了肥硕的微软雅黑，但是新字体部分字形表现不佳</em></p>
+<p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_sarasa.png"> <em>下面是更纱黑体，尽管摆脱了肥硕的微软雅黑，但是新字体部分字形表现不佳</em></p>
 <h2 id="品如的字体">品如的字体</h2>
 <p>macOS里预装了很多可爱的字体，如果你学会绕过系统的限制把它们提取了出来，就会遗憾地发现很多字体在Windows下不能用</p>
-<p><img src="/images/font_err.png"></p>
+<p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_err.png"></p>
 <p>网络流传有用sed替换苹方cmap表的attribute的方法，可惜这只对苹方和其它部分字体有用，sed替换命令没有处理name表，对cmap表的处理也过于草率。 上面的<a href="https://github.com/Moeologist/font-hack" target="_blank" rel="noopener">font-hack</a>里还提供了一个名为macfonts.py的脚本，可以改善mac字体的兼容性，用法：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python macfonts.py [*.ttf|*.otf|*.ttc|dir]</span><br></pre></td></tr></table></figure>
 <h2 id="几个字体相关的注册表键值">几个字体相关的注册表键值</h2>
@@ -278,7 +278,7 @@ replace.bat期待的输出：
 
 
 
-    <a data-url="https://moeologist.github.io/win-font/" data-id="cl0i3xf4s0006b0g5h33ksaez" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/win-font/" data-id="cl0i44qy000065cg58o4qlwax" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -349,7 +349,7 @@ replace.bat期待的输出：
             "name": "ala"
         },
         "headline": "Windows 字体折腾指南",
-        "image": "https://moeologist.github.io/images/font_1080p.png",
+        "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png",
         "keywords": "",
         "genre": "Windows",
         "datePublished": "2020-10-14",
@@ -436,7 +436,7 @@ replace.bat期待的输出：
                             <a href="/hook-wndproc/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -456,7 +456,7 @@ replace.bat期待的输出：
                             <a href="/win-font/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
     
     
 </a>
@@ -476,7 +476,7 @@ replace.bat期待的输出：
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -496,7 +496,7 @@ replace.bat期待的输出：
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -516,7 +516,7 @@ replace.bat期待的输出：
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
     
     
 </a>
@@ -645,7 +645,7 @@ replace.bat期待的输出：
 
 
 <!-- Custom Scripts -->
-<script src="/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>
