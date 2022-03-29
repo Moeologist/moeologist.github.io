@@ -6,25 +6,25 @@
     
 
     
-    <title>实现 constexpr 数学函数 | 泛用型自宅机器人</title>
+    <title>实现 constexpr 数学函数（元编程 / 改Clang源码） | 泛用型自宅机器人</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="keywords" content>
     
-    <meta name="description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法，">
+    <meta name="description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法">
 <meta name="keywords" content="编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实现 constexpr 数学函数">
+<meta property="og:title" content="实现 constexpr 数学函数（元编程 &#x2F; 改Clang源码）">
 <meta property="og:url" content="https://moeologist.github.io/clang-constexpr/index.html">
 <meta property="og:site_name" content="泛用型自宅机器人">
-<meta property="og:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法，">
+<meta property="og:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg">
-<meta property="og:updated_time" content="2020-10-27T17:09:49.237Z">
+<meta property="og:updated_time" content="2022-03-29T18:44:42.650Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实现 constexpr 数学函数">
-<meta name="twitter:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法，">
+<meta name="twitter:title" content="实现 constexpr 数学函数（元编程 &#x2F; 改Clang源码）">
+<meta name="twitter:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg">
     
 
@@ -143,7 +143,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-        实现 constexpr 数学函数
+        实现 constexpr 数学函数（元编程 / 改Clang源码）
         </h1>
     
 
@@ -163,7 +163,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/clang-constexpr/" class="article-date">
-     <time datetime="2020-10-27T17:09:49.237Z" itemprop="dateModified">2020-10-28</time>
+     <time datetime="2022-03-29T18:44:42.650Z" itemprop="dateModified">2022-03-30</time>
   </a>
 </div>
 
@@ -172,7 +172,7 @@
 
                 
                 
-   <span id="/clang-constexpr/" class="leancloud-visitors" data-flag-title="实现 constexpr 数学函数">
+   <span id="/clang-constexpr/" class="leancloud-visitors" data-flag-title="实现 constexpr 数学函数（元编程 / 改Clang源码）">
    <i class="fa fa-eye"></i>
    <span class="post-meta-item-text">阅读次数: </span>
    <i class="leancloud-visitors-count">1000000</i>
@@ -193,13 +193,16 @@
 
             <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg"></p>
 <h2 id="动机">动机</h2>
-<p>constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。</p>
+<p>constexpr
+是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。</p>
 <h2 id="解决方案">解决方案</h2>
 <h3 id="写个编译期数学库">写个编译期数学库</h3>
 <p>想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了<a href="https://github.com/kthohr/gcem" target="_blank" rel="noopener">gcem</a>,<a href="https://github.com/Morwenn/static_math" target="_blank" rel="noopener">static_math</a></p>
 <p>只要熟悉数值算法，不需要太多的元编程知识也能写出上述的编译期数学函数。可惜的是constexpr的限制意味着无法使用汇编，所以写出来的数学函数不可能与高度优化的数学库相提并论。这不是什么大问题，因为C++程序员（尤其是酷爱模板的程序员）绝不会介意编译时间多一点。最大的问题在于，constexpr一个好处就是编译时运行时都可用，除非肯定这些函数只在编译期用，因为运行期运算回退到低效的数学函数是任何使用C++的程序员都无法接受的。</p>
-<p>GCC的扩展 __builtin_constant_p 或者 C++20 的 is_constant_evaluated 可以用于解决这个问题，探测求值语境选择合适算法。</p>
-<p>举个例子，写一个开平方函数，先请出牛顿法：方程<span class="math inline">\(f(x)=0\)</span>的根的近似值x可以由<span class="math inline">\(x&#39;= x-\frac{f(x)}{f&#39;(x)}\)</span>迭代求得，迭代次数越多精度越高，所以对于开平方函数sqrt(a)，构造<span class="math inline">\(f(x)=x^2-a\)</span>求根即可。</p>
+<p>GCC的扩展 __builtin_constant_p 或者 C++20 的 is_constant_evaluated
+可以用于解决这个问题，探测求值语境选择合适算法。</p>
+<p>举个例子，写一个开平方函数，先请出牛顿法：方程<span class="math inline">\(f(x)=0\)</span>的根的近似值x可以由<span class="math inline">\(x&#39;=
+x-\frac{f(x)}{f&#39;(x)}\)</span>迭代求得，迭代次数越多精度越高，所以对于开平方函数sqrt(a)，构造<span class="math inline">\(f(x)=x^2-a\)</span>求根即可。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_slow</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> x = a;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">        x = (x + a / x) / <span class="number">2</span>; <span class="comment">// 牛顿法迭代八次,因为constexpr的限制著名的卡马克魔法数也不能用</span></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_adapter</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (__builtin_is_constant_evaluated())</span><br><span class="line">        <span class="keyword">return</span> sqrt_slow(a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sqrt</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">double</span> <span class="title">sqrt_adapter_gcc_only</span><span class="params">(<span class="keyword">double</span> a)</span> </span>&#123; <span class="comment">// 至少需要GCC支持C++14的constexpr,不推荐使用</span></span><br><span class="line">    <span class="keyword">if</span> (__builtin_constant_p(a)) <span class="comment">// Clang的这个函数和GCC行为不同 https://reviews.llvm.org/D35190</span></span><br><span class="line">        <span class="keyword">return</span> sqrt_slow(a);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sqrt</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = sqrt_adapter(<span class="number">2.</span>);</span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; d;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; sqrt_adapter(d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="等新标准">等新标准</h3>
 <p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0533r0.pdf" target="_blank" rel="noopener">p0533r0</a>,<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p1383r0.pdf" target="_blank" rel="noopener">p1383r0</a>似乎没什么动静，且不说C++23，恐怕猴年马月也不一定有。</p>
@@ -208,8 +211,12 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = <span class="built_in">sqrt</span>(<span class="number">2</span>); <span class="comment">// 仅GCC可用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>搜索了一下又是GCC扩展，&lt;cmath&gt;里的函数支持了constexpr，这些浮点函数在有浮点错误时由编译器报出<code>is not a constant expression</code>错误，这似乎一定程度上就解决了问题（p1383r0里讨论了其他方面的潜在问题）。</p>
 <p>要命的是Clang不支持这个扩展。想要只能自己动手，事后发现，Clang源码比想象中的要好改。</p>
-<p>把<a href="https://github.com/llvm/llvm-project.git" target="_blank" rel="noopener">repo</a>拉下来，花上不少时间找到是这个文件<strong>clang/lib/AST/ExprConstant.cpp</strong>负责对常量表达式求值，于是照龙画蛇，找里面已经支持 constexpr 的 __builtin 函数观摩一番，然后把不支持的补上，浮点错误则让求值失败，就可以使内建函数支持 constexpr。这里有一个<a href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/raw/llvm-v10.patch">patch</a>，可以参考里面的内容。</p>
-<p>现在内建函数（如 __builtin_sqrt）是可以用在常量求值语境里了，但是如果希望&lt;cmath&gt;里的函数也可以，还要在libc++的&lt;cmath&gt;里受支持的函数签名加上constexpr，如果clang使用--stdlib=libstdc++则不需要此修改。</p>
+<p>把<a href="https://github.com/llvm/llvm-project.git" target="_blank" rel="noopener">repo</a>拉下来，花上不少时间找到是这个文件<strong>clang/lib/AST/ExprConstant.cpp</strong>负责对常量表达式求值，于是照龙画蛇，找里面已经支持
+constexpr 的 __builtin
+函数观摩一番，然后把不支持的补上，浮点错误则让求值失败，就可以使内建函数支持
+constexpr。这里有一个<a href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/raw/llvm-v10.patch">patch</a>，可以参考里面的内容。</p>
+<p>现在内建函数（如
+__builtin_sqrt）是可以用在常量求值语境里了，但是如果希望&lt;cmath&gt;里的函数也可以，还要在libc++的&lt;cmath&gt;里受支持的函数签名加上constexpr，如果clang使用--stdlib=libstdc++则不需要此修改。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = __builtin_sqrt(<span class="number">2</span>); <span class="comment">// 修改版Clang也能用</span></span><br><span class="line">    <span class="comment">// constexpr double t = sqrt(2); // 还需要改libc++</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如何构建 Clang 参照<a href="https://llvm.org/docs/CMake.html" target="_blank" rel="noopener">官方文档</a>即可。</p>
 
@@ -219,7 +226,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="cl0i44qxu00025cg5r50vvspn" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="cl1cho1da00030cg5ckp6x9mq" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -289,22 +296,23 @@
             "@type": "Person",
             "name": "ala"
         },
-        "headline": "实现 constexpr 数学函数",
+        "headline": "实现 constexpr 数学函数（元编程 / 改Clang源码）",
         "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg",
         "keywords": "",
         "genre": "C/C++",
         "datePublished": "2020-10-08",
         "dateCreated": "2020-10-08",
-        "dateModified": "2020-10-28",
+        "dateModified": "2022-03-30",
         "url": "https://moeologist.github.io/clang-constexpr/",
         "description": "
 动机
-constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。
+constexpr
+是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。
 解决方案
 写个编译期数学库
 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math
-只要熟悉数值算法，",
-        "wordCount": 338
+只要熟悉数值算法",
+        "wordCount": 331
     }
 </script>
 
@@ -422,7 +430,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数（元编程 / 改Clang源码）" class="thumbnail-image"></span>
     
     
 </a>
@@ -431,7 +439,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
-                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数</a></p>
+                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数（元编程 / 改Clang源码）</a></p>
                             <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
                         </div>
                     </li>

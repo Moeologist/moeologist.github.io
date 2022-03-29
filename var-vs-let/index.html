@@ -191,13 +191,15 @@
 
             
 
-            <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg"> [src: 粗点心战争]</p>
+            <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg">
+[src: 粗点心战争]</p>
 <p>为了写博客被迫学了一点点JavaScript，把受的苦记下来，引用内容全来自MDN。</p>
 <a id="more"></a>
 <h2 id="自动分号插入">自动分号插入</h2>
 <p>MDN上描述：</p>
 <blockquote>
-<p>一些 JavaScript 语句必须用分号结束，所以会被自动分号补全 (ASI)影响：</p>
+<p>一些 JavaScript 语句必须用分号结束，所以会被自动分号补全
+(ASI)影响：</p>
 <ul>
 <li>空语句</li>
 <li>let、const、变量声明</li>
@@ -210,8 +212,11 @@
 </blockquote>
 <p>ECMAScript 规格提到自动分号补全的三个规则。</p>
 <ol type="1">
-<li><p>当出现一个不允许的行终止符或“}”时，会在其之前插入一个分号。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> &#125; <span class="number">3</span> </span><br><span class="line"><span class="comment">// 将会被 ASI 转换为 </span></span><br><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> ;&#125; <span class="number">3</span>;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>当捕获到标识符输入流的结尾，并且无法将单个输入流转换为一个完整的程序时，将在结尾插入一个分号。 在下面这段中，由于在 b 和 ++ 之间出现了一个行终止符，所以 ++ 未被当成变量 b 的后置运算符。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">a = b</span><br><span class="line">++c</span><br><span class="line"><span class="comment">// 将被 ASI 转换为</span></span><br><span class="line">a = b;</span><br><span class="line">++c;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>当出现一个不允许的行终止符或“}”时，会在其之前插入一个分号。
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> &#125; <span class="number">3</span> </span><br><span class="line"><span class="comment">// 将会被 ASI 转换为 </span></span><br><span class="line">&#123; <span class="number">1</span> <span class="number">2</span> ;&#125; <span class="number">3</span>;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>当捕获到标识符输入流的结尾，并且无法将单个输入流转换为一个完整的程序时，将在结尾插入一个分号。
+在下面这段中，由于在 b 和 ++ 之间出现了一个行终止符，所以 ++
+未被当成变量 b 的后置运算符。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">a = b</span><br><span class="line">++c</span><br><span class="line"><span class="comment">// 将被 ASI 转换为</span></span><br><span class="line">a = b;</span><br><span class="line">++c;</span><br></pre></td></tr></table></figure></p></li>
 <li><p>当语句中包含语法中的限制产品后跟一个行终止符的时候，将会在结尾插入一个分号。带“这里没有行终止符”规则的语句有：</p>
 <ul>
 <li>后置运算符（++ 和 --）</li>
@@ -235,28 +240,39 @@
 <p>看下面一个例子：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> change = <span class="string">"hello"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> change = <span class="string">"scram"</span>;</span><br><span class="line">&#125;</span><br><span class="line">f();</span><br><span class="line"><span class="built_in">console</span>.log(change); <span class="comment">// 输出 scram</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>变量声明，无论发生在何处，都在执行任何代码之前进行处理。用 var 声明的变量的作用域是它当前的执行上下文，它可以是嵌套的函数，或者对于声明在任何函数外的变量来说是全局。如果你重新声明一个 JavaScript 变量，它将不会丢失其值。</p>
+<p>变量声明，无论发生在何处，都在执行任何代码之前进行处理。用 var
+声明的变量的作用域是它当前的执行上下文，它可以是嵌套的函数，或者对于声明在任何函数外的变量来说是全局。如果你重新声明一个
+JavaScript 变量，它将不会丢失其值。</p>
 </blockquote>
 <p>重复的 var 定义将被忽视，但是初始化语句会执行。</p>
 <h3 id="赋值给未声明的变量">赋值给未声明的变量</h3>
 <blockquote>
-<p>当赋值给未声明的变量, 则执行赋值后, 该变量会被隐式地创建为全局变量（它将成为全局对象的属性）。 声明和未声明变量之间的差异是：</p>
+<p>当赋值给未声明的变量, 则执行赋值后,
+该变量会被隐式地创建为全局变量（它将成为全局对象的属性）。
+声明和未声明变量之间的差异是：</p>
 </blockquote>
 <ol type="1">
-<li><p>声明变量的作用域限制在其声明位置的上下文中，而非声明变量总是全局的。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  y = <span class="number">1</span>;   <span class="comment">// 在严格模式（strict mode）下会抛出 ReferenceError 异常</span></span><br><span class="line">  <span class="keyword">var</span> z = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">x();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(y); <span class="comment">// 打印 "1"</span></span><br><span class="line"><span class="built_in">console</span>.log(z); <span class="comment">// 抛出 ReferenceError: z 未在 x 外部声明</span></span><br></pre></td></tr></table></figure></p></li>
-<li><p>声明变量在任何代码执行前创建，而非声明变量只有在执行赋值操作的时候才会被创建。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 打印"undefined"或""（不同浏览器实现不同）。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br></pre></td></tr></table></figure></p></li>
-<li><p>声明变量是它所在上下文环境的不可配置属性，非声明变量是可配置的（如非声明变量可以被删除）。 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.a; <span class="comment">// 在严格模式（strict mode）下抛出TypeError，其他情况下执行失败并无任何提示。</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.b;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a, b); <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="comment">// 'b'属性已经被删除。</span></span><br></pre></td></tr></table></figure></p></li>
+<li><p>声明变量的作用域限制在其声明位置的上下文中，而非声明变量总是全局的。
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  y = <span class="number">1</span>;   <span class="comment">// 在严格模式（strict mode）下会抛出 ReferenceError 异常</span></span><br><span class="line">  <span class="keyword">var</span> z = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">x();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(y); <span class="comment">// 打印 "1"</span></span><br><span class="line"><span class="built_in">console</span>.log(z); <span class="comment">// 抛出 ReferenceError: z 未在 x 外部声明</span></span><br></pre></td></tr></table></figure></p></li>
+<li><p>声明变量在任何代码执行前创建，而非声明变量只有在执行赋值操作的时候才会被创建。
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="built_in">console</span>.log(a);                <span class="comment">// 打印"undefined"或""（不同浏览器实现不同）。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'still going...'</span>); <span class="comment">// 打印"still going..."。</span></span><br></pre></td></tr></table></figure></p></li>
+<li><p>声明变量是它所在上下文环境的不可配置属性，非声明变量是可配置的（如非声明变量可以被删除）。
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.a; <span class="comment">// 在严格模式（strict mode）下抛出TypeError，其他情况下执行失败并无任何提示。</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">this</span>.b;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a, b); <span class="comment">// 抛出ReferenceError。</span></span><br><span class="line"><span class="comment">// 'b'属性已经被删除。</span></span><br></pre></td></tr></table></figure></p></li>
 </ol>
 <blockquote>
-<p>由于这三个差异，未能声明变量将很可能导致意想不到的结果。因此，建议始终声明变量，无论它们是在函数还是全局作用域内。 而且，在 ECMAScript 5 严格模式下，分配给未声明的变量会引发错误。</p>
+<p>由于这三个差异，未能声明变量将很可能导致意想不到的结果。因此，建议始终声明变量，无论它们是在函数还是全局作用域内。
+而且，在 ECMAScript 5 严格模式下，分配给未声明的变量会引发错误。</p>
 </blockquote>
 <h3 id="let-以及-const">let 以及 const</h3>
-<p>let 关键字就像在其他语言中所做的工作一样，不允许重复声明，也认真对待作用域：</p>
+<p>let
+关键字就像在其他语言中所做的工作一样，不允许重复声明，也认真对待作用域：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">varTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">2</span>;  <span class="comment">// 同样的变量!</span></span><br><span class="line">    <span class="built_in">console</span>.log(x);  <span class="comment">// 2</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(x);  <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">letTest</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">let</span> x = <span class="number">2</span>;  <span class="comment">// 不同的变量</span></span><br><span class="line">    <span class="built_in">console</span>.log(x);  <span class="comment">// 2</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(x);  <span class="comment">// 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>位于函数或代码顶部的var声明会给全局对象新增属性, 而let不会。例如:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="string">'global'</span>;</span><br><span class="line"><span class="keyword">let</span> y = <span class="string">'global'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.x); <span class="comment">// "global"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.y); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>通过 let 声明的变量直到它们的定义被执行时才初始化。在变量初始化前访问该变量会导致 ReferenceError。该变量处在一个自块顶部到初始化处理的“暂存死区”中。</p>
+<p>通过 let
+声明的变量直到它们的定义被执行时才初始化。在变量初始化前访问该变量会导致
+ReferenceError。该变量处在一个自块顶部到初始化处理的“暂存死区”中。</p>
 </blockquote>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">do_something</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(bar); <span class="comment">// undefined</span></span><br><span class="line">  <span class="built_in">console</span>.log(foo); <span class="comment">// ReferenceError</span></span><br><span class="line">  <span class="keyword">var</span> bar = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> foo = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>const 和 let 差不多但不接受重赋值操作。</p>
@@ -271,7 +287,8 @@
 <p>内容来自 <a href="http://www.jsfuck.com/" target="_blank" rel="noopener">JSFuck</a></p>
 <p><del>比C++过分</del></p>
 <h2 id="彩蛋">彩蛋</h2>
-<p><a href="http://aem1k.com/" target="_blank" rel="noopener">Spin the globe</a>，应该算Quine？该作者的主页还有更多被玩坏的JS。</p>
+<p><a href="http://aem1k.com/" target="_blank" rel="noopener">Spin the
+globe</a>，应该算Quine？该作者的主页还有更多被玩坏的JS。</p>
 
 <div class="highlight js" id="Glooooooooooobal">
 <script>
@@ -307,7 +324,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
 
 
 
-    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="cl0i44qy100075cg55pyyf5i3" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/var-vs-let/" data-id="cl1cho1d900020cg539xpk6ps" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -385,9 +402,10 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
         "dateCreated": "2019-08-10",
         "dateModified": "2020-11-22",
         "url": "https://moeologist.github.io/var-vs-let/",
-        "description": " [src: 粗点心战争]
+        "description": "
+[src: 粗点心战争]
 为了写博客被迫学了一点点JavaScript，把受的苦记下来，引用内容全来自MDN。",
-        "wordCount": 908
+        "wordCount": 891
     }
 </script>
 
@@ -431,7 +449,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
         <strong class="article-nav-caption">下一篇</strong>
         <p class="article-nav-title">
         
-            实现 constexpr 数学函数
+            实现 constexpr 数学函数（元编程 / 改Clang源码）
         
         </p>
         <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
@@ -505,7 +523,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数（元编程 / 改Clang源码）" class="thumbnail-image"></span>
     
     
 </a>
@@ -514,7 +532,7 @@ it(B = "\\\\")./*           G####B" #       */join(B+B).split\
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
-                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数</a></p>
+                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数（元编程 / 改Clang源码）</a></p>
                             <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
                         </div>
                     </li>

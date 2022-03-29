@@ -184,9 +184,10 @@
 
         <p class="article-excerpt">
              -->
- [src: Terraria]
+
+[src: Terraria]
 动机
-很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE
+很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIV
         </p>
     </div>
 </article>
@@ -253,7 +254,7 @@
         <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数（元编程 / 改Clang源码）" class="thumbnail-image"></span>
     
     
         
@@ -278,18 +279,19 @@
         
     
         <h1 class="article-title" itemprop="name">
-        <a href="/clang-constexpr/">实现 constexpr 数学函数</a>
+        <a href="/clang-constexpr/">实现 constexpr 数学函数（元编程 / 改Clang源码）</a>
         </h1>
     
 
         <p class="article-excerpt">
             
 动机
-constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。
+constexpr
+是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。
 解决方案
 写个编译期数学库
 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math
-只要熟悉数值算法，
+只要熟悉数值算法
         </p>
     </div>
 </article>
@@ -379,7 +381,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数（元编程 / 改Clang源码）" class="thumbnail-image"></span>
     
     
 </a>
@@ -388,7 +390,7 @@ constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至�
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
-                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数</a></p>
+                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数（元编程 / 改Clang源码）</a></p>
                             <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
                         </div>
                     </li>

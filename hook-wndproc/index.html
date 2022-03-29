@@ -12,19 +12,19 @@
     
     <meta name="keywords" content>
     
-    <meta name="description" content="[src: Terraria] 动机 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着进">
+    <meta name="description" content="[src: Terraria] 动机 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着">
 <meta name="keywords" content="编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="挂钩 Windows 的窗口消息处理函数">
 <meta property="og:url" content="https://moeologist.github.io/hook-wndproc/index.html">
 <meta property="og:site_name" content="泛用型自宅机器人">
-<meta property="og:description" content="[src: Terraria] 动机 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着进">
+<meta property="og:description" content="[src: Terraria] 动机 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png">
 <meta property="og:updated_time" content="2020-11-21T17:13:34.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="挂钩 Windows 的窗口消息处理函数">
-<meta name="twitter:description" content="[src: Terraria] 动机 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着进">
+<meta name="twitter:description" content="[src: Terraria] 动机 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png">
     
 
@@ -192,45 +192,77 @@
             
 
             <!-- <img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png"> -->
-<p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Static_Hook_(demo).gif"> [src: <a href="https://terraria.gamepedia.com/Hooks" target="_blank" rel="noopener">Terraria</a>]</p>
+<p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Static_Hook_(demo).gif">
+[src: <a href="https://terraria.gamepedia.com/Hooks" target="_blank" rel="noopener">Terraria</a>]</p>
 <h2 id="动机">动机</h2>
 <p>很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着进行其他工作必然会暂停该游戏。（Windows桌面环境只能一个窗口处于激活状态）</p>
 <p>把行为类似这个游戏的程序称为【独占程序】，与之相对的，失焦不会暂停的程序（如浏览器、视频播放器）称为【非独占程序】。</p>
 <h2 id="解决方案">解决方案</h2>
-<p>我们不能对操作系统下手，要解决这个问题，只能改变【独占程序】的行为。让【独占程序】不再<strong>独占</strong>需要对 <a href="https://docs.microsoft.com/en-us/previous-versions/windows/desktop/legacy/ms633573(v=vs.85)" target="_blank" rel="noopener">消息处理函数 WndProc</a> 下手，用 Win32 API写过窗口程序的朋友应该熟悉这个函数，该函数处理发送到窗口的消息。用户的所有操作都以操作系统桌面发消息的形式与程序交互，只要拦截了可能导致暂停的消息，那么就去掉了这个程序的“独占性”。</p>
-<p>而对 WndProc 下手的做法就是一种挂钩（hooking），而处理拦截的代码，被称为钩子（hook）。</p>
-<p>以下来自 <a href="https://en.wikipedia.org/wiki/Hooking" target="_blank" rel="noopener">wiki</a> 条目：</p>
+<p>我们不能对操作系统下手，要解决这个问题，只能改变【独占程序】的行为。让【独占程序】不再<strong>独占</strong>需要对
+<a href="https://docs.microsoft.com/en-us/previous-versions/windows/desktop/legacy/ms633573(v=vs.85)" target="_blank" rel="noopener">消息处理函数
+WndProc</a> 下手，用 Win32
+API写过窗口程序的朋友应该熟悉这个函数，该函数处理发送到窗口的消息。用户的所有操作都以操作系统桌面发消息的形式与程序交互，只要拦截了可能导致暂停的消息，那么就去掉了这个程序的“独占性”。</p>
+<p>而对 WndProc
+下手的做法就是一种挂钩（hooking），而处理拦截的代码，被称为钩子（hook）。</p>
+<p>以下来自 <a href="https://en.wikipedia.org/wiki/Hooking" target="_blank" rel="noopener">wiki</a>
+条目：</p>
 <blockquote>
 <p>钩子编程（hooking），也称作“挂钩”，是计算机程序设计术语，指通过拦截软件模块间的函数调用、消息传递、事件传递来修改或扩展操作系统、应用程序或其他软件组件的行为的各种技术。处理被拦截的函数调用、事件、消息的代码，被称为钩子（hook）。</p>
 </blockquote>
 <p>可以见得，并不是只有拦截 <em>消息处理函数</em> 的行为是挂钩。</p>
-<p>而拦截了 WndProc 也不是只能处理这里【独占程序】的问题，与消息处理有关的其他问题也有可能通过这种方法解决（如自定义×按钮的行为、自定义组合键、分离输入）</p>
+<p>而拦截了 WndProc
+也不是只能处理这里【独占程序】的问题，与消息处理有关的其他问题也有可能通过这种方法解决（如自定义×按钮的行为、自定义组合键、分离输入）</p>
 <h2 id="细节">细节</h2>
-<p>因为知道挂钩 Win32 API 已经有一些可以拿来主义的成品了<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，如 <a href="http://easyhook.github.io/tutorials/nativehook.html" target="_blank" rel="noopener">EasyHook</a>，顺着这个思路考虑。WndProc 函数是实现了窗口功能的程序员提供的，本身并不是 Win32 API，没法直接挂钩这个函数，只能挂钩任何与 WndProc 相关的 Win32 API 函数，如 CallWindowProc,DefWindowProc,RegisterClass，任何对这些函数的调用将被拦截，每次调用传入的 WndProc 参数都会被修改后传入原版 Win32 API 函数，这样就能完成任务。 这个方法很绕而且不干净，遇到了一些问题后我放弃了这个方法。</p>
-<p>后来才知道 <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlongptra" target="_blank" rel="noopener">SetWindowLongPtr</a> 能在运行时直接修改 WndProc，这时我才从圈子里转出来，挂钩消息处理函数并不需要挂钩 Win32 API。挂钩 WndProc 的代码大概像下面一样。</p>
+<p>因为知道挂钩 Win32 API 已经有一些可以拿来主义的成品了<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，如
+<a href="http://easyhook.github.io/tutorials/nativehook.html" target="_blank" rel="noopener">EasyHook</a>，顺着这个思路考虑。WndProc
+函数是实现了窗口功能的程序员提供的，本身并不是 Win32
+API，没法直接挂钩这个函数，只能挂钩任何与 WndProc 相关的 Win32 API
+函数，如
+CallWindowProc,DefWindowProc,RegisterClass，任何对这些函数的调用将被拦截，每次调用传入的
+WndProc 参数都会被修改后传入原版 Win32 API 函数，这样就能完成任务。
+这个方法很绕而且不干净，遇到了一些问题后我放弃了这个方法。</p>
+<p>后来才知道 <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlongptra" target="_blank" rel="noopener">SetWindowLongPtr</a>
+能在运行时直接修改
+WndProc，这时我才从圈子里转出来，挂钩消息处理函数并不需要挂钩 Win32
+API。挂钩 WndProc 的代码大概像下面一样。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">WNDPROC originalWndProc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">LRESULT CALLBACK <span class="title">WndProc</span><span class="params">(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (message == WM_NCACTIVATE)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> CallWindowProc(originalWndProc, hWnd, message, wParam, lParam);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Hook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    LONG_PTR lp = SetWindowLongPtr(hWindow, GWLP_WNDPROC, (LONG_PTR)WndProc);</span><br><span class="line">    <span class="comment">// Changes WNDPROC of the specified window</span></span><br><span class="line">    originalWndProc = (WNDPROC)lp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里仅仅屏蔽了 WM_NCACTIVATE，根据实际情况可能还需要屏蔽更多消息。</p>
+<p>这里仅仅屏蔽了
+WM_NCACTIVATE，根据实际情况可能还需要屏蔽更多消息。</p>
 <h2 id="实施">实施</h2>
 <h3 id="autohotkey">AutoHotkey</h3>
-<p>因为我使用了 AutoHotkey 进行了一些输入自动化和窗口管理功能，很自然地，我希望用 AutoHotkey 解决这个问题。遗憾的是，结果一番调查发现 AutoHotkey 无法实现此功能。</p>
+<p>因为我使用了 AutoHotkey
+进行了一些输入自动化和窗口管理功能，很自然地，我希望用 AutoHotkey
+解决这个问题。遗憾的是，结果一番调查发现 AutoHotkey 无法实现此功能。</p>
 <h3 id="辅助工具">辅助工具</h3>
-<p>使用 Visual Studio 的自带工具 <a href="https://docs.microsoft.com/en-us/visualstudio/debugger/introducing-spy-increment?view=vs-2019" target="_blank" rel="noopener">Spy++</a> 或者其他类似工具可以获取窗口信息，这对于实施本节的内容非常有帮助。</p>
+<p>使用 Visual Studio 的自带工具 <a href="https://docs.microsoft.com/en-us/visualstudio/debugger/introducing-spy-increment?view=vs-2019" target="_blank" rel="noopener">Spy++</a>
+或者其他类似工具可以获取窗口信息，这对于实施本节的内容非常有帮助。</p>
 <h3 id="侵入式修改">侵入式修改</h3>
-<p><a href="https://en.wikipedia.org/wiki/Hooking" target="_blank" rel="noopener">Wiki</a> 提到可以通过修改可执行程序来执行自己添加的代码，这要借助调试器找到 WndProc 的入口点并参考前文作出修改。注意：找入口点也可以直接借助 Spy++ 或其他类似工具。这涉及逆向的内容，虽然麻烦但是有效。</p>
+<p><a href="https://en.wikipedia.org/wiki/Hooking" target="_blank" rel="noopener">Wiki</a>
+提到可以通过修改可执行程序来执行自己添加的代码，这要借助调试器找到
+WndProc 的入口点并参考前文作出修改。注意：找入口点也可以直接借助 Spy++
+或其他类似工具。这涉及逆向的内容，虽然麻烦但是有效。</p>
 <h3 id="运行时修改">运行时修改</h3>
-<p>操作系统的事件钩子对这个问题没有帮助。不过我们可以直接向进程注入代码达到目的，或者进行 <strong>DLL注入</strong>，因为DLL注入用在这里很合适，所以这里给出被注入DLL本身的完整源代码：</p>
+<p>操作系统的事件钩子对这个问题没有帮助。不过我们可以直接向进程注入代码达到目的，或者进行
+<strong>DLL注入</strong>，因为DLL注入用在这里很合适，所以这里给出被注入DLL本身的完整源代码：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Hook.dll</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">WNDPROC originalWndProc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// export is unnecessary</span></span><br><span class="line">LRESULT __declspec(dllexport) CALLBACK</span><br><span class="line">    WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) &#123;</span><br><span class="line">    <span class="keyword">if</span> (message == WM_NCACTIVATE)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (message == WM_ACTIVATEAPP &amp;&amp; wParam == FALSE)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> CallWindowProc(originalWndProc, hWnd, message, wParam, lParam);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL CALLBACK <span class="title">EnumWindowsProc</span><span class="params">(HWND hWnd, LPARAM lParam)</span> </span>&#123;</span><br><span class="line">    DWORD pid = GetCurrentProcessId();</span><br><span class="line">    DWORD hWnd_pid = <span class="number">0</span>;</span><br><span class="line">    GetWindowThreadProcessId(hWnd, &amp;hWnd_pid);</span><br><span class="line">    <span class="keyword">if</span> (pid == hWnd_pid) &#123;</span><br><span class="line">        *(HWND *)lParam = hWnd;</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">HWND <span class="title">GetCurrentHWND</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    HWND hWnd = <span class="number">0</span>;</span><br><span class="line">    EnumWindows(EnumWindowsProc, (LPARAM)&amp;hWnd);</span><br><span class="line">    <span class="keyword">return</span> hWnd;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Hook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    HWND hWindow = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span> (hWindow == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        hWindow = GetCurrentHWND();</span><br><span class="line">        <span class="comment">// FindWindow is an alternative</span></span><br><span class="line">        Sleep(<span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    LONG_PTR lp = SetWindowLongPtr(hWindow, GWLP_WNDPROC, (LONG_PTR)WndProc);</span><br><span class="line">    <span class="comment">// Changes WNDPROC of the specified window</span></span><br><span class="line"></span><br><span class="line">    originalWndProc = (WNDPROC)lp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL APIENTRY <span class="title">DllMain</span><span class="params">(HMODULE hModule, DWORD ul_reason_for_call,</span></span></span><br><span class="line"><span class="function"><span class="params">                      LPVOID lpReserved)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (ul_reason_for_call) &#123;</span><br><span class="line">        <span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">            DisableThreadLibraryCalls(hModule);</span><br><span class="line">            <span class="comment">// This can reduce the size of the working set for some applications.</span></span><br><span class="line"></span><br><span class="line">            CreateThread(<span class="literal">NULL</span>, <span class="literal">NULL</span>, (LPTHREAD_START_ROUTINE)Hook, hModule,</span><br><span class="line">                         <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">            <span class="comment">// Run Hook in new thread</span></span><br><span class="line">        <span class="keyword">case</span> DLL_THREAD_ATTACH:</span><br><span class="line">        <span class="keyword">case</span> DLL_THREAD_DETACH:</span><br><span class="line">        <span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上代码通过枚举所有窗口来获取当前进程对应的窗口句柄，也可以通过Spy++或其他类似工具取得窗口类名和标题，再借由 FindWindow 获取窗口句柄。</p>
+<p>以上代码通过枚举所有窗口来获取当前进程对应的窗口句柄，也可以通过Spy++或其他类似工具取得窗口类名和标题，再借由
+FindWindow 获取窗口句柄。</p>
 <p>要做的工作还没有结束，还要将编译好 DLL 注入进程。</p>
 <h2 id="dll注入">DLL注入</h2>
-<p>这节实在没什么可写的（毕竟作者也所知甚少），就直接把<a href="https://en.wikipedia.org/wiki/DLL_injection" target="_blank" rel="noopener">wiki</a>放在在这里了，里面搜罗了很多方法。值得一提的是，除了注册表方法（全局），可实施性和通用性都比较好的方法应该就是 CreateRemoteThread 的代码注入方法了，也很适合用在这里。</p>
-<p>我把 wiki 的示例代码增补成了一个命令行工具 Injector，和前文的 Hook DLL 源码放在了同一个 <a href="https://github.com/Moeologist/win-hack" target="_blank" rel="noopener">repo</a> 里，非常粗糙的程序，小心取用。</p>
-<p>实际上，要求程序加载指定 DLL，也可以不在运行时注入 DLL，通过修改 PE 文件的导入表（import table）解决问题<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>，这有一定的侵入性但某些情况下可能有优势。</p>
+<p>这节实在没什么可写的（毕竟作者也所知甚少），就直接把<a href="https://en.wikipedia.org/wiki/DLL_injection" target="_blank" rel="noopener">wiki</a>放在在这里了，里面搜罗了很多方法。值得一提的是，除了注册表方法（全局），可实施性和通用性都比较好的方法应该就是
+CreateRemoteThread 的代码注入方法了，也很适合用在这里。</p>
+<p>我把 wiki 的示例代码增补成了一个命令行工具 Injector，和前文的 Hook
+DLL 源码放在了同一个 <a href="https://github.com/Moeologist/win-hack" target="_blank" rel="noopener">repo</a>
+里，非常粗糙的程序，小心取用。</p>
+<p>实际上，要求程序加载指定 DLL，也可以不在运行时注入 DLL，通过修改 PE
+文件的导入表（import table）解决问题<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>，这有一定的侵入性但某些情况下可能有优势。</p>
 <section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1" role="doc-endnote"><p>尽管类似，但是挂钩 Win32 API 比本文的问题复杂得多<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>参考 https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>尽管类似，但是挂钩 Win32 API
+比本文的问题复杂得多<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>参考
+https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -240,7 +272,7 @@
 
 
 
-    <a data-url="https://moeologist.github.io/hook-wndproc/" data-id="cl0i44qxy00045cg54ubawzgc" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/hook-wndproc/" data-id="cl1cho1d300010cg5qmbsxn7e" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -319,10 +351,11 @@
         "dateModified": "2020-11-22",
         "url": "https://moeologist.github.io/hook-wndproc/",
         "description": " -->
- [src: Terraria]
+
+[src: Terraria]
 动机
-很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE",
-        "wordCount": 772
+很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIV",
+        "wordCount": 740
     }
 </script>
 
@@ -430,7 +463,7 @@
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数（元编程 / 改Clang源码）" class="thumbnail-image"></span>
     
     
 </a>
@@ -439,7 +472,7 @@
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/C-C/">C/C++</a></p>
-                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数</a></p>
+                            <p class="item-title"><a href="/clang-constexpr/" class="title">实现 constexpr 数学函数（元编程 / 改Clang源码）</a></p>
                             <p class="item-date"><time datetime="2020-10-07T21:44:59.817Z" itemprop="datePublished">2020-10-08</time></p>
                         </div>
                     </li>
