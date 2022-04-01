@@ -1841,7 +1841,6 @@ i.icon:before {
   font-size: 14px;
   font-family: "Dejavu Sans Mono", Hack, Monaco, Menlo, Consolas, monospace;
   line-height: 22.400000000000002px;
-  overflow: hidden;
 }
 .highlight table {
   margin: 0;
