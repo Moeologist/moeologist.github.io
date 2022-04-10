@@ -21,7 +21,7 @@
 <meta property="og:description" content="改善Windows自身的字体渲染效果 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png">
-<meta property="og:updated_time" content="2022-03-18T21:30:02.050Z">
+<meta property="og:updated_time" content="2022-04-10T19:38:03.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows 字体折腾指南">
 <meta name="twitter:description" content="改善Windows自身的字体渲染效果 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。">
@@ -163,7 +163,7 @@
 <div class="article-date">
   <i class="fa fa-calendar-plus-o"></i>
   <a href="/win-font/" class="article-date">
-     <time datetime="2022-03-18T21:30:02.050Z" itemprop="dateModified">2022-03-19</time>
+     <time datetime="2022-04-10T19:38:03.366Z" itemprop="dateModified">2022-04-11</time>
   </a>
 </div>
 
@@ -217,11 +217,11 @@ Windows，至于如何使用这个软件，请大家读读文档自行摸索，�
 1909更新，更旧或更新的版本请自行验证。</p>
 <h2 id="替换字体">替换字体</h2>
 <p><strong>请小心使用以下内容，这些操作可能损坏你的系统，本文作者不承担任何责任:</strong></p>
-<p>安装了新字体后，浏览器可以注入样式表强制启用新字体，但桌面软件的UI还是该用啥用啥，除非能手动改（逐软件改也很麻烦），否则新字体还是不能用。如果希望把系统字体替换掉，可以尝试以下方法，这个方法需要安装<a href="https://github.com/adobe-type-tools/afdko" target="_blank" rel="noopener">AFDKO</a>置换新字体的name表<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>为系统字体的name表，然后伪装成系统字体安装。</p>
+<p>安装了新字体后，浏览器可以注入样式表强制启用新字体，但桌面软件的UI还是该用啥用啥，除非能手动改（逐软件改也很麻烦），否则新字体还是不能用。如果希望把系统字体替换掉，可以尝试以下方法，这个方法需要安装<a href="https://github.com/adobe-type-tools/afdko" target="_blank" rel="noopener">AFDKO</a>置换新字体的name表<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>为系统字体的name表，然后伪装成系统字体安装。</p>
 <p>安装好<a href="https://github.com/adobe-type-tools/afdko" target="_blank" rel="noopener">AFDKO</a>，克隆这个<a href="https://github.com/Moeologist/font-hack" target="_blank" rel="noopener">repo</a>，里面包含了一些本文作者处理字体问题的脚本。</p>
 <p>进入本地repo目录，其中包含将微软雅黑替换成更纱黑体的脚本
 replace-msyh-by-sarasa.bat 和恢复微软雅黑的脚本 restore-msyh.bat</p>
-<p><strong>改脚本需要管理员权限，并会自动注销系统</strong></p>
+<p><strong>该脚本需要管理员权限，该脚本会自动注销系统，该脚本会从网络下载字体文件，该脚本需要执行两次！</strong></p>
 <p>执行替换脚本
 replace-msyh-by-sarasa.bat，该替换脚本会自动备份原版字体到脚本同级的
 msyh-backup 下， 然后下载更纱黑体并自动生成伪装成雅黑的字体文件到
@@ -229,7 +229,7 @@ sarasa， 最后会删除字体的注册表项目并注销当前用户。</p>
 <p>登录后再次执行该脚本，它会自动安装字体文件到系统目录并再次此注销。</p>
 <p>再次登录，大功告成，效果如：</p>
 <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_sarasa.png">
-<em>下面是更纱黑体，尽管摆脱了肥硕的微软雅黑，但是新字体部分字形表现不佳</em></p>
+<em>上面是微软雅黑，下面是更纱黑体，尽管摆脱了肥硕的微软雅黑，但是新字体部分字形表现不佳</em></p>
 <p>restore-msyh.bat 的操作完全与上面相同，不同的是它将 msyh-backup
 下的原版字体安装到系统。</p>
 <p>如果需要替换其他字体，则需要自行修改脚本来适配。</p>
@@ -267,8 +267,8 @@ DirectWrite，尽管这个解决方案有诸多问题，还是建议大家尝试
 <hr>
 <ol>
 <li id="fn1" role="doc-endnote"><p>MS的字体文档：
-https://docs.microsoft.com/en-us/typography/opentype/spec/name
-Apple的字体文档：https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6name.html<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+https://docs.microsoft.com/en-us/typography/opentype/spec/name<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Apple的字体文档：https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6name.html<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -278,7 +278,7 @@ Apple的字体文档：https://developer.apple.com/fonts/TrueType-Reference-Manu
 
 
 
-    <a data-url="https://moeologist.github.io/win-font/" data-id="cl1fybmdw00079gg5mhn58gve" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/win-font/" data-id="cl1toz2oy00074wg51w3erzo1" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -354,11 +354,11 @@ Apple的字体文档：https://developer.apple.com/fonts/TrueType-Reference-Manu
         "genre": "Windows",
         "datePublished": "2020-10-14",
         "dateCreated": "2020-10-14",
-        "dateModified": "2022-03-19",
+        "dateModified": "2022-04-11",
         "url": "https://moeologist.github.io/win-font/",
         "description": "改善Windows自身的字体渲染效果
 众所周知，Windows的字体渲染的效果非常差，从隔壁系统过来的话常常会感到眼睛受到了侮辱。但是Windows10自带字体呈现效果似乎有了改观，启用ClearType，在高分屏下改观尤为明显，只可惜用户安装字体可能无法享受这个待遇，而Windows10自带的UI字体微软雅黑又胖又矮实在有点倒胃口，新版微软雅黑又迟迟不见踪影。",
-        "wordCount": 189
+        "wordCount": 198
     }
 </script>
 
