@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="泛用型自宅机器人">
 <meta property="og:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg">
+<meta property="og:image" content="https://raw.fastgit.org/Moeologist/moeologist.github.io/master//images/things.jpg">
 <meta property="og:updated_time" content="2022-03-29T18:44:42.650Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实现 constexpr 数学函数（元编程 &#x2F; 改Clang源码）">
 <meta name="twitter:description" content="动机 constexpr 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。 解决方案 写个编译期数学库 想要在编译期做数学运算的的话可以自己写库，简单搜索一下Github，已经有了gcem,static_math 只要熟悉数值算法">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg">
+<meta name="twitter:image" content="https://raw.fastgit.org/Moeologist/moeologist.github.io/master//images/things.jpg">
     
 
     
@@ -34,7 +34,7 @@
         <link rel="icon" href="data:image/x-icon;base64,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">
     
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/css/style.css">
+    <link rel="stylesheet" href="//raw.fastgit.org/Moeologist/moeologist.github.io/master//css/style.css">
     <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
@@ -107,13 +107,13 @@
             TAGS: '标签',
             UNTITLED: '(未命名)',
         },
-        ROOT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/',
-        CONTENT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/content.json',
+        ROOT_URL: '//raw.fastgit.org/Moeologist/moeologist.github.io/master//',
+        CONTENT_URL: '//raw.fastgit.org/Moeologist/moeologist.github.io/master//content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/insight.js" /></script>
+<script src="//raw.fastgit.org/Moeologist/moeologist.github.io/master//js/insight.js" /></script>
 
 </div>
                         </nav>
@@ -191,7 +191,7 @@
 
             
 
-            <p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg"></p>
+            <p><img src="//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/things.jpg"></p>
 <h2 id="动机">动机</h2>
 <p>constexpr
 是个好东西，到了C++20，它条件又放宽了很多，甚至动态分配内存都可以在编译时进行。然而，cmath(math.h)，里面的数学函数因为有副作用（errno或fenv异常）导致不能是constexpr。</p>
@@ -214,7 +214,7 @@ x-\frac{f(x)}{f&#39;(x)}\)</span>迭代求得，迭代次数越多精度越高�
 <p>把<a href="https://github.com/llvm/llvm-project.git" target="_blank" rel="noopener">repo</a>拉下来，花上不少时间找到是这个文件<strong>clang/lib/AST/ExprConstant.cpp</strong>负责对常量表达式求值，于是照龙画蛇，找里面已经支持
 constexpr 的 __builtin
 函数观摩一番，然后把不支持的补上，浮点错误则让求值失败，就可以使内建函数支持
-constexpr。这里有一个<a href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/raw/llvm-v10.patch">patch</a>，可以参考里面的内容。</p>
+constexpr。这里有一个<a href="//raw.fastgit.org/Moeologist/moeologist.github.io/master//raw/llvm-v10.patch">patch</a>，可以参考里面的内容。</p>
 <p>现在内建函数（如
 __builtin_sqrt）是可以用在常量求值语境里了，但是如果希望&lt;cmath&gt;里的函数也可以，还要在libc++的&lt;cmath&gt;里受支持的函数签名加上constexpr，如果clang使用--stdlib=libstdc++则不需要此修改。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constexpr</span> <span class="keyword">double</span> q = __builtin_sqrt(<span class="number">2</span>); <span class="comment">// 修改版Clang也能用</span></span><br><span class="line">    <span class="comment">// constexpr double t = sqrt(2); // 还需要改libc++</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -226,7 +226,7 @@ __builtin_sqrt）是可以用在常量求值语境里了，但是如果希望&lt
 
 
 
-    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="cl1tp2hsn0004bkg5t7x93040" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/clang-constexpr/" data-id="cl7ryr1y90001ckg52rde3nu2" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -297,7 +297,7 @@ __builtin_sqrt）是可以用在常量求值语境里了，但是如果希望&lt
             "name": "ala"
         },
         "headline": "实现 constexpr 数学函数（元编程 / 改Clang源码）",
-        "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg",
+        "image": "https://moeologist.github.io//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/things.jpg",
         "keywords": "",
         "genre": "C/C++",
         "datePublished": "2020-10-08",
@@ -390,7 +390,7 @@ constexpr
                             <a href="/hook-wndproc/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -410,7 +410,7 @@ constexpr
                             <a href="/win-font/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
     
     
 </a>
@@ -430,7 +430,7 @@ constexpr
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数（元编程 / 改Clang源码）" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/things.jpg)" alt="实现 constexpr 数学函数（元编程 / 改Clang源码）" class="thumbnail-image"></span>
     
     
 </a>
@@ -450,7 +450,7 @@ constexpr
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -470,7 +470,7 @@ constexpr
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
     
     
 </a>
@@ -599,7 +599,7 @@ constexpr
 
 
 <!-- Custom Scripts -->
-<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="//raw.fastgit.org/Moeologist/moeologist.github.io/master//js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>

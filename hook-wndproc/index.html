@@ -20,12 +20,12 @@
 <meta property="og:site_name" content="泛用型自宅机器人">
 <meta property="og:description" content="[src: Terraria] 动机 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png">
+<meta property="og:image" content="https://raw.fastgit.org/Moeologist/moeologist.github.io/master//images/Achievement_Hold_on_Tight.png">
 <meta property="og:updated_time" content="2020-11-21T17:13:34.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="挂钩 Windows 的窗口消息处理函数">
 <meta name="twitter:description" content="[src: Terraria] 动机 很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png">
+<meta name="twitter:image" content="https://raw.fastgit.org/Moeologist/moeologist.github.io/master//images/Achievement_Hold_on_Tight.png">
     
 
     
@@ -34,7 +34,7 @@
         <link rel="icon" href="data:image/x-icon;base64,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">
     
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/css/style.css">
+    <link rel="stylesheet" href="//raw.fastgit.org/Moeologist/moeologist.github.io/master//css/style.css">
     <script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
@@ -107,13 +107,13 @@
             TAGS: '标签',
             UNTITLED: '(未命名)',
         },
-        ROOT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/',
-        CONTENT_URL: '//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/content.json',
+        ROOT_URL: '//raw.fastgit.org/Moeologist/moeologist.github.io/master//',
+        CONTENT_URL: '//raw.fastgit.org/Moeologist/moeologist.github.io/master//content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/insight.js" /></script>
+<script src="//raw.fastgit.org/Moeologist/moeologist.github.io/master//js/insight.js" /></script>
 
 </div>
                         </nav>
@@ -191,8 +191,8 @@
 
             
 
-            <!-- <img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png"> -->
-<p><img src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Static_Hook_(demo).gif">
+            <!-- <img src="//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/Achievement_Hold_on_Tight.png"> -->
+<p><img src="//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/Static_Hook_(demo).gif">
 [src: <a href="https://terraria.gamepedia.com/Hooks" target="_blank" rel="noopener">Terraria</a>]</p>
 <h2 id="动机">动机</h2>
 <p>很多游戏在窗口失焦时会自动暂停，绝大多数情况下这没问题，也是玩家期待的行为，因为游戏大概率是全屏或最大化运行，没有玩家希望因为一个弹窗而导致角色死亡。但是如果游戏的输入操作都已经被自动化（如游戏内机制、脚本），或者游戏本身就并不需要太多输入，甚至双屏且大脑具有超线程的用户希望同时激活两个窗口。这个【自动暂停】显然是不利的，强制保持ACTIVE意味着进行其他工作必然会暂停该游戏。（Windows桌面环境只能一个窗口处于激活状态）</p>
@@ -272,7 +272,7 @@ https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" clas
 
 
 
-    <a data-url="https://moeologist.github.io/hook-wndproc/" data-id="cl1tp2hsj0002bkg5jq3wyw6d" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://moeologist.github.io/hook-wndproc/" data-id="cl7ryr1yf0003ckg51bzfboif" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -343,7 +343,7 @@ https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" clas
             "name": "ala"
         },
         "headline": "挂钩 Windows 的窗口消息处理函数",
-        "image": "https://moeologist.github.io//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png",
+        "image": "https://moeologist.github.io//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/Achievement_Hold_on_Tight.png",
         "keywords": "",
         "genre": "Windows",
         "datePublished": "2020-10-19",
@@ -423,7 +423,7 @@ https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" clas
                             <a href="/hook-wndproc/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/Achievement_Hold_on_Tight.png)" alt="挂钩 Windows 的窗口消息处理函数" class="thumbnail-image"></span>
     
     
 </a>
@@ -443,7 +443,7 @@ https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" clas
                             <a href="/win-font/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/font_1080p.png)" alt="Windows 字体折腾指南" class="thumbnail-image"></span>
     
     
 </a>
@@ -463,7 +463,7 @@ https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" clas
                             <a href="/clang-constexpr/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/things.jpg)" alt="实现 constexpr 数学函数（元编程 / 改Clang源码）" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/things.jpg)" alt="实现 constexpr 数学函数（元编程 / 改Clang源码）" class="thumbnail-image"></span>
     
     
 </a>
@@ -483,7 +483,7 @@ https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" clas
                             <a href="/var-vs-let/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/js.jpg)" alt="JavaScript 走马观花" class="thumbnail-image"></span>
     
     
 </a>
@@ -503,7 +503,7 @@ https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" clas
                             <a href="/knapsack/" class="thumbnail">
     
     
-        <span style="background-image:url(//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
+        <span style="background-image:url(//raw.fastgit.org/Moeologist/moeologist.github.io/master//images/np_complete.png)" alt="动态规划——从入门到入门" class="thumbnail-image"></span>
     
     
 </a>
@@ -632,7 +632,7 @@ https://github.com/microsoft/Detours/wiki/OverviewPayloads<a href="#fnref2" clas
 
 
 <!-- Custom Scripts -->
-<script src="//cdn.jsdelivr.net/gh/Moeologist/moeologist.github.io/js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="//raw.fastgit.org/Moeologist/moeologist.github.io/master//js/main.js" /></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>
